@@ -59,21 +59,23 @@ enum ConvertedDataTypeValue {
     DECIMAL = "DECIMAL";
     SIGNED = "SIGNED";
     UNSIGNED = "UNSIGNED";
+    SIGNEDINTEGER = "SIGNEDINTEGER";
+    UNSIGNEDINTEGER = "UNSIGNEDINTEGER";
 }
 
 enum IntervalType {
     YEAR = "YEAR";
-    YEAR_MONTH = "YEAR_MONTH";
-    DAY_HOUR = "DAY_HOUR";
-    DAY_MINUTE = "DAY_MINUTE";
-    DAY_SECOND = "DAY_SECOND";
-    HOUR_MINUTE = "HOUR_MINUTE";
-    HOUR_SECOND = "HOUR_SECOND";
-    MINUTE_SECOND = "MINUTE_SECOND";
-    SECOND_MICROSECOND = "SECOND_MICROSECOND";
-    MINUTE_MICROSECOND = "MINUTE_MICROSECOND";
-    HOUR_MICROSECOND = "HOUR_MICROSECOND";
-    DAY_MICROSECOND = "DAY_MICROSECOND";
+    YEARMONTH = "YEARMONTH";
+    DAYHOUR = "DAYHOUR";
+    DAYMINUTE = "DAYMINUTE";
+    DAYSECOND = "DAYSECOND";
+    HOURMINUTE = "HOURMINUTE";
+    HOURSECOND = "HOURSECOND";
+    MINUTESECOND = "MINUTESECOND";
+    SECONDMICROSECOND = "SECONDMICROSECOND";
+    MINUTEMICROSECOND = "MINUTEMICROSECOND";
+    HOURMICROSECOND = "HOURMICROSECOND";
+    DAYMICROSECOND = "DAYMICROSECOND";
     QUARTER = "QUARTER";
     MONTH = "MONTH";
     DAY = "DAY";
@@ -129,7 +131,7 @@ enum BinaryOperator {
 
 enum KeywordLiteral {
     DEFAULT = "DEFAULT";
-    CURRENT_TIMESTAMP = "CURRENT_TIMESTAMP";
+    CURRENTTIMESTAMP = "CURRENTTIMESTAMP";
     MAXVALUE = "MAXVALUE";
 }
 
@@ -190,6 +192,7 @@ enum SortType {
 }
 
 enum JoinType {
+    JOIN = "JOIN";
     INNERJOIN = "INNERJOIN";
     CROSSJOIN = "CROSSJOIN";
     STRAIGHTJOIN = "STRAIGHTJOIN";
@@ -459,6 +462,12 @@ enum IndexOrder {
     
 }
 
+enum GTUidType {
+    STRING = "STRING";
+    BIT = "BIT";
+    HEXADECIMAL = "HEXADECIMAL";
+}
+
 enum TransactionOption {
     WITHCONSISTENTSNAPSHOT = "WITHCONSISTENTSNAPSHOT";
     READWRITE = "READWRITE";
@@ -501,6 +510,17 @@ enum PasswordExpirationType {
     DEFAULT = "DEFAULT";
     NEVER = "NEVER";
     INTERVAL = "INTERVAL";
+}
+
+enum PasswordClauseType {
+    IDENTIFIEDBYPASSWORD = "IDENTIFIEDBYPASSWORD";
+    IDENTIFIEDBY = "IDENTIFIEDBY";
+    IDENTIFIEDAS = "IDENTIFIEDAS";
+}
+
+enum UserLockOption {
+    LOCK = "LOCK";
+    UNLOCK = "UNLOCK";
 }
 
 enum PrivilegeName {
@@ -656,7 +676,6 @@ enum SyntaxFormat {
     DROP = "DROP";
     DEALLOCATE = "DEALLOCATE";
     BY = "BY";
-    BYPASSWORD = "BYPASSWORD";
     RELAYLOG = "RELAYLOG";
     STATUS = "STATUS";
     MUTEX = "MUTEX";
@@ -664,6 +683,17 @@ enum SyntaxFormat {
     QUERY = "QUERY";   
     PASSWORD = "PASSWORD";
     OLDPASSWORD = "OLDPASSWORD";
+    DEFAULT = "DEFAULT";
+    DISK = "DISK";
+    MEMORY = "MEMORY";
+    VALUE = "VALUE";
+    VALUES = "VALUES";
+    NOWRITETOBINLOG = "NOWRITETOBINLOG";
+    LOCAL = "LOCAL";
+    QUICK = "QUICK";
+    EXTENDED = "EXTENDED";
+    WITHREADLOCK = "WITHREADLOCK";
+    FOREXPORT = "FOREXPORT";
 }
 
 enum NamedEntity {
@@ -749,7 +779,7 @@ interface CreateEventStatement <: SingleQueryStatement {
     eventSchedule: EventScheduleClause;
     body: Statement;
     definer: FixedUserName | UserName | null;
-    ifNotExist: bool | null;
+    ifNotExist: bool;
     isPreserve: bool | null;
     enableType: EnableEventType | null;
     comment: str | null;
@@ -764,7 +794,7 @@ interface CreateIndexStatement <: SingleQueryStatement {
     options: [CommonSimpleOption];
     algorithm: IndexAlgorithmOption | null;
     lockOption: LockOption | null;
-    creationPlace: IntimeActionType | null;
+    intimeAction: IntimeActionType | null;
 }
 
 interface CreateLogFileGroupStatement <: SingleQueryStatement {
@@ -774,7 +804,7 @@ interface CreateLogFileGroupStatement <: SingleQueryStatement {
     undoBufferSize: str | null;
     redoBufferSize: str | null;
     nodeGroup: Identifier | null;
-    isWait: bool | null;
+    isWait: bool;
     comment: str | null;
     engine: str;
 }
@@ -798,7 +828,6 @@ interface CreateFunctionStatement <: SingleQueryStatement {
 
 interface CreateServerStatement <: SingleQueryStatement {
     name: ServerName;
-    ifExists: bool | null;
     wrapper: Identifier | null;
     options: [CommonSimpleOption];
 }
@@ -847,7 +876,7 @@ interface CreateTableSpaceStatement <: SingleQueryStatement {
     autoExtendSize: str | null;
     maxSize: str | null;
     nodeGroup: Identifier | null;
-    isWait: bool | null;
+    isWait: bool;
     comment: str | null;
     engine: str | null;
 }
@@ -868,13 +897,13 @@ interface TriggerOrderClause <: Node {
 }
 
 interface CreateViewStatement <: SingleQueryStatement {
-    isReplace: bool | null;
+    isReplace: bool;
     algorithm: AlgorithmView | null;
     definer: FixedUserName | UserName | null;
     sqlSecurity: SecurityOwnerContext | null;
     name: ViewName;
     columns: [Identifier];
-    select: CommonSelectStatement | null;
+    select: CommonSelectStatement;
     checkOption: CheckOptionView | null;
 }
 
@@ -925,6 +954,7 @@ interface ConstraintKeyClause <: ConstraintDeclaration {
     indexName: Identifier | null;
     indexType: IndexType | null;
     indexOptionSet: [CommonSimpleOption];
+    indexFormat: SyntaxFormat | null;
     reference: ReferenceDeclarationClause | null;
 }
 
@@ -951,23 +981,23 @@ interface PartitionClause <: Node {
 interface PartitionFunction <: Node {
 }
 
-interface PartitionHash <: PartitionFunction {
+interface PartitionFunctionHash <: PartitionFunction {
     isLinear: bool;
     value: Expression;
 }
 
-interface PartitionKey <: PartitionFunction {
+interface PartitionFunctionKey <: PartitionFunction {
     isLinear: bool;
     columns: [ColumnName];
     algorithmType: str | null;
 }
 
-interface PartitionRange <: PartitionFunction {
+interface PartitionFunctionRange <: PartitionFunction {
     value: Expression | null;
     columns: [ColumnName];
 }
 
-interface PartitionList <: PartitionFunction {
+interface PartitionFunctionList <: PartitionFunction {
     value: Expression | null;
     columns: [ColumnName];
 }
@@ -975,12 +1005,12 @@ interface PartitionList <: PartitionFunction {
 interface SubPartitionFunction <: Node {
 }
 
-interface SubPartitionHash <: SubPartitionFunction {
+interface SubPartitionFunctionHash <: SubPartitionFunction {
     isLinear: bool;
     value: Expression;
 }
 
-interface SubPartitionKey <: SubPartitionFunction {
+interface SubPartitionFunctionKey <: SubPartitionFunction {
     isLinear: bool;
     columns: [ColumnName];
     algorithmType: str | null;
@@ -993,15 +1023,34 @@ interface ComparasionPartitionDefinition <: PartitionDefinition {
     partition: Identifier;
     options: [CommonSimpleOption];
     subPartitions: [SubPartitionDefinition];
-    value: Expression | null;
-    values: [Literal];
+    valueAtoms: [PartitionDefinerAtom];
 }
 
 interface ListPartitionDefinition <: PartitionDefinition {
     partition: Identifier;
     options: [CommonSimpleOption];
     subPartitions: [SubPartitionDefinition];
-    values: [Literal];
+    valueAtoms: [PartitionDefinerAtom];
+    valueVectors: [PartitionDefinerVector];
+}
+
+interface PartitionDefinerAtom <: Node {
+}
+
+interface PartitionDefinerAtomConst <: PartitionDefinerAtom {
+    value: Literal;
+}
+
+interface PartitionDefinerAtomMax <: PartitionDefinerAtom {
+    value: str;
+}
+
+interface PartitionDefinerAtomExpr <: PartitionDefinerAtom {
+    value: Expression;
+}
+
+interface PartitionDefinerVector <: Node {
+    values: [PartitionDefinerAtom];
 }
 
 interface SimplePartitionDefinition <: PartitionDefinition {
@@ -1020,7 +1069,7 @@ interface AlterDatabaseStatement <: SingleQueryStatement {
     dbFormat: SyntaxFormat;
     dbName: SchemaName | null;
     options: [CommonSimpleOption];
-    isUpgradeDataDirectory: bool;
+    isUpgrade: bool;
 }
 
 interface AlterEventStatement <: SingleQueryStatement {
@@ -1029,7 +1078,6 @@ interface AlterEventStatement <: SingleQueryStatement {
     eventSchedule: EventScheduleClause | null;
     body: Statement | null;
     definer: FixedUserName | UserName | null;
-    ifNotExist: bool | null;
     isPreserve: bool | null;
     enableType: EnableEventType | null;
     comment: str | null;
@@ -1047,7 +1095,7 @@ interface AlterLogFileGroupStatement <: SingleQueryStatement {
     name: LogFileGroupName;
     undoFile: str;
     initialSize: str | null;
-    isWait: bool | null;
+    isWait: bool;
     engine: str;
 }
 
@@ -1057,14 +1105,14 @@ interface AlterProcedureStatement <: SingleQueryStatement {
 }
 
 interface AlterServerStatement <: SingleQueryStatement {
-    name: Identifier;
+    name: ServerName;
     options: [CommonSimpleOption];
 }
 
 interface AlterTableStatement <: SingleQueryStatement {
     table: TableName;
     isIgnore: bool;
-    creationPlace: IntimeActionType | null;
+    intimeAction: IntimeActionType | null;
     alterSpecificationClauses: [AlterSpecification];
     partitions: PartitionClause | null;
 }
@@ -1080,10 +1128,11 @@ interface AlterTableSpaceStatement <: SingleQueryStatement {
 
 interface AlterViewStatement <: SingleQueryStatement {
     algorithm: AlgorithmView | null;
+    definer: FixedUserName | UserName | null;
+    sqlSecurity: SecurityOwnerContext | null;
     name: ViewName;
-    columns: [Identifier];
-    select: CommonSelectStatement | null;
-    options: [CommonSimpleOption];
+    columns: [ColumnName];
+    select: CommonSelectStatement;
     checkOption: CheckOptionView | null;
 }
 
@@ -1096,7 +1145,7 @@ interface AlterTableOption <: AlterSpecification {
 
 interface AlterAddColumn <: AlterSpecification {
     column: ColumnDeclaration;
-    isFirst: bool | null;
+    isFirst: bool;
     afterColumn: ColumnName | null;
     isColumn: bool;
 }
@@ -1121,15 +1170,15 @@ interface AlterChangeColumn <: AlterSpecification {
     isColumn: bool;
     previousColumn: ColumnName;
     newColumn: ColumnDeclaration;
-    isFirst: bool | null;
+    isFirst: bool;
     afterColumn: ColumnName | null;
 }
 
 interface AlterModifyColumn <: AlterSpecification {
     isColumn: bool;
     column: ColumnDeclaration;
-    isFirst: bool | null;
-    afterColumn: ColumnName;
+    isFirst: bool;
+    afterColumn: ColumnName | null;
 }
 
 interface AlterDropColumn <: AlterSpecification {
@@ -1142,6 +1191,7 @@ interface AlterAddKey <: AlterSpecification {
     constraintName: Identifier | null;
     indexName: IndexName | null;
     indexType: IndexType | null;
+    indexFormat: SyntaxFormat | null;
     indexColumns: [IndexColumnNameClause];
     options: [CommonSimpleOption];
     reference: ReferenceDeclarationClause | null;
@@ -1149,6 +1199,7 @@ interface AlterAddKey <: AlterSpecification {
 
 interface AlterDropKey <: AlterSpecification {
     keyType: KeyType;
+    indexFormat: SyntaxFormat | null;
     indexName: IndexName | null;
 }
 
@@ -1156,7 +1207,7 @@ interface AlterSpecPartition <: AlterSpecification {
     action: PartitionAction;
     isAll: bool | null;
     partitions: [Identifier];
-    newPartition: PartitionDefinition;
+    newPartition: PartitionDefinition | null;
     coalesceValue: int | null;
     reorgPartitions: [PartitionDefinition];
     exchgPartition: Identifier | null;
@@ -1169,17 +1220,19 @@ interface AlterSpecCommon <: AlterSpecification {
     algorithm: IndexAlgorithmOption | null;
     lock: LockOption | null;
     newName: Identifier | null;
-    orders: [Identifier];
+    orders: [ColumnName];
     charSetName: str | null;
     collationName: str | null;
     validationFormat: SyntaxFormat | null;
     renameFormat: SyntaxFormat | null;
+    isDefault: bool | null;
 }
 
 // DDL. Drop
 interface DropDatabaseStatement <: SingleQueryStatement {
     ifExist: bool;
     name: SchemaName;
+    dbFormat: SyntaxFormat;
 }
 
 interface DropEventStatement <: SingleQueryStatement {
@@ -1188,7 +1241,7 @@ interface DropEventStatement <: SingleQueryStatement {
 }
 
 interface DropIndexStatement <: SingleQueryStatement {
-    creationPlace: IntimeActionType | null;
+    intimeAction: IntimeActionType | null;
     index: IndexName;
     table: TableName;
     algorithm: IndexAlgorithmOption | null;
@@ -1249,7 +1302,7 @@ interface RenameTableClause <: SingleQueryStatement {
 
 interface TruncateStatement <: SingleQueryStatement {
     table: TableName;
-    presentTable: bool;
+    isKeywordTable: bool;
 }
 
 // DML
@@ -1275,9 +1328,9 @@ interface SingleDeleteStatement <: DeleteStatement {
 
 interface MultipleDeleteStatement <: DeleteStatement {
     priority: Priority | null;
-    format: DeletionFormat;
     isIgnore: bool;
     isQuick: bool;
+    presentUsingSyntax: bool;
     tables: [TableName];
     references: [TableReferenceClause];
     whereClause: WhereClause | null;
@@ -1299,7 +1352,7 @@ interface HandlerOpenStatement <: HandlerStatement {
 interface HandlerReadComparasionStatement <: HandlerStatement {
     table: TableName;
     index: IndexName;
-    operator: ComparisonOperator | null;
+    operator: ComparisonOperator;
     values: [Literal];
     whereClause: WhereClause | null;
     limit: int | null;
@@ -1327,18 +1380,17 @@ interface HandlerCloseStatement <: HandlerStatement {
 interface InsertStatement <: SingleQueryStatement {
 }
 
-interface InsertSetStatement <: InsertStatement {
+interface SetInsertStatement <: InsertStatement {
     priority: Priority | null;
     isIgnore: bool;
     isIntoFormat: bool;
     table: TableName;
     partitions: [Identifier];
-    columns: [ColumnName];
-    expressions: [Expression];
-    onDuplicateKey: DuplicateKeyClause | null;
+    updateColumns: [UpdateColumnClause];
+    duplicateKeyUpdates: [UpdateColumnClause];
 }
 
-interface InsertQueryStatement <: InsertStatement {
+interface QueryInsertStatement <: InsertStatement {
     priority: Priority | null;
     isIgnore: bool;
     isIntoFormat: bool;
@@ -1346,27 +1398,34 @@ interface InsertQueryStatement <: InsertStatement {
     partitions: [Identifier];
     columns: [ColumnName];
     query: CommonSelectStatement;
-    onDuplicateKey: DuplicateKeyClause | null;
+    duplicateKeyUpdates: [UpdateColumnClause];
 }
 
-interface InsertRowStatement <: InsertStatement {
+interface RowInsertStatement <: InsertStatement {
     priority: Priority | null;
     isIgnore: bool;
     isIntoFormat: bool;
     table: TableName;
     partitions: [Identifier];
+    insertValFormat: SyntaxFormat;
     columns: [ColumnName];
     rows: [InsertRowClause];
-    onDuplicateKey: DuplicateKeyClause | null;
+    duplicateKeyUpdates: [UpdateColumnClause];
 }
 
-interface InsertRowClause <: Node{
-    values: [Expression];
+interface InsertRowClause <: Node {
+    values: [InsertRowElement];
 }
 
-interface DuplicateKeyClause <: Node{
-    columns: [ColumnName];
-    values: [Expression];
+interface InsertRowElement <: Node {
+    value: Expression | null;
+    isDefault: bool;
+}
+
+interface UpdateColumnClause <: Node {
+    column: ColumnName;
+    value: Expression | null;
+    isDefault: bool;
 }
 
 interface LoadDataStatement <: SingleQueryStatement {
@@ -1375,28 +1434,33 @@ interface LoadDataStatement <: SingleQueryStatement {
     isLocal: bool;
     partitions: [Identifier];
     table: TableName;
-    ignoreLines: int | null;
-    linesFormat: SyntaxFormat | null;
     loadedColumns: [ColumnName | Variable];
-    setColumns: [ColumnName];
-    setValues: [Expression];
+    duplicateKeyUpdates: [UpdateColumnClause];
+    fileUploadOptions: TextFileOptions;
+}
+
+interface TextFileOptions <: Node {
+    fileName: str;
+    charSet: str | null;
+    tagDefinition: str | null;
     fieldsFormat: SyntaxFormat | null;
-    fileUnloadOptions: [CommonSimpleOption];
+    terminationField: str | null;
+    enclosingField: str | null;
+    startingField: str | null;
+    escapingField: str | null;
+    linesFormat: SyntaxFormat | null;
+    terminationLine: str | null;
+    ignoreLines: int | null;
 }
 
 interface LoadXMLStatement <: SingleQueryStatement {
     priority: Priority | null;
     keyViolation: InsertViolateBehaviour | null;
     isLocal: bool;
-    fileName: str;
     table: TableName;
-    charSet: str | null;
-    tagDefinition: str | null;
-    ignoreLines: int | null;
-    linesFormat: SyntaxFormat | null;
     loadedColumns: [ColumnName | Variable];
-    setColumns: [ColumnName];
-    setValues: [Expression];
+    duplicateKeyUpdates: [UpdateColumnClause];
+    fileUploadOptions: TextFileOptions;
 }
 
 interface ReplaceStatement <: SingleQueryStatement {
@@ -1407,8 +1471,7 @@ interface SetReplaceStatement <: ReplaceStatement {
     isIntoFormat: bool;
     table: TableName;
     partitions: [Identifier];
-    columns: [ColumnName];
-    expressions: [Expression];
+    updateColumns: [UpdateColumnClause];
 }
 
 interface QueryReplaceStatement <: ReplaceStatement {
@@ -1425,6 +1488,7 @@ interface RowReplaceStatement <: ReplaceStatement {
     isIntoFormat: bool;
     table: TableName;
     partitions: [Identifier];
+    insertValFormat: SyntaxFormat;
     columns: [ColumnName];
     rows: [InsertRowClause];
 }
@@ -1455,8 +1519,7 @@ interface SingleUpdateStatement <: UpdateStatement {
     table: TableName;
     presentAs: bool;
     alias: Identifier | null;
-    columns: [ColumnName];
-    values: [Expression];
+    updateColumns: [UpdateColumnClause];
     whereClause: WhereClause | null;
     orders: [SortItem];
     limitLines: int | null;
@@ -1466,8 +1529,7 @@ interface SingleUpdateStatement <: UpdateStatement {
 interface MultipleUpdateStatement <: UpdateStatement {
     priority: Priority | null;
     isIgnore: bool;
-    columns: [ColumnName];
-    values: [Expression];
+    updateColumns: [UpdateColumnClause];
     tables: [TableReferenceClause];
     whereClause: WhereClause | null;
 }
@@ -1484,6 +1546,10 @@ interface NestedTableClause <: TableReferenceClause {
     tables: [TableReferenceClause];
 }
 
+interface NestedSimpleTableClause <: TableReferenceClause {
+    table: TableReferenceClause;
+}
+
 interface JoinClause <: TableReferenceClause {
     joinType: JoinType;
     left: TableReferenceClause | null;
@@ -1493,7 +1559,7 @@ interface JoinClause <: TableReferenceClause {
 }
 
 interface SubqueryClause <: TableReferenceClause {
-    select: SubqueryExpression;
+    select: CommonSelectStatement;
     presentAs: bool;
     alias: Identifier;
 }
@@ -1516,7 +1582,8 @@ interface IndexHintList <: Node {
 // DML Select
 
 interface NestedSelectStatement <: CommonSelectStatement {
-    select: SelectStatement;
+    select: SelectStatement | NestedSelectStatement;
+    lockFormat: SyntaxFormat | null;
 }
 
 interface UnionStatement <: CommonSelectStatement {
@@ -1524,6 +1591,7 @@ interface UnionStatement <: CommonSelectStatement {
     orders: [SortItem];
     limitLines: int | null;
     limitOffset: int | null;
+    lockFormat: SyntaxFormat | null;
 }
 
 interface UnionClause <: Node {
@@ -1549,8 +1617,7 @@ interface ExportDumpFile <: SelectExportClause {
 }
 
 interface ExportTextFile <: SelectExportClause {
-    fileName: str;
-    fileUnloadOptions: [CommonSimpleOption];
+    fileUploadOptions: TextFileOptions;
 }
 
 interface FromClause <: Node {
@@ -1670,7 +1737,7 @@ interface ResetSlaveStatement <: SingleQueryStatement {
 interface StartSlaveStatement <: SingleQueryStatement {
     threads: [ThreadType];
     channel: str | null;
-    untilOptions: [CommonSimpleOption];
+    untilOption: CommonSimpleOption | null;
     connectionOptions: [CommonSimpleOption];
 }
 
@@ -1715,7 +1782,7 @@ interface XAPrepareStatement <: SingleQueryStatement {
 
 interface XACommitStatement <: SingleQueryStatement {
     name: XIDName;
-    phaseFormat: SyntaxFormat | null;
+    presentPhase: bool;
 }
 
 interface XARollbackStatement <: SingleQueryStatement {
@@ -1756,14 +1823,14 @@ interface BlockQueryStatement <: Statement {
 interface CaseStatement <: RoutineStatement {
     test: Expression | null;
     alternatives: [ConditionChoiceOption];
-    elseAlternatives: [Statement];
+    elseAlternatives: [CommonStatement];
 }
 
 interface IfStatement <: RoutineStatement {
     test: Expression;
-    statements: [Statement];
+    statements: [CommonStatement];
     alternatives: [ConditionChoiceOption];
-    elseAlternatives: [Statement];
+    elseAlternatives: [CommonStatement];
 }
 
 interface IterateStatement <: RoutineStatement {
@@ -1775,14 +1842,14 @@ interface LeaveStatement <: RoutineStatement {
 }
 
 interface LoopStatement <: RoutineStatement {
-    label: Identifier;
-    statements: [Statement];
+    label: Identifier | null;
+    statements: [CommonStatement];
 }
 
 interface RepeatStatement <: RoutineStatement {
     test: Expression;
-    label: Identifier;
-    statements: [Statement];
+    label: Identifier | null;
+    statements: [CommonStatement];
 }
 
 interface ReturnStatement <: RoutineStatement {
@@ -1791,8 +1858,8 @@ interface ReturnStatement <: RoutineStatement {
 
 interface WhileStatement <: RoutineStatement {
     test: Expression;
-    label: Identifier;
-    statements: [Statement];
+    label: Identifier | null;
+    statements: [CommonStatement];
 }
 
 interface OpenCursorStatement <: RoutineStatement {
@@ -1850,7 +1917,7 @@ interface HandlerConditionSQLState <: HandlerCondition {
 }
 
 interface HandlerConditionName <: HandlerCondition {
-    value: str;
+    name: Identifier;
 }
 
 interface HandlerConditionWarning <: HandlerCondition {
@@ -1864,33 +1931,34 @@ interface HandlerConditionException <: HandlerCondition {
 
 interface ConditionChoiceOption <: Node {
     test: Expression;
-    statements: [Statement];
+    statements: [CommonStatement];
 }
 
 // Administrations Statements
 //  Administraitions. Account management statements
 
 interface AlterUserShortStatement <: SingleQueryStatement {
-    users: [UserName];
-    passwordOptions: [PasswordExpirationClause];
+    userDefs: [UserClauseV56];
 }
 
 interface AlterUserFullStatement <: SingleQueryStatement {
     ifExists: bool;
-    userAuthOptions: [UserClause];
-    tlsOptions: [TLSOptionClause];
+    usersDefs: [UserClause];
+    tlsOptions: TLSOptionClause | null;
     resourseOptions: [CommonSimpleOption];
-    passwordOptions: [PasswordExpirationClause];
-    isLock: bool | null;
+    passwordLockOptions: [PasswordLockOption];
 }
 
-interface CreateUserStatement <: SingleQueryStatement {
+interface CreateUserShortStatement <: SingleQueryStatement {
+    usersDefs: [UserClause];
+}
+
+interface CreateUserFullStatement <: SingleQueryStatement {
     ifExists: bool;
-    userAuthOptions: [UserClause];
-    tlsOptions: [TLSOptionClause];
+    usersDefs: [UserClause];
+    tlsOptions: TLSOptionClause | null;
     resourseOptions: [CommonSimpleOption];
-    passwordOptions: [PasswordExpirationClause];
-    isLock: bool | null;
+    passwordLockOptions: [PasswordLockOption];
 }
 
 interface DropUserStatement <: SingleQueryStatement {
@@ -1900,9 +1968,9 @@ interface DropUserStatement <: SingleQueryStatement {
 
 interface GrantStatement <: SingleQueryStatement {
     privileges: [PrivilegeClause];
-    objectType: PrivilegeObjectType;
-    userAuthOptions: [UserClause];
-    tlsOptions: [TLSOptionClause];
+    objectType: PrivilegeObjectType | null;
+    usersDefs: [UserClause];
+    tlsOptions: TLSOptionClause | null;
     resourseOptions: [CommonSimpleOption];
     isGrantOption: bool;
     level: PrivilegeLevelClause;
@@ -1915,7 +1983,7 @@ interface GrantProxyStatement <: SingleQueryStatement {
 }
 
 interface RenameUserStatement <: SingleQueryStatement {
-    clauses: [RenameUserClause];
+    values: [RenameUserClause];
 }
 
 interface RenameUserClause <: Node {
@@ -1925,7 +1993,7 @@ interface RenameUserClause <: Node {
 
 interface RevokeStatement <: SingleQueryStatement {
     privileges: [PrivilegeClause];
-    objectType: PrivilegeObjectType;
+    objectType: PrivilegeObjectType | null;
     level: PrivilegeLevelClause;
     users: [UserName];
 }
@@ -1946,22 +2014,36 @@ interface SetPasswordStatement <: SetStatement {
     expression: PasswordFunctionCall | null;
 }
 
+interface UserClauseV56 <: Node {
+    user: UserName;
+    passwordExpire: PasswordExpirationClause;
+}
+
 interface PasswordExpirationClause <: Node {
     expireType: PasswordExpirationType | null;
-    expireValue: int;
+    expireDays: int | null;
 }
 
 interface UserClause <: Node {
     user: UserName;
-    passwordFormat: SyntaxFormat;
-    hashText: str | null;
-    plainText: str | null;
+    passwordClauseType: PasswordClauseType;
+    authText: str | null;
     authPlugin: AuthPlugin | null;
 }
 
 interface TLSOptionClause <: Node {
+    nonePresent: bool;
+    values: [TLSOptionValue];
+}
+
+interface TLSOptionValue <: Node {
     option: TLSOptionName;
     value: str | null;
+}
+
+interface PasswordLockOption <: Node {
+    expireOption: PasswordExpirationClause | null;
+    lockOption: UserLockOption | null;
 }
 
 interface PrivilegeClause <: Node {
@@ -1971,8 +2053,9 @@ interface PrivilegeClause <: Node {
 
 interface PrivilegeLevelClause <: Node {
     level: PrivilegeLevel;
-    schema: SchemaName | null;
-    table: TableName | null;
+    db: DbName | null;
+    schema: SchemaName | Star | null;
+    table: TableName | Star | null;
     routine: ProcedureName | UDFunctionName | null;
 }
 
@@ -1980,7 +2063,7 @@ interface PrivilegeLevelClause <: Node {
 
 interface AnalyzeTableStatement <: SingleQueryStatement {
     tables: [TableName];
-    actionOption: SyntaxFormat;
+    actionOption: SyntaxFormat | null;
 }
 
 interface CheckTableStatement <: SingleQueryStatement {
@@ -2001,9 +2084,9 @@ interface OptimizeTableStatement <: SingleQueryStatement {
 interface RepairTableStatement <: SingleQueryStatement {
     tables: [TableName];
     actionOption: SyntaxFormat | null;
-    isQuick: bool;
-    isExtended: bool;
-    isUseFrm: bool;
+    presentQuick: bool;
+    presentExtended: bool;
+    presentUseFrm: bool;
 }
 
 // Administrations. Plugins statements
@@ -2011,7 +2094,7 @@ interface RepairTableStatement <: SingleQueryStatement {
 interface CreateUDFunctionStatement <: SingleQueryStatement {
     presentAggregate: bool;
     id: Identifier;
-    return: ReturnDataType;
+    returnType: ReturnDataType;
     name: str;
 }
 
@@ -2078,9 +2161,9 @@ interface ShowColumnsStatement <: ShowStatement {
 }
 
 interface ShowCreateSchemaStatement <: ShowStatement {
-    schemaFormat: SyntaxFormat | null;
+    schemaFormat: SyntaxFormat;
     ifNotExists: bool;
-    schema: SchemaName | null;
+    schema: SchemaName;
 }
 
 interface ShowCreateNamedEntityStatement <: ShowStatement {
@@ -2097,18 +2180,18 @@ interface ShowEngineStatement <: ShowStatement {
     engineFormat: SyntaxFormat;
 }
 
-interface ShowInfoStatement <: ShowStatement {
+interface ShowObjectInfoStatement <: ShowStatement {
     entity: CommonEntity;
 }
 
 interface ShowErrorsStatement <: ShowStatement {
-    errorFormat: SyntaxFormat;
+    entity: CommonEntity;
     limitOffset: int | null;
     limitCount: int | null;
 }
 
 interface ShowCountErrorsStatement <: ShowStatement {
-    errorFormat: SyntaxFormat;
+    entity: CommonEntity;
 }
 
 interface ShowRoutineCodeStatement <: ShowStatement {
@@ -2147,8 +2230,8 @@ interface ShowSlaveStatement <: ShowStatement {
 }
 
 interface ShowFilterClause <: Node {
-    expression: Expression | null;
-    pattern: StringLiteral | null;
+    whereExpression: Expression | null;
+    likePattern: StringLiteral | null;
 }
 
 // Administrative. Other statements
@@ -2166,7 +2249,7 @@ interface CacheIndexStatement <: SingleQueryStatement {
 
 interface FlushStatement <: SingleQueryStatement {
     flushFormat: SyntaxFormat | null;
-    options: [FlushOption];
+    options: [FlushOptionClause];
 }
 
 interface KillStatement <: SingleQueryStatement {
@@ -2189,8 +2272,8 @@ interface TableIndexClause <: Node {
     indexFormat: SyntaxFormat | null;
     indexes: [Identifier];
     partitions: [Identifier];
-    isAllPartitiions: bool | null;
-    isIgnoreLeaves: bool | null;
+    isAllPartitions: bool | null;
+    presentIgnoreLeaves: bool | null;
 }
 
 interface FlushOptionClause <: Node {
@@ -2201,11 +2284,12 @@ interface SimpleFlushOptionClause <: FlushOptionClause {
 }
 
 interface ChannelFlushOptionClause <: FlushOptionClause {
-    channel: str;
+    channel: str | null;
 }
 
 interface TablesFlushOptionClause <: FlushOptionClause {
     tables: [TableName];
+    option: SyntaxFormat | null;
 }
 
 // Utility Statements
@@ -2247,8 +2331,8 @@ interface ObjectDescriptionClause <: Node {
     connectionId: Identifier | null;
 }
 
-// Details
-// Details Object Names
+// Common Nodes
+//      Object Names
 interface FullName <: Node {
 }
 
@@ -2291,9 +2375,14 @@ interface CharSet <: Node {
 }
 
 interface XIDName <: Node {
-    gtrid: str;
+    gtrid: GTUid;
     bqual: str | null;
     formatId: int | null;
+}
+
+interface GTUid <: Node {
+    uidValueType: GTUidType;
+    value: str;
 }
 
 interface AuthPlugin <: Node {
@@ -2356,7 +2445,7 @@ interface ServerName <: Node {
     name: Identifier;
 }
 
-// Details. Literals
+//      Literals
 
 interface Range <: Node {
     start: Expression;
@@ -2406,7 +2495,7 @@ interface NumberLiteral<: Literal {
     value: str;
 }
 
-// Details. DataTypes
+//      DataTypes
 
 interface DataTypeClause <: Node {
 }
@@ -2445,19 +2534,19 @@ interface CollectionCharDataTypeClause <: DataTypeClause {
 
 interface ConvertedDataType <: Node {
     dataType: ConvertedDataTypeValue;
-    firstDim: int | null;
-    secondDim: int | null;
+    length: int | null;
+    secondLength: int | null;
     charSet: CharSet | null;
 }
 
-// Details. Functions call
+//      Functions call
 
 interface FunctionCall <: Primitive {
 }
 
 interface UDFunctionCall<: FunctionCall {
     name: UDFunctionName;
-    arguments: [Expression] | null;
+    arguments: [Expression];
 }
 
 interface SimpleFunctionCall<: FunctionCall {
@@ -2527,6 +2616,7 @@ interface TypedArgument <: ComplexArgument {
     value: ConvertedDataType;
     separator: str | null;
 }
+
 interface CharsetArgument <: ComplexArgument {
     keyword: str | null;
     keywordPosition: KeywordPosition | null;
@@ -2540,7 +2630,7 @@ interface NestedArgument <: ComplexArgument {
     values: [ComplexArgument];
 }
 
-// Details. Expressions
+//      Expressions
 interface Expression <: Node { 
 }
 
@@ -2563,6 +2653,13 @@ interface IsExpression <: Expression {
     match: LogicalMatch;
 }
 
+interface InPredicate <: Predicate {
+    notArgument: bool;
+    comparableValue: Predicate;
+    subquery: CommonSelectStatement | null;
+    comparedValues: [Expression];
+}
+
 interface IsNullPredicate <: Predicate {
     notArgument: bool;
     value: Predicate;
@@ -2578,15 +2675,7 @@ interface ComparisonSetPredicate <: Predicate {
     operator: ComparisonOperator;
     quantifier: QuantifierType;
     value: Predicate;
-    subquery: SubqueryExpression;
-}
-
-interface InPredicate <: Predicate {
-    isSubquery: bool;
-    notArgument: bool;
-    subquery: SubqueryExpression | null;
-    comparableValue: Predicate;
-    comparedValues: [Expression];
+    subquery: CommonSelectStatement;
 }
 
 interface BetweenPredicate <: Predicate {
@@ -2615,12 +2704,8 @@ interface BinaryExpression <: Primitive {
     right: Primitive;
 }
 
-interface ParenthesisExpression <: Primitive {
-    value: Expression;
-}
-
 interface ExistsExpression <: Primitive {
-    subquery: SubqueryExpression;
+    subquery: CommonSelectStatement;
 }
 
 interface SubqueryExpression<: Primitive {
@@ -2632,12 +2717,8 @@ interface IntervalExpression <: Primitive {
     value: Expression;
 }
 
-interface KeywordPrimitive <: Primitive {
-    keyword: KeywordLiteral;
-}
-
 interface RowPrimitive <: Primitive {
-    isTuple: bool;
+    presentRow: bool;
     values: [Expression];
 }
 
@@ -2645,6 +2726,10 @@ interface StringPrimitive <: Primitive {
     transformationType: StringTransformType;
     value: Primitive;
     collationName: str | null;
+}
+
+interface KeywordPrimitive <: Primitive {
+    keyword: KeywordLiteral;
 }
 
 
@@ -2661,7 +2746,7 @@ interface StringSimpleOption <: CommonSimpleOption {
 
 interface ListStringSimpleOption <: CommonSimpleOption {
     name: str;
-    value: [str];
+    values: [str];
     format: SyntaxFormat | null;
 }
 
@@ -2683,8 +2768,8 @@ interface NodeSimpleOption <: CommonSimpleOption {
     format: SyntaxFormat | null;
 }
 
-interface ListSimpleOption <: CommonSimpleOption {
-    name: str;
-    value: [Node];
+interface ListNodeSimpleOption <: CommonSimpleOption {
+    name: str | null;
+    values: [Node];
     format: SyntaxFormat | null;
 }

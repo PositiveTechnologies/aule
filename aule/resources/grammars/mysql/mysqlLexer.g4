@@ -1027,6 +1027,7 @@ STAR:                                '*';
 DIVIDE:                              '/';
 MODULE:                              '%';
 PLUS:                                '+';
+MINUSMINUS:                          '--';
 MINUS:                               '-';
 DIV:                                 D I V;
 MOD:                                 M O D;
@@ -1147,7 +1148,7 @@ fragment CHARSET_NAME:               ARMSCII8 | ASCII | BIG5 | BINARY | CP1250
                                      | UTF8 | UTF8MB4;
 
 fragment EXPONENT_NUM_PART:          E '-'? DEC_DIGIT+;
-fragment ID_LITERAL:                 [a-zA-Z_$0-9]*?[a-zA-Z_$]+?[a-zA-Z_$0-9]*;
+fragment ID_LITERAL:                 [0-9]*[a-zA-Z_$][a-zA-Z_$0-9]*;
 fragment DQUOTA_STRING:              '"' ( '\\'. | '""' | ~('"'| '\\') )* '"';
 fragment SQUOTA_STRING:              '\'' ('\\'. | '\'\'' | ~('\'' | '\\'))* '\'';
 fragment BQUOTA_STRING:              '`' ( '\\'. | '``' | ~('`'|'\\'))* '`';

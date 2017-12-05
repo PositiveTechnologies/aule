@@ -31,12 +31,12 @@ options { tokenVocab=mysqlLexer; }
 // Top Level Description
 
 root
-    : sqlStatements? (MINUS MINUS)? EOF
+    : sqlStatements? MINUSMINUS? EOF
     ;
 
 sqlStatements
-    : (sqlStatement (MINUS MINUS)? SEMI | emptyStatement)* 
-    (sqlStatement ((MINUS MINUS)? SEMI)? | emptyStatement)
+    : (sqlStatement MINUSMINUS? SEMI | emptyStatement)* 
+    (sqlStatement (MINUSMINUS? SEMI)? | emptyStatement)
     ;
     
 sqlStatement
@@ -136,7 +136,7 @@ createEvent
 
 createIndex
     : CREATE 
-      creationPlace=(ONLINE | OFFLINE)? 
+      intimeAction=(ONLINE | OFFLINE)? 
       indexCategory=(UNIQUE | FULLTEXT | SPATIAL)? 
       INDEX uid indexType? 
       ON tableName indexColumnNames
@@ -191,7 +191,7 @@ createTable
          | '(' LIKE parenthesisTable=tableName ')' 
        )                                                            #copyCreateTable
     | CREATE TEMPORARY? TABLE ifNotExists? 
-       tableName createDefinitions
+       tableName createDefinitions?
        ( tableOption (','? tableOption)* )?
        partitionDefinitions? keyViolate=(IGNORE | REPLACE)?
        AS? selectStatement                                          #queryCreateTable
@@ -227,11 +227,8 @@ createTrigger
       TRIGGER thisTrigger=fullId 
       triggerTime=(BEFORE | AFTER)
       triggerEvent=(INSERT | UPDATE | DELETE)
-      ON tableName FOR EACH ROW 
-      (
-        triggerPlace=(FOLLOWS | PRECEDES) 
-        otherTrigger=fullId
-      )?
+      ON tableName FOR EACH ROW
+      (triggerPlace=(FOLLOWS | PRECEDES) otherTrigger=fullId)?
       routineBody
     ;
 
@@ -405,31 +402,31 @@ tableOption
     | AUTO_INCREMENT '='? decimalLiteral                            #tableOptionAutoIncrement
     | AVG_ROW_LENGTH '='? decimalLiteral                            #tableOptionAverage
     | DEFAULT? (CHARACTER SET | CHARSET) '='? charsetName           #tableOptionCharset
-    | CHECKSUM '='? ('0' | '1')                                     #tableOptionChecksum
+    | CHECKSUM '='? boolValue=('0' | '1')                           #tableOptionChecksum
     | DEFAULT? COLLATE '='? collationName                           #tableOptionCollate
     | COMMENT '='? STRING_LITERAL                                   #tableOptionComment
     | COMPRESSION '='? STRING_LITERAL                               #tableOptionCompression
     | CONNECTION '='? STRING_LITERAL                                #tableOptionConnection
     | DATA DIRECTORY '='? STRING_LITERAL                            #tableOptionDataDirectory
-    | DELAY_KEY_WRITE '='? ('0' | '1')                              #tableOptionDelay
+    | DELAY_KEY_WRITE '='? boolValue=('0' | '1')                    #tableOptionDelay
     | ENCRYPTION '='? STRING_LITERAL                                #tableOptionEncryption
     | INDEX DIRECTORY '='? STRING_LITERAL                           #tableOptionIndexDirectory
     | INSERT_METHOD '='? insertMethod=(NO | FIRST | LAST)           #tableOptionInsertMethod
     | KEY_BLOCK_SIZE '='? fileSizeLiteral                           #tableOptionKeyBlockSize
     | MAX_ROWS '='? decimalLiteral                                  #tableOptionMaxRows
     | MIN_ROWS '='? decimalLiteral                                  #tableOptionMinRows
-    | PACK_KEYS '='? ('0' | '1' | DEFAULT)                          #tableOptionPackKeys
+    | PACK_KEYS '='? extBoolValue=('0' | '1' | DEFAULT)             #tableOptionPackKeys
     | PASSWORD '='? STRING_LITERAL                                  #tableOptionPassword
     | ROW_FORMAT '='? 
         rowFormat=(
           DEFAULT | DYNAMIC | FIXED | COMPRESSED
           | REDUNDANT | COMPACT
         )                                                           #tableOptionRowFormat
-    | STATS_AUTO_RECALC '='? (DEFAULT | '0' | '1')                  #tableOptionRecalculation
-    | STATS_PERSISTENT '='? (DEFAULT | '0' | '1')                   #tableOptionPersistent
+    | STATS_AUTO_RECALC '='? extBoolValue=(DEFAULT | '0' | '1')     #tableOptionRecalculation
+    | STATS_PERSISTENT '='? extBoolValue=(DEFAULT | '0' | '1')      #tableOptionPersistent
     | STATS_SAMPLE_PAGES '='? decimalLiteral                        #tableOptionSamplePage
     | TABLESPACE uid tablespaceStorage?                             #tableOptionTablespace
-    | UNION '='? '(' tableName (',' tableName)* ')'                 #tableOptionUnion
+    | UNION '='? '(' tables ')'                                     #tableOptionUnion
     ;
 
 tablespaceStorage
@@ -462,14 +459,33 @@ subpartitionFunctionDefinition
 
 partitionDefinition
     : PARTITION uid VALUES LESS THAN
-      ( '(' (expression | constants) ')' | MAXVALUE )
+      '(' 
+          partitionDefinerAtom (',' partitionDefinerAtom)*
+      ')'
       partitionOption*
       (subpartitionDefinition (',' subpartitionDefinition)*)?       #partitionComparision
-    | PARTITION uid VALUES IN  '(' constants ')'
+    | PARTITION uid VALUES IN  
+      '('
+          partitionDefinerAtom (',' partitionDefinerAtom)*
+      ')'
       partitionOption*
-      (subpartitionDefinition (',' subpartitionDefinition)*)?       #partitionList
+      (subpartitionDefinition (',' subpartitionDefinition)*)?       #partitionListAtom
+    | PARTITION uid VALUES IN  
+      '('
+          partitionDefinerVector (',' partitionDefinerVector)*
+      ')'
+      partitionOption*
+      (subpartitionDefinition (',' subpartitionDefinition)*)?       #partitionListVector
     | PARTITION uid partitionOption*
       (subpartitionDefinition (',' subpartitionDefinition)*)?       #partitionSimple
+    ;
+
+partitionDefinerAtom
+    : constant | MAXVALUE | expression
+    ;
+
+partitionDefinerVector
+    : '(' partitionDefinerAtom (',' partitionDefinerAtom)+ ')'
     ;
 
 subpartitionDefinition
@@ -531,7 +547,7 @@ alterServer
     ;
 
 alterTable
-    : ALTER creationPlace=(ONLINE | OFFLINE)? 
+    : ALTER intimeAction=(ONLINE | OFFLINE)? 
       IGNORE? TABLE tableName
       alterSpecification (',' alterSpecification)* 
       partitionDefinitions?
@@ -539,7 +555,7 @@ alterTable
 
 alterTablespace
     : ALTER TABLESPACE uid
-      (ADD | DROP) DATAFILE STRING_LITERAL
+      objectAction=(ADD | DROP) DATAFILE STRING_LITERAL
       (INITIAL_SIZE '=' fileSizeLiteral)?
       WAIT?
       ENGINE '='? engineName
@@ -559,25 +575,25 @@ alterView
 // details
 
 alterSpecification
-    : tableOption                                                   #alterTableOption
+    : tableOption                                                   #alterByTableOption
     | ADD COLUMN? uid columnDefinition (FIRST | AFTER uid)?         #alterByAddColumn
     | ADD COLUMN? 
         '(' 
           uid columnDefinition ( ',' uid columnDefinition)*
         ')'                                                         #alterByAddColumns
-    | ADD keyType=(INDEX | KEY) uid? indexType? 
+    | ADD indexFormat=(INDEX | KEY) uid? indexType?
       indexColumnNames indexOption*                                 #alterByAddIndex
     | ADD (CONSTRAINT name=uid?)? PRIMARY KEY
       indexType? indexColumnNames indexOption*                      #alterByAddPrimaryKey
     | ADD (CONSTRAINT name=uid?)? UNIQUE 
-      keyType=(INDEX | KEY)? indexName=uid?
+      indexFormat=(INDEX | KEY)? indexName=uid?
       indexType? indexColumnNames indexOption*                      #alterByAddUniqueKey
-    | ADD specKeyType=(FULLTEXT | SPATIAL) 
-      keyType=(INDEX | KEY)? uid?
+    | ADD keyType=(FULLTEXT | SPATIAL)
+      indexFormat=(INDEX | KEY)? uid?
       indexColumnNames indexOption*                                 #alterByAddSpecialIndex
     | ADD (CONSTRAINT name=uid?)? FOREIGN KEY
       indexName=uid? indexColumnNames referenceDefinition           #alterByAddForeignKey
-    | ALGORITHM '='? algType=(DEFAULT | INPLACE | COPY)             #alterTableAlgorighm
+    | ALGORITHM '='? algType=(DEFAULT | INPLACE | COPY)             #alterBySetAlgorithm
     | ALTER COLUMN? uid
       (SET DEFAULT defaultValue | DROP DEFAULT)                     #alterByChangeDefault
     | CHANGE COLUMN? oldColumn=uid
@@ -588,7 +604,7 @@ alterSpecification
       uid columnDefinition (FIRST | AFTER uid)?                     #alterByModifyColumn
     | DROP COLUMN? uid                                              #alterByDropColumn
     | DROP PRIMARY KEY                                              #alterByDropPrimaryKey
-    | DROP keyType=(INDEX | KEY) uid                                #alterByDropIndex
+    | DROP indexFormat=(INDEX | KEY) uid                            #alterByDropIndex
     | DROP FOREIGN KEY uid                                          #alterByDropForeignKey
     | DISABLE KEYS                                                  #alterByDisableKeys
     | ENABLE KEYS                                                   #alterByEnableKeys
@@ -597,7 +613,7 @@ alterSpecification
     | CONVERT TO CHARACTER SET charsetName
       (COLLATE collationName)?                                      #alterByConvertCharset
     | DEFAULT? CHARACTER SET '=' charsetName
-      (COLLATE '=' collationName)?                                  #alterTableDefaultCharset
+      (COLLATE '=' collationName)?                                  #alterByDefaultCharset
     | DISCARD TABLESPACE                                            #alterByDiscardTablespace
     | IMPORT TABLESPACE                                             #alterByImportTablespace
     | FORCE                                                         #alterByForce
@@ -635,7 +651,7 @@ dropEvent
     ;
 
 dropIndex
-    : DROP INDEX creationPlace=(ONLINE | OFFLINE)? 
+    : DROP INDEX intimeAction=(ONLINE | OFFLINE)? 
       uid ON tableName
       (
         ALGORITHM '='? algType=(DEFAULT | INPLACE | COPY)
@@ -684,8 +700,11 @@ dropView
 
 renameTable
     : RENAME TABLE
-      tableName TO tableName
-      (',' tableName TO tableName)*
+    renameTableClause (',' renameTableClause)*
+    ;
+
+renameTableClause
+    : tableName TO tableName
     ;
 
 truncateTable
@@ -748,14 +767,11 @@ loadDataStatement
       (CHARACTER SET charset=charsetName)?
       (
         fieldsFormat=(FIELDS | COLUMNS)
-        (TERMINATED BY terminationField=STRING_LITERAL)?
-        (OPTIONALLY? ENCLOSED BY enclosion=STRING_LITERAL)?
-        (ESCAPED BY escaping=STRING_LITERAL)?
+        selectFieldsInto+
       )?
       (
         LINES
-          (STARTING BY starting=STRING_LITERAL)?
-          (TERMINATED BY terminationLine=STRING_LITERAL)?
+          selectLinesInto+
       )?
       (
         IGNORE decimalLiteral linesFormat=(LINES | ROWS)
@@ -767,10 +783,10 @@ loadDataStatement
 loadXmlStatement
     : LOAD XML
       priority=(LOW_PRIORITY | CONCURRENT)?
-      LOCAL? INFILE STRING_LITERAL
+      LOCAL? INFILE filename=STRING_LITERAL
       violation=(REPLACE | IGNORE)?
       INTO TABLE tableName
-      (CHARACTER SET charsetName)?
+      (CHARACTER SET charset=charsetName)?
       (ROWS IDENTIFIED BY '<' tag=STRING_LITERAL '>')?
       ( IGNORE decimalLiteral linesFormat=(LINES | ROWS) )?
       ( '(' assignmentField (',' assignmentField)* ')' )?
@@ -794,13 +810,13 @@ selectStatement
     | queryExpression lockClause?                                   #parenthesisSelect
     | querySpecificationNointo unionStatement+
         (
-          UNION (ALL | DISTINCT)?
+          UNION unionType=(ALL | DISTINCT)?
           (querySpecification | queryExpression)
         )?
         orderByClause? limitClause? lockClause?                     #unionSelect
     | queryExpressionNointo unionParenthesis+
         (
-          UNION (ALL | DISTINCT)?
+          UNION unionType=(ALL | DISTINCT)?
           queryExpression
         )?
         orderByClause? limitClause? lockClause?                     #unionParenthesisSelect
@@ -815,11 +831,12 @@ updateStatement
 insertStatementValue
     : selectStatement
     | insertFormat=(VALUES | VALUE)
-      '(' expressions ')' (',' '(' expressions ')')*
+      '(' expressionsWithDefaults ')' 
+        (',' '(' expressionsWithDefaults ')')*
     ;
 
 updatedElement
-    : fullColumnName '=' expression
+    : fullColumnName '=' (expression | DEFAULT)
     ;
 
 assignmentField
@@ -833,14 +850,15 @@ lockClause
 //    Detailed DML Statements
 
 singleDeleteStatement
-    : DELETE LOW_PRIORITY? QUICK? IGNORE? FROM tableName
+    : DELETE priority=LOW_PRIORITY? QUICK? IGNORE?
+    FROM tableName
       (PARTITION '(' uidList ')' )?
       (WHERE expression)?
       orderByClause? (LIMIT decimalLiteral)?
     ;
 
 multipleDeleteStatement
-    : DELETE LOW_PRIORITY? QUICK? IGNORE?
+    : DELETE priority=LOW_PRIORITY? QUICK? IGNORE?
       (
         tableName ('.' '*')? ( ',' tableName ('.' '*')? )* 
             FROM tableSources
@@ -856,7 +874,7 @@ handlerOpenStatement
     ;
 
 handlerReadIndexStatement
-    : HANDLER tableName READ index=fullId
+    : HANDLER tableName READ index=uid
       (
         comparisonOperator '(' constants ')'
         | moveOrder=(FIRST | NEXT | PREV | LAST)
@@ -874,13 +892,13 @@ handlerCloseStatement
     ;
 
 singleUpdateStatement
-    : UPDATE LOW_PRIORITY? IGNORE? tableName (AS? uid)?
+    : UPDATE priority=LOW_PRIORITY? IGNORE? tableName (AS? uid)?
       SET updatedElement (',' updatedElement)*
       (WHERE expression)? orderByClause? limitClause?
     ;
 
 multipleUpdateStatement
-    : UPDATE LOW_PRIORITY? IGNORE? tableSources
+    : UPDATE priority=LOW_PRIORITY? IGNORE? tableSources
       SET updatedElement (',' updatedElement)*
       (WHERE expression)?
     ;
@@ -900,15 +918,18 @@ tableSources
     ;
 
 tableSource
-    : tableSourceItem joinPart*
-    | '(' tableSourceItem joinPart* ')'
+    : tableSourceItem joinPart*                                     #tableSourceBase
+    | '(' tableSourceItem joinPart* ')'                             #tableSourceNested
     ;
 
 tableSourceItem
     : tableName
       (PARTITION '(' uidList ')' )? (AS? alias=uid)?
       (indexHint (',' indexHint)* )?                                #atomTableItem
-    | (subquery | '(' parenthesisSubquery=subquery ')') 
+    | (
+      selectStatement 
+      | '(' parenthesisSubquery=selectStatement ')'
+      ) 
       AS? alias=uid                                                 #subqueryTableItem
     | '(' tableSources ')'                                          #tableSourcesItem
     ;
@@ -938,10 +959,6 @@ joinPart
     | NATURAL ((LEFT | RIGHT) OUTER?)? JOIN tableSourceItem         #naturalJoin
     ;
 
-subquery
-    : selectStatement;
-
-
 //    Select Statement's Details
 
 queryExpression
@@ -957,6 +974,8 @@ queryExpressionNointo
 querySpecification
     : SELECT selectSpec* selectElements selectIntoExpression?
       fromClause? orderByClause? limitClause?
+    | SELECT selectSpec* selectElements
+    fromClause? orderByClause? limitClause? selectIntoExpression?
     ;
 
 querySpecificationNointo
@@ -984,7 +1003,7 @@ selectSpec
     ;
 
 selectElements
-    : ('*' | selectElement ) (',' selectElement)*
+    : (star='*' | selectElement ) (',' selectElement)*
     ;
 
 selectElement
@@ -1002,33 +1021,38 @@ selectIntoExpression
         (CHARACTER SET charset=charsetName)?
         (
           fieldsFormat=(FIELDS | COLUMNS)
-            (TERMINATED BY terminationField=STRING_LITERAL)?
-            (
-              OPTIONALLY?
-              ENCLOSED BY enclosion=STRING_LITERAL
-            )?
-            (ESCAPED BY escaping=STRING_LITERAL)?
+          selectFieldsInto+
         )?
         (
-          LINES (STARTING BY starting=STRING_LITERAL)?
-           (TERMINATED BY terminationLine=STRING_LITERAL)?
+          LINES selectLinesInto+
         )?
       )                                                             #selectIntoTextFile
     ;
 
+selectFieldsInto
+    : TERMINATED BY terminationField=STRING_LITERAL
+    | OPTIONALLY? ENCLOSED BY enclosion=STRING_LITERAL
+    | ESCAPED BY escaping=STRING_LITERAL
+    ;
+
+selectLinesInto
+    : STARTING BY starting=STRING_LITERAL
+    | TERMINATED BY terminationLine=STRING_LITERAL
+    ;
+
 fromClause
     : FROM tableSources
-      (WHERE expression)?
+      (WHERE whereExpr=expression)?
       (
         GROUP BY
         groupByItem (',' groupByItem)*
         (WITH ROLLUP)?
       )?
-      (HAVING expression)?
+      (HAVING havingExpr=expression)?
     ;
 
 groupByItem
-    : expression (ASC | DESC)?
+    : expression order=(ASC | DESC)?
     ;
 
 limitClause
@@ -1051,11 +1075,15 @@ beginWork
     ;
 
 commitWork
-    : COMMIT WORK? (AND NO? CHAIN)? (NO? RELEASE)?
+    : COMMIT WORK? 
+      (AND nochain=NO? CHAIN)? 
+      (norelease=NO? RELEASE)?
     ;
 
 rollbackWork
-    : ROLLBACK WORK? (AND NO? CHAIN)? (NO? RELEASE)?
+    : ROLLBACK WORK? 
+      (AND nochain=NO? CHAIN)? 
+      (norelease=NO? RELEASE)?
     ;
 
 savepointStatement
@@ -1150,7 +1178,7 @@ resetSlave
 
 startSlave
     : START SLAVE (threadType (',' threadType)*)?
-      UNTIL untilOption?
+      (UNTIL untilOption)?
       connectionOption* channelOption?
     ;
 
@@ -1163,7 +1191,7 @@ startGroupReplication
     ;
 
 stopGroupReplication
-    : START GROUP_REPLICATION
+    : STOP GROUP_REPLICATION
     ;
 
 // details
@@ -1171,7 +1199,7 @@ stopGroupReplication
 masterOption
     : stringMasterOption '=' STRING_LITERAL                         #masterStringOption
     | decimalMasterOption '=' decimalLiteral                        #masterDecimalOption
-    | boolMasterOption '=' ('0' | '1')                              #masterBoolOption
+    | boolMasterOption '=' boolVal=('0' | '1')                      #masterBoolOption
     | MASTER_HEARTBEAT_PERIOD '=' REAL_LITERAL                      #masterRealOption
     | IGNORE_SERVER_IDS '=' '(' (uid (',' uid)*)? ')'               #masterUidListOption
     ;
@@ -1205,7 +1233,12 @@ replicationFilter
     | REPLICATE_WILD_DO_TABLE '=' '(' simpleStrings ')'             #wildDoTableReplication
     | REPLICATE_WILD_IGNORE_TABLE
        '=' '(' simpleStrings ')'                                    #wildIgnoreTableReplication
-    | REPLICATE_REWRITE_DB '=' '(' tablePairs ')'                   #rewriteDbReplication
+    | REPLICATE_REWRITE_DB '=' 
+      '(' tablePair (',' tablePair)* ')'                            #rewriteDbReplication
+    ;
+
+tablePair
+    : '(' firstTable=tableName ',' secondTable=tableName ')'
     ;
 
 threadType
@@ -1223,10 +1256,10 @@ untilOption
     ;
 
 connectionOption
-    : USER '=' conOptUser=STRING_LITERAL
-    | PASSWORD '=' conOptPassword=STRING_LITERAL
-    | DEFAULT_AUTH '=' conOptDefAuth=STRING_LITERAL
-    | PLUGIN_DIR '=' conOptPluginDir=STRING_LITERAL
+    : USER '=' conOptUser=STRING_LITERAL                            #userConnectionOption
+    | PASSWORD '=' conOptPassword=STRING_LITERAL                    #passwordConnectionOption
+    | DEFAULT_AUTH '=' conOptDefAuth=STRING_LITERAL                 #defaultAuthConnectionOption
+    | PLUGIN_DIR '=' conOptPluginDir=STRING_LITERAL                 #pluginDirConnectionOption
     ;
 
 gtuidSet
@@ -1265,7 +1298,8 @@ xaRecoverWork
 // Prepared Statements
 
 prepareStatement
-    : PREPARE uid FROM (STRING_LITERAL | LOCAL_ID)
+    : PREPARE uid FROM 
+      (query=STRING_LITERAL | variable=LOCAL_ID)
     ;
 
 executeStatement
@@ -1305,9 +1339,9 @@ caseStatement
 
 ifStatement
     : IF expression 
-      THEN thenStatements=procedureSqlStatement+
+      THEN thenStatements+=procedureSqlStatement+
       elifAlternative*
-      (ELSE elseStatements=procedureSqlStatement+ )?
+      (ELSE elseStatements+=procedureSqlStatement+ )?
       END IF
     ;
 
@@ -1372,12 +1406,12 @@ declareHandler
     ;
 
 handlerConditionValue
-    : decimalLiteral
-    | SQLSTATE VALUE? STRING_LITERAL
-    | uid
-    | SQLWARNING
-    | NOT FOUND
-    | SQLEXCEPTION
+    : decimalLiteral                                                #handlerConditionCode
+    | SQLSTATE VALUE? STRING_LITERAL                                #handlerConditionState
+    | uid                                                           #handlerConditionName
+    | SQLWARNING                                                    #handlerConditionWarning
+    | NOT FOUND                                                     #handlerConditionNotfound
+    | SQLEXCEPTION                                                  #handlerConditionException
     ;
 
 procedureSqlStatement
@@ -1400,11 +1434,13 @@ elifAlternative
 
 alterUser
     : ALTER USER
-      userName userPasswordOption
-      ( ',' userName userPasswordOption)*                           #alterUserMysqlV56
+      userSpecification (',' userSpecification)*                    #alterUserMysqlV56
     | ALTER USER ifExists?
         userAuthOption (',' userAuthOption)*
-        (REQUIRE (NONE | tlsOption (AND? tlsOption)* ) )?
+        (
+          REQUIRE 
+          (tlsNone=NONE | tlsOption (AND? tlsOption)* )
+        )?
         (WITH userResourceOption+)?
         (userPasswordOption | userLockOption)*                      #alterUserMysqlV57
     ;
@@ -1413,7 +1449,10 @@ createUser
     : CREATE USER userAuthOption (',' userAuthOption)*              #createUserMysqlV56
     | CREATE USER ifNotExists?
         userAuthOption (',' userAuthOption)*
-        (REQUIRE (NONE | tlsOption (AND? tlsOption)* ) )?
+        (
+          REQUIRE 
+          (tlsNone=NONE | tlsOption (AND? tlsOption)* )
+        )?
         (WITH userResourceOption+)?
         (userPasswordOption | userLockOption)*                      #createUserMysqlV57
     ;
@@ -1428,7 +1467,10 @@ grantStatement
       privilegeObject=(TABLE | FUNCTION | PROCEDURE)?
       privilegeLevel
       TO userAuthOption (',' userAuthOption)*
-      (REQUIRE (NONE | tlsOption (AND? tlsOption)* ) )?
+      (
+          REQUIRE 
+          (tlsNone=NONE | tlsOption (AND? tlsOption)* )
+        )?
       (WITH (GRANT OPTION | userResourceOption)* )?
     ;
 
@@ -1440,8 +1482,7 @@ grantProxy
 
 renameUser
     : RENAME USER
-      fromFirst=userName TO toFirst=userName
-      (',' fromOther+=userName TO toOther+=userName)
+      renameUserClause (',' renameUserClause)*
     ;
 
 revokeStatement
@@ -1466,9 +1507,8 @@ setPasswordStatement
 
 // details
 
-userPasswordOption
-    : PASSWORD EXPIRE
-      (DEFAULT | NEVER | INTERVAL decimalLiteral DAY)?
+userSpecification
+    : userName userPasswordOption
     ;
 
 userAuthOption
@@ -1495,8 +1535,16 @@ userResourceOption
     | MAX_USER_CONNECTIONS decimalLiteral
     ;
 
+userPasswordOption
+    : PASSWORD EXPIRE
+      (expireType=DEFAULT 
+      | expireType=NEVER 
+      | expireType=INTERVAL decimalLiteral DAY
+      )?
+    ;
+
 userLockOption
-    : ACCOUNT (LOCK | UNLOCK)
+    : ACCOUNT lockType=(LOCK | UNLOCK)
     ;
 
 privelegeClause
@@ -1518,11 +1566,15 @@ privilege
     ;
 
 privilegeLevel
-    : '*'
-    | '*' '.' '*'
-    | uid '.' '*'
-    | uid '.' uid
-    | uid
+    : '*'                                                           #currentSchemaPriviLevel
+    | '*' '.' '*'                                                   #globalPrivLevel
+    | uid '.' '*'                                                   #definiteSchemaPrivLevel
+    | uid '.' uid                                                   #definiteFullTablePrivLevel
+    | uid                                                           #definiteTablePrivLevel
+    ;
+
+renameUserClause
+    : fromFirst=userName TO toFirst=userName
     ;
 
 //    Table maintenance statements
@@ -1570,7 +1622,7 @@ installPlugin
     : INSTALL PLUGIN uid SONAME STRING_LITERAL
     ;
 
- uninstallPlugin
+uninstallPlugin
     : UNINSTALL PLUGIN uid
     ;
 
@@ -1628,7 +1680,7 @@ showStatement
     | SHOW OPEN TABLES ( schemaFormat=(FROM | IN) uid)? 
       showFilter?                                                   #showOpenTables
     | SHOW PROFILE showProfileType (',' showProfileType)*
-        (FOR QUERY decimalLiteral)?
+        (FOR QUERY queryCount=decimalLiteral)?
         (LIMIT
           (offset=decimalLiteral ',')?
           rowCount=decimalLiteral
@@ -1682,7 +1734,7 @@ cacheIndexStatement
     ;
 
 flushStatement
-    : FLUSH (NO_WRITE_TO_BINLOG | LOCAL)?
+    : FLUSH flushFormat=(NO_WRITE_TO_BINLOG | LOCAL)?
       flushOption (',' flushOption)*
     ;
 
@@ -1696,7 +1748,7 @@ loadIndexIntoCache
       loadedTableIndexes (',' loadedTableIndexes)*
     ;
 
-// remark reser (maser | slave) describe in replication's
+// remark reset (maser | slave) describe in replication's
 //  statements section
 resetStatement
     : RESET QUERY CACHE
@@ -1709,7 +1761,7 @@ shutdownStatement
 // details
 
 tableIndexes
-    : tableName ( (INDEX | KEY)? '(' uidList ')' )?
+    : tableName ( indexFormat=(INDEX | KEY)? '(' uidList ')' )?
     ;
 
 flushOption
@@ -1722,7 +1774,12 @@ flushOption
         | USER_RESOURCES | TABLES (WITH READ LOCK)?
        )                                                            #simpleFlushOption
     | RELAY LOGS channelOption?                                     #channelFlushOption
-    | TABLES tables (WITH READ LOCK | FOR EXPORT)?                  #tableFlushOption
+    | TABLES tables flushTableOption?                               #tableFlushOption
+    ;
+
+flushTableOption
+    : WITH READ LOCK 
+    | FOR EXPORT
     ;
 
 loadedTableIndexes
@@ -1787,7 +1844,7 @@ fullColumnName
     ;
 
 indexColumnName
-    : uid ('(' decimalLiteral ')')? (ASC | DESC)?
+    : uid ('(' decimalLiteral ')')? sortType=(ASC | DESC)?
     ;
 
 userName
@@ -1896,7 +1953,7 @@ constant
     : stringLiteral | decimalLiteral
     | hexadecimalLiteral | booleanLiteral
     | REAL_LITERAL | BIT_STRING
-    | NOT? (NULL_LITERAL | NULL_SPEC_LITERAL)
+    | NOT? nullLiteral=(NULL_LITERAL | NULL_SPEC_LITERAL)
     ;
 
 
@@ -1963,17 +2020,16 @@ tables
     : tableName (',' tableName)*
     ;
 
-tablePairs
-    : '(' tableName ',' tableName ')' 
-    (',' '(' tableName ',' tableName ')')*
-    ;
-
 indexColumnNames
     : '(' indexColumnName (',' indexColumnName)* ')'
     ;
 
 expressions
     : expression (',' expression)*
+    ;
+
+expressionsWithDefaults
+    : expressionOrDefault (',' expressionOrDefault)*
     ;
 
 constants
@@ -1994,6 +2050,10 @@ userVariables
 defaultValue
     : NULL_LITERAL
     | constant
+    ;
+
+expressionOrDefault
+    : expression | DEFAULT
     ;
 
 ifExists
@@ -2018,22 +2078,14 @@ specificFunction
       CURRENT_DATE | CURRENT_TIME | CURRENT_TIMESTAMP 
       | CURRENT_USER | LOCALTIME
       )                                                             #simpleFunctionCall
-    | CONVERT '(' expression ',' convertedDataType ')'              #dataTypeFunctionCall
+    | CONVERT '(' expression separator=',' convertedDataType ')'    #dataTypeFunctionCall
     | CONVERT '(' expression USING charsetName ')'                  #dataTypeFunctionCall
     | CAST '(' expression AS convertedDataType ')'                  #dataTypeFunctionCall
     | VALUES '(' fullColumnName ')'                                 #valuesFunctionCall
-    | CASE expression 
-      (
-        WHEN condition+=functionArg 
-        THEN consequent+=functionArg
-      )+ 
-      (ELSE functionArg)? END                                       #caseFunctionCall
-    | CASE 
-      (
-        WHEN condition+=functionArg 
-        THEN consequent+=functionArg
-      )+ 
-      (ELSE functionArg)? END                                       #caseFunctionCall
+    | CASE expression caseFuncAlternative+
+      (ELSE elseArg=functionArg)? END                               #caseFunctionCall
+    | CASE caseFuncAlternative+
+      (ELSE elseArg=functionArg)? END                               #caseFunctionCall
     | CHAR '(' functionArgs  (USING charsetName)? ')'               #charFunctionCall
     | POSITION 
       '(' 
@@ -2112,41 +2164,45 @@ specificFunction
       ')'                                                           #getFormatFunctionCall
     ;
 
+caseFuncAlternative
+    : WHEN condition=functionArg
+      THEN consequent=functionArg
+    ;
+
 levelsInWeightString
-    : LEVEL 
-      firstLevel=decimalLiteral 
-      firstOrder=(ASC | DESC | REVERSE)? 
-      (
-        ',' nextLevel+=decimalLiteral 
-        nextOrder+=(ASC | DESC | REVERSE)?
-      )*                                                            #levelWeightList
+    : LEVEL levelInWeightListElement
+      (',' levelInWeightListElement)*                               #levelWeightList
     | LEVEL 
       firstLevel=decimalLiteral '-' lastLevel=decimalLiteral        #levelWeightRange
     ;
 
+levelInWeightListElement
+    : decimalLiteral orderType=(ASC | DESC | REVERSE)?
+    ;
+
 aggregateWindowedFunction
     : (AVG | MAX | MIN | SUM) 
-      '(' (ALL | DISTINCT)? functionArg ')'
-    | COUNT '(' ('*' | ALL? functionArg) ')'
-    | COUNT '(' DISTINCT functionArgs ')'
+      '(' aggregator=(ALL | DISTINCT)? functionArg ')'
+    | COUNT '(' (starArg='*' | aggregator=ALL? functionArg) ')'
+    | COUNT '(' aggregator=DISTINCT functionArgs ')'
     | (
         BIT_AND | BIT_OR | BIT_XOR | STD | STDDEV | STDDEV_POP 
         | STDDEV_SAMP | VAR_POP | VAR_SAMP | VARIANCE
-      ) '(' ALL? functionArg ')'
+      ) '(' aggregator=ALL? functionArg ')'
     | GROUP_CONCAT '(' 
-        DISTINCT? functionArgs 
+        aggregator=DISTINCT? functionArgs 
         (ORDER BY 
           orderByExpression (',' orderByExpression)* 
-        )? (SEPARATOR STRING_LITERAL)? 
+        )? (SEPARATOR separator=STRING_LITERAL)? 
       ')'
     ;
 
 scalarFunctionName
     : functionNameBase
-    | ASCII | CURDATE | CURRENT_DATE | CURRENT_TIME 
-    | CURRENT_TIMESTAMP | CURTIME | DATE_ADD | DATE_SUB 
-    | IF | LOCALTIME | LOCALTIMESTAMP | MID | NOW | REPLACE 
-    | SUBSTR | SUBSTRING | SYSDATE | TRIM 
+    | ASCII | CURDATE | CURRENT_DATE | CURRENT_TIME
+    | CURRENT_TIMESTAMP | CURTIME | DATE_ADD | DATE_SUB
+    | IF | INSERT | LOCALTIME | LOCALTIMESTAMP | MID | NOW
+    | REPLACE | SUBSTR | SUBSTRING | SYSDATE | TRIM
     | UTC_DATE | UTC_TIME | UTC_TIMESTAMP
     ;
 
@@ -2171,21 +2227,21 @@ functionArg
 
 // Simplified approach for expression
 expression
-    : (NOT | '!') expression                                        #notExpression
+    : notOperator=(NOT | '!') expression                            #notExpression
     | expression logicalOperator expression                         #logicalExpression
-    | predicate IS NOT? isValue=(TRUE | FALSE | UNKNOWN)            #isExpression
+    | predicate IS NOT? testValue=(TRUE | FALSE | UNKNOWN)          #isExpression
     | predicate                                                     #predicateExpression
     ;
 
 predicate
-    : predicate NOT? IN '(' (subquery | expressions) ')'            #inPredicate
+    : predicate NOT? IN '(' (selectStatement | expressions) ')'     #inPredicate
     | predicate IS nullNotnull                                      #isNullPredicate
     | left=predicate comparisonOperator right=predicate             #binaryComparasionPredicate
     | predicate comparisonOperator 
-      quantifier=(ALL | ANY | SOME) '(' subquery ')'                #subqueryComparasionPredicate
+      quantifier=(ALL | ANY | SOME) '(' selectStatement ')'         #subqueryComparasionPredicate
     | predicate NOT? BETWEEN predicate AND predicate                #betweenPredicate
     | predicate SOUNDS LIKE predicate                               #soundsLikePredicate
-    | predicate NOT? LIKE predicate (ESCAPE stringLiteral)?         #likePredicate
+    | predicate NOT? LIKE predicate (ESCAPE STRING_LITERAL)?        #likePredicate
     | predicate NOT? regex=(REGEXP | RLIKE) predicate               #regexpPredicate
     | (LOCAL_ID VAR_ASSIGN)? expressionAtom                         #expressionAtomPredicate
     ;
@@ -2193,15 +2249,17 @@ predicate
 
 // Add in ASTVisitor nullNotnull in constant
 expressionAtom
-    : DEFAULT                                                       #defaultExpressionAtom
-    | constant                                                      #constantExpressionAtom
+    : constant                                                      #constantExpressionAtom
     | fullColumnName                                                #fullColumnNameExpressionAtom
     | functionCall                                                  #functionCallExpressionAtom
+    | expressionAtom COLLATE collationName                          #collateExpressionAtom
     | mysqlVariable                                                 #mysqlVariableExpressionAtom
     | unaryOperator expressionAtom                                  #unaryExpressionAtom
     | BINARY expressionAtom                                         #binaryExpressionAtom
-    | '(' expression ')'                                            #nestedExpressionAtom
-    | EXISTS? '(' subquery ')'                                      #existsExpessionAtom
+    | '(' expression (',' expression)* ')'                          #nestedExpressionAtom
+    | ROW '(' expression (',' expression)+ ')'                      #nestedRowExpressionAtom
+    | EXISTS '(' selectStatement ')'                                #existsExpessionAtom
+    | '(' selectStatement ')'                                       #subqueryExpessionAtom
     | INTERVAL expression intervalType                              #intervalExpressionAtom
     | left=expressionAtom bitOperator right=expressionAtom          #bitExpressionAtom
     | left=expressionAtom mathOperator right=expressionAtom         #mathExpressionAtom
@@ -2225,7 +2283,7 @@ bitOperator
     ;
 
 mathOperator
-    : '*' | '/' | '%' | DIV | MOD | '+' | '-'
+    : '*' | '/' | '%' | DIV | MOD | '+' | '-' | '--'
     ;
 
 
