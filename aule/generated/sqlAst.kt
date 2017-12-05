@@ -92,6 +92,8 @@ enum class ConvertedDataTypeValue(val value: String) {
     DECIMAL("DECIMAL"),
     SIGNED("SIGNED"),
     UNSIGNED("UNSIGNED"),
+    SIGNEDINTEGER("SIGNEDINTEGER"),
+    UNSIGNEDINTEGER("UNSIGNEDINTEGER"),
     ;
 
     companion object {
@@ -105,17 +107,17 @@ enum class ConvertedDataTypeValue(val value: String) {
 
 enum class IntervalType(val value: String) {
     YEAR("YEAR"),
-    YEAR_MONTH("YEAR_MONTH"),
-    DAY_HOUR("DAY_HOUR"),
-    DAY_MINUTE("DAY_MINUTE"),
-    DAY_SECOND("DAY_SECOND"),
-    HOUR_MINUTE("HOUR_MINUTE"),
-    HOUR_SECOND("HOUR_SECOND"),
-    MINUTE_SECOND("MINUTE_SECOND"),
-    SECOND_MICROSECOND("SECOND_MICROSECOND"),
-    MINUTE_MICROSECOND("MINUTE_MICROSECOND"),
-    HOUR_MICROSECOND("HOUR_MICROSECOND"),
-    DAY_MICROSECOND("DAY_MICROSECOND"),
+    YEARMONTH("YEARMONTH"),
+    DAYHOUR("DAYHOUR"),
+    DAYMINUTE("DAYMINUTE"),
+    DAYSECOND("DAYSECOND"),
+    HOURMINUTE("HOURMINUTE"),
+    HOURSECOND("HOURSECOND"),
+    MINUTESECOND("MINUTESECOND"),
+    SECONDMICROSECOND("SECONDMICROSECOND"),
+    MINUTEMICROSECOND("MINUTEMICROSECOND"),
+    HOURMICROSECOND("HOURMICROSECOND"),
+    DAYMICROSECOND("DAYMICROSECOND"),
     QUARTER("QUARTER"),
     MONTH("MONTH"),
     DAY("DAY"),
@@ -216,7 +218,7 @@ enum class BinaryOperator(val value: String) {
 
 enum class KeywordLiteral(val value: String) {
     DEFAULT("DEFAULT"),
-    CURRENT_TIMESTAMP("CURRENT_TIMESTAMP"),
+    CURRENTTIMESTAMP("CURRENTTIMESTAMP"),
     MAXVALUE("MAXVALUE"),
     ;
 
@@ -376,6 +378,7 @@ enum class SortType(val value: String) {
 }
 
 enum class JoinType(val value: String) {
+    JOIN("JOIN"),
     INNERJOIN("INNERJOIN"),
     CROSSJOIN("CROSSJOIN"),
     STRAIGHTJOIN("STRAIGHTJOIN"),
@@ -986,6 +989,21 @@ enum class IndexOrder(val value: String) {
     }
 }
 
+enum class GTUidType(val value: String) {
+    STRING("STRING"),
+    BIT("BIT"),
+    HEXADECIMAL("HEXADECIMAL"),
+    ;
+
+    companion object {
+        @JvmStatic
+        private val map = GTUidType.values().associateBy(GTUidType::value);
+        @JvmStatic
+        fun fromValue(value: String?) = map[value?.toUpperCase()]
+                                        ?: throw IllegalArgumentException("Unknown GTUidType value '$value'")
+    }
+}
+
 enum class TransactionOption(val value: String) {
     WITHCONSISTENTSNAPSHOT("WITHCONSISTENTSNAPSHOT"),
     READWRITE("READWRITE"),
@@ -1090,6 +1108,35 @@ enum class PasswordExpirationType(val value: String) {
         @JvmStatic
         fun fromValue(value: String?) = map[value?.toUpperCase()]
                                         ?: throw IllegalArgumentException("Unknown PasswordExpirationType value '$value'")
+    }
+}
+
+enum class PasswordClauseType(val value: String) {
+    IDENTIFIEDBYPASSWORD("IDENTIFIEDBYPASSWORD"),
+    IDENTIFIEDBY("IDENTIFIEDBY"),
+    IDENTIFIEDAS("IDENTIFIEDAS"),
+    ;
+
+    companion object {
+        @JvmStatic
+        private val map = PasswordClauseType.values().associateBy(PasswordClauseType::value);
+        @JvmStatic
+        fun fromValue(value: String?) = map[value?.toUpperCase()]
+                                        ?: throw IllegalArgumentException("Unknown PasswordClauseType value '$value'")
+    }
+}
+
+enum class UserLockOption(val value: String) {
+    LOCK("LOCK"),
+    UNLOCK("UNLOCK"),
+    ;
+
+    companion object {
+        @JvmStatic
+        private val map = UserLockOption.values().associateBy(UserLockOption::value);
+        @JvmStatic
+        fun fromValue(value: String?) = map[value?.toUpperCase()]
+                                        ?: throw IllegalArgumentException("Unknown UserLockOption value '$value'")
     }
 }
 
@@ -1345,7 +1392,6 @@ enum class SyntaxFormat(val value: String) {
     DROP("DROP"),
     DEALLOCATE("DEALLOCATE"),
     BY("BY"),
-    BYPASSWORD("BYPASSWORD"),
     RELAYLOG("RELAYLOG"),
     STATUS("STATUS"),
     MUTEX("MUTEX"),
@@ -1353,6 +1399,17 @@ enum class SyntaxFormat(val value: String) {
     QUERY("QUERY"),
     PASSWORD("PASSWORD"),
     OLDPASSWORD("OLDPASSWORD"),
+    DEFAULT("DEFAULT"),
+    DISK("DISK"),
+    MEMORY("MEMORY"),
+    VALUE("VALUE"),
+    VALUES("VALUES"),
+    NOWRITETOBINLOG("NOWRITETOBINLOG"),
+    LOCAL("LOCAL"),
+    QUICK("QUICK"),
+    EXTENDED("EXTENDED"),
+    WITHREADLOCK("WITHREADLOCK"),
+    FOREXPORT("FOREXPORT"),
     ;
 
     companion object {
@@ -1466,16 +1523,21 @@ enum class CommonEntity(val value: String) {
     JsonSubTypes.Type(value = ReferenceDeclarationClause::class, name = "ReferenceDeclarationClause"),
     JsonSubTypes.Type(value = PartitionClause::class, name = "PartitionClause"),
     JsonSubTypes.Type(value = PartitionFunction::class, name = "PartitionFunction"),
-    JsonSubTypes.Type(value = PartitionHash::class, name = "PartitionHash"),
-    JsonSubTypes.Type(value = PartitionKey::class, name = "PartitionKey"),
-    JsonSubTypes.Type(value = PartitionRange::class, name = "PartitionRange"),
-    JsonSubTypes.Type(value = PartitionList::class, name = "PartitionList"),
+    JsonSubTypes.Type(value = PartitionFunctionHash::class, name = "PartitionFunctionHash"),
+    JsonSubTypes.Type(value = PartitionFunctionKey::class, name = "PartitionFunctionKey"),
+    JsonSubTypes.Type(value = PartitionFunctionRange::class, name = "PartitionFunctionRange"),
+    JsonSubTypes.Type(value = PartitionFunctionList::class, name = "PartitionFunctionList"),
     JsonSubTypes.Type(value = SubPartitionFunction::class, name = "SubPartitionFunction"),
-    JsonSubTypes.Type(value = SubPartitionHash::class, name = "SubPartitionHash"),
-    JsonSubTypes.Type(value = SubPartitionKey::class, name = "SubPartitionKey"),
+    JsonSubTypes.Type(value = SubPartitionFunctionHash::class, name = "SubPartitionFunctionHash"),
+    JsonSubTypes.Type(value = SubPartitionFunctionKey::class, name = "SubPartitionFunctionKey"),
     JsonSubTypes.Type(value = PartitionDefinition::class, name = "PartitionDefinition"),
     JsonSubTypes.Type(value = ComparasionPartitionDefinition::class, name = "ComparasionPartitionDefinition"),
     JsonSubTypes.Type(value = ListPartitionDefinition::class, name = "ListPartitionDefinition"),
+    JsonSubTypes.Type(value = PartitionDefinerAtom::class, name = "PartitionDefinerAtom"),
+    JsonSubTypes.Type(value = PartitionDefinerAtomConst::class, name = "PartitionDefinerAtomConst"),
+    JsonSubTypes.Type(value = PartitionDefinerAtomMax::class, name = "PartitionDefinerAtomMax"),
+    JsonSubTypes.Type(value = PartitionDefinerAtomExpr::class, name = "PartitionDefinerAtomExpr"),
+    JsonSubTypes.Type(value = PartitionDefinerVector::class, name = "PartitionDefinerVector"),
     JsonSubTypes.Type(value = SimplePartitionDefinition::class, name = "SimplePartitionDefinition"),
     JsonSubTypes.Type(value = SubPartitionDefinition::class, name = "SubPartitionDefinition"),
     JsonSubTypes.Type(value = AlterDatabaseStatement::class, name = "AlterDatabaseStatement"),
@@ -1527,12 +1589,14 @@ enum class CommonEntity(val value: String) {
     JsonSubTypes.Type(value = HandlerReadSimpleStatement::class, name = "HandlerReadSimpleStatement"),
     JsonSubTypes.Type(value = HandlerCloseStatement::class, name = "HandlerCloseStatement"),
     JsonSubTypes.Type(value = InsertStatement::class, name = "InsertStatement"),
-    JsonSubTypes.Type(value = InsertSetStatement::class, name = "InsertSetStatement"),
-    JsonSubTypes.Type(value = InsertQueryStatement::class, name = "InsertQueryStatement"),
-    JsonSubTypes.Type(value = InsertRowStatement::class, name = "InsertRowStatement"),
+    JsonSubTypes.Type(value = SetInsertStatement::class, name = "SetInsertStatement"),
+    JsonSubTypes.Type(value = QueryInsertStatement::class, name = "QueryInsertStatement"),
+    JsonSubTypes.Type(value = RowInsertStatement::class, name = "RowInsertStatement"),
     JsonSubTypes.Type(value = InsertRowClause::class, name = "InsertRowClause"),
-    JsonSubTypes.Type(value = DuplicateKeyClause::class, name = "DuplicateKeyClause"),
+    JsonSubTypes.Type(value = InsertRowElement::class, name = "InsertRowElement"),
+    JsonSubTypes.Type(value = UpdateColumnClause::class, name = "UpdateColumnClause"),
     JsonSubTypes.Type(value = LoadDataStatement::class, name = "LoadDataStatement"),
+    JsonSubTypes.Type(value = TextFileOptions::class, name = "TextFileOptions"),
     JsonSubTypes.Type(value = LoadXMLStatement::class, name = "LoadXMLStatement"),
     JsonSubTypes.Type(value = ReplaceStatement::class, name = "ReplaceStatement"),
     JsonSubTypes.Type(value = SetReplaceStatement::class, name = "SetReplaceStatement"),
@@ -1546,6 +1610,7 @@ enum class CommonEntity(val value: String) {
     JsonSubTypes.Type(value = SortItem::class, name = "SortItem"),
     JsonSubTypes.Type(value = TableReferenceClause::class, name = "TableReferenceClause"),
     JsonSubTypes.Type(value = NestedTableClause::class, name = "NestedTableClause"),
+    JsonSubTypes.Type(value = NestedSimpleTableClause::class, name = "NestedSimpleTableClause"),
     JsonSubTypes.Type(value = JoinClause::class, name = "JoinClause"),
     JsonSubTypes.Type(value = SubqueryClause::class, name = "SubqueryClause"),
     JsonSubTypes.Type(value = TableSource::class, name = "TableSource"),
@@ -1626,7 +1691,8 @@ enum class CommonEntity(val value: String) {
     JsonSubTypes.Type(value = ConditionChoiceOption::class, name = "ConditionChoiceOption"),
     JsonSubTypes.Type(value = AlterUserShortStatement::class, name = "AlterUserShortStatement"),
     JsonSubTypes.Type(value = AlterUserFullStatement::class, name = "AlterUserFullStatement"),
-    JsonSubTypes.Type(value = CreateUserStatement::class, name = "CreateUserStatement"),
+    JsonSubTypes.Type(value = CreateUserShortStatement::class, name = "CreateUserShortStatement"),
+    JsonSubTypes.Type(value = CreateUserFullStatement::class, name = "CreateUserFullStatement"),
     JsonSubTypes.Type(value = DropUserStatement::class, name = "DropUserStatement"),
     JsonSubTypes.Type(value = GrantStatement::class, name = "GrantStatement"),
     JsonSubTypes.Type(value = GrantProxyStatement::class, name = "GrantProxyStatement"),
@@ -1636,9 +1702,12 @@ enum class CommonEntity(val value: String) {
     JsonSubTypes.Type(value = FullRevokeStatement::class, name = "FullRevokeStatement"),
     JsonSubTypes.Type(value = RevokeProxyStatement::class, name = "RevokeProxyStatement"),
     JsonSubTypes.Type(value = SetPasswordStatement::class, name = "SetPasswordStatement"),
+    JsonSubTypes.Type(value = UserClauseV56::class, name = "UserClauseV56"),
     JsonSubTypes.Type(value = PasswordExpirationClause::class, name = "PasswordExpirationClause"),
     JsonSubTypes.Type(value = UserClause::class, name = "UserClause"),
     JsonSubTypes.Type(value = TLSOptionClause::class, name = "TLSOptionClause"),
+    JsonSubTypes.Type(value = TLSOptionValue::class, name = "TLSOptionValue"),
+    JsonSubTypes.Type(value = PasswordLockOption::class, name = "PasswordLockOption"),
     JsonSubTypes.Type(value = PrivilegeClause::class, name = "PrivilegeClause"),
     JsonSubTypes.Type(value = PrivilegeLevelClause::class, name = "PrivilegeLevelClause"),
     JsonSubTypes.Type(value = AnalyzeTableStatement::class, name = "AnalyzeTableStatement"),
@@ -1662,7 +1731,7 @@ enum class CommonEntity(val value: String) {
     JsonSubTypes.Type(value = ShowCreateNamedEntityStatement::class, name = "ShowCreateNamedEntityStatement"),
     JsonSubTypes.Type(value = ShowCreateUserStatement::class, name = "ShowCreateUserStatement"),
     JsonSubTypes.Type(value = ShowEngineStatement::class, name = "ShowEngineStatement"),
-    JsonSubTypes.Type(value = ShowInfoStatement::class, name = "ShowInfoStatement"),
+    JsonSubTypes.Type(value = ShowObjectInfoStatement::class, name = "ShowObjectInfoStatement"),
     JsonSubTypes.Type(value = ShowErrorsStatement::class, name = "ShowErrorsStatement"),
     JsonSubTypes.Type(value = ShowCountErrorsStatement::class, name = "ShowCountErrorsStatement"),
     JsonSubTypes.Type(value = ShowRoutineCodeStatement::class, name = "ShowRoutineCodeStatement"),
@@ -1699,6 +1768,7 @@ enum class CommonEntity(val value: String) {
     JsonSubTypes.Type(value = Variable::class, name = "Variable"),
     JsonSubTypes.Type(value = CharSet::class, name = "CharSet"),
     JsonSubTypes.Type(value = XIDName::class, name = "XIDName"),
+    JsonSubTypes.Type(value = GTUid::class, name = "GTUid"),
     JsonSubTypes.Type(value = AuthPlugin::class, name = "AuthPlugin"),
     JsonSubTypes.Type(value = DbName::class, name = "DbName"),
     JsonSubTypes.Type(value = SchemaName::class, name = "SchemaName"),
@@ -1751,28 +1821,27 @@ enum class CommonEntity(val value: String) {
     JsonSubTypes.Type(value = Primitive::class, name = "Primitive"),
     JsonSubTypes.Type(value = LogicalExpression::class, name = "LogicalExpression"),
     JsonSubTypes.Type(value = IsExpression::class, name = "IsExpression"),
+    JsonSubTypes.Type(value = InPredicate::class, name = "InPredicate"),
     JsonSubTypes.Type(value = IsNullPredicate::class, name = "IsNullPredicate"),
     JsonSubTypes.Type(value = ComparisonPredicate::class, name = "ComparisonPredicate"),
     JsonSubTypes.Type(value = ComparisonSetPredicate::class, name = "ComparisonSetPredicate"),
-    JsonSubTypes.Type(value = InPredicate::class, name = "InPredicate"),
     JsonSubTypes.Type(value = BetweenPredicate::class, name = "BetweenPredicate"),
     JsonSubTypes.Type(value = LikePredicate::class, name = "LikePredicate"),
     JsonSubTypes.Type(value = UnaryExpression::class, name = "UnaryExpression"),
     JsonSubTypes.Type(value = BinaryExpression::class, name = "BinaryExpression"),
-    JsonSubTypes.Type(value = ParenthesisExpression::class, name = "ParenthesisExpression"),
     JsonSubTypes.Type(value = ExistsExpression::class, name = "ExistsExpression"),
     JsonSubTypes.Type(value = SubqueryExpression::class, name = "SubqueryExpression"),
     JsonSubTypes.Type(value = IntervalExpression::class, name = "IntervalExpression"),
-    JsonSubTypes.Type(value = KeywordPrimitive::class, name = "KeywordPrimitive"),
     JsonSubTypes.Type(value = RowPrimitive::class, name = "RowPrimitive"),
     JsonSubTypes.Type(value = StringPrimitive::class, name = "StringPrimitive"),
+    JsonSubTypes.Type(value = KeywordPrimitive::class, name = "KeywordPrimitive"),
     JsonSubTypes.Type(value = CommonSimpleOption::class, name = "CommonSimpleOption"),
     JsonSubTypes.Type(value = StringSimpleOption::class, name = "StringSimpleOption"),
     JsonSubTypes.Type(value = ListStringSimpleOption::class, name = "ListStringSimpleOption"),
     JsonSubTypes.Type(value = NumberSimpleOption::class, name = "NumberSimpleOption"),
     JsonSubTypes.Type(value = BooleanSimpleOption::class, name = "BooleanSimpleOption"),
     JsonSubTypes.Type(value = NodeSimpleOption::class, name = "NodeSimpleOption"),
-    JsonSubTypes.Type(value = ListSimpleOption::class, name = "ListSimpleOption"))
+    JsonSubTypes.Type(value = ListNodeSimpleOption::class, name = "ListNodeSimpleOption"))
 open class Serializer
 
 
@@ -1843,7 +1912,7 @@ class CreateEventStatement (
     eventSchedule: EventScheduleClause,
     body: Statement,
     definer: Node? = null,
-    ifNotExist: Boolean? = null,
+    ifNotExist: Boolean,
     isPreserve: Boolean? = null,
     enableType: EnableEventType? = null,
     comment: String? = null     
@@ -1857,7 +1926,7 @@ class CreateEventStatement (
     @JsonProperty("definer")
     var definer: Node? = definer
     @JsonProperty("ifNotExist")
-    var ifNotExist: Boolean? = ifNotExist
+    var ifNotExist: Boolean = ifNotExist
     @JsonProperty("isPreserve")
     var isPreserve: Boolean? = isPreserve
     @JsonProperty("enableType")
@@ -1876,7 +1945,7 @@ class CreateIndexStatement (
     options: MutableList<CommonSimpleOption>,
     algorithm: IndexAlgorithmOption? = null,
     lockOption: LockOption? = null,
-    creationPlace: IntimeActionType? = null     
+    intimeAction: IntimeActionType? = null     
 ): SingleQueryStatement() {
     @JsonProperty("category")
     var category: IndexCategory? = category
@@ -1894,8 +1963,8 @@ class CreateIndexStatement (
     var algorithm: IndexAlgorithmOption? = algorithm
     @JsonProperty("lockOption")
     var lockOption: LockOption? = lockOption
-    @JsonProperty("creationPlace")
-    var creationPlace: IntimeActionType? = creationPlace
+    @JsonProperty("intimeAction")
+    var intimeAction: IntimeActionType? = intimeAction
 }
 
 @JsonTypeName("CreateLogFileGroupStatement")
@@ -1906,7 +1975,7 @@ class CreateLogFileGroupStatement (
     undoBufferSize: String? = null,
     redoBufferSize: String? = null,
     nodeGroup: Identifier? = null,
-    isWait: Boolean? = null,
+    isWait: Boolean,
     comment: String? = null,
     engine: String     
 ): SingleQueryStatement() {
@@ -1923,7 +1992,7 @@ class CreateLogFileGroupStatement (
     @JsonProperty("nodeGroup")
     var nodeGroup: Identifier? = nodeGroup
     @JsonProperty("isWait")
-    var isWait: Boolean? = isWait
+    var isWait: Boolean = isWait
     @JsonProperty("comment")
     var comment: String? = comment
     @JsonProperty("engine")
@@ -1976,14 +2045,11 @@ class CreateFunctionStatement (
 @JsonTypeName("CreateServerStatement")
 class CreateServerStatement (
     name: ServerName,
-    ifExists: Boolean? = null,
     wrapper: Identifier? = null,
     options: MutableList<CommonSimpleOption>     
 ): SingleQueryStatement() {
     @JsonProperty("name")
     var name: ServerName = name
-    @JsonProperty("ifExists")
-    var ifExists: Boolean? = ifExists
     @JsonProperty("wrapper")
     var wrapper: Identifier? = wrapper
     @JsonProperty("options")
@@ -2087,7 +2153,7 @@ class CreateTableSpaceStatement (
     autoExtendSize: String? = null,
     maxSize: String? = null,
     nodeGroup: Identifier? = null,
-    isWait: Boolean? = null,
+    isWait: Boolean,
     comment: String? = null,
     engine: String? = null     
 ): SingleQueryStatement() {
@@ -2110,7 +2176,7 @@ class CreateTableSpaceStatement (
     @JsonProperty("nodeGroup")
     var nodeGroup: Identifier? = nodeGroup
     @JsonProperty("isWait")
-    var isWait: Boolean? = isWait
+    var isWait: Boolean = isWait
     @JsonProperty("comment")
     var comment: String? = comment
     @JsonProperty("engine")
@@ -2156,17 +2222,17 @@ class TriggerOrderClause (
 
 @JsonTypeName("CreateViewStatement")
 class CreateViewStatement (
-    isReplace: Boolean? = null,
+    isReplace: Boolean,
     algorithm: AlgorithmView? = null,
     definer: Node? = null,
     sqlSecurity: SecurityOwnerContext? = null,
     name: ViewName,
     columns: MutableList<Identifier>,
-    select: CommonSelectStatement? = null,
+    select: CommonSelectStatement,
     checkOption: CheckOptionView? = null     
 ): SingleQueryStatement() {
     @JsonProperty("isReplace")
-    var isReplace: Boolean? = isReplace
+    var isReplace: Boolean = isReplace
     @JsonProperty("algorithm")
     var algorithm: AlgorithmView? = algorithm
     @JsonProperty("definer")
@@ -2178,7 +2244,7 @@ class CreateViewStatement (
     @JsonProperty("columns")
     var columns: MutableList<Identifier> = columns
     @JsonProperty("select")
-    var select: CommonSelectStatement? = select
+    var select: CommonSelectStatement = select
     @JsonProperty("checkOption")
     var checkOption: CheckOptionView? = checkOption
 }
@@ -2285,6 +2351,7 @@ class ConstraintKeyClause (
     indexName: Identifier? = null,
     indexType: IndexType? = null,
     indexOptionSet: MutableList<CommonSimpleOption>,
+    indexFormat: SyntaxFormat? = null,
     reference: ReferenceDeclarationClause? = null     
 ): ConstraintDeclaration() {
     @JsonProperty("name")
@@ -2301,6 +2368,8 @@ class ConstraintKeyClause (
     var indexType: IndexType? = indexType
     @JsonProperty("indexOptionSet")
     var indexOptionSet: MutableList<CommonSimpleOption> = indexOptionSet
+    @JsonProperty("indexFormat")
+    var indexFormat: SyntaxFormat? = indexFormat
     @JsonProperty("reference")
     var reference: ReferenceDeclarationClause? = reference
 }
@@ -2358,8 +2427,8 @@ open class PartitionFunction: Node() {
 
 }
 
-@JsonTypeName("PartitionHash")
-class PartitionHash (
+@JsonTypeName("PartitionFunctionHash")
+class PartitionFunctionHash (
     isLinear: Boolean,
     value: Expression     
 ): PartitionFunction() {
@@ -2369,8 +2438,8 @@ class PartitionHash (
     var value: Expression = value
 }
 
-@JsonTypeName("PartitionKey")
-class PartitionKey (
+@JsonTypeName("PartitionFunctionKey")
+class PartitionFunctionKey (
     isLinear: Boolean,
     columns: MutableList<ColumnName>,
     algorithmType: String? = null     
@@ -2383,8 +2452,8 @@ class PartitionKey (
     var algorithmType: String? = algorithmType
 }
 
-@JsonTypeName("PartitionRange")
-class PartitionRange (
+@JsonTypeName("PartitionFunctionRange")
+class PartitionFunctionRange (
     value: Expression? = null,
     columns: MutableList<ColumnName>     
 ): PartitionFunction() {
@@ -2394,8 +2463,8 @@ class PartitionRange (
     var columns: MutableList<ColumnName> = columns
 }
 
-@JsonTypeName("PartitionList")
-class PartitionList (
+@JsonTypeName("PartitionFunctionList")
+class PartitionFunctionList (
     value: Expression? = null,
     columns: MutableList<ColumnName>     
 ): PartitionFunction() {
@@ -2410,8 +2479,8 @@ open class SubPartitionFunction: Node() {
 
 }
 
-@JsonTypeName("SubPartitionHash")
-class SubPartitionHash (
+@JsonTypeName("SubPartitionFunctionHash")
+class SubPartitionFunctionHash (
     isLinear: Boolean,
     value: Expression     
 ): SubPartitionFunction() {
@@ -2421,8 +2490,8 @@ class SubPartitionHash (
     var value: Expression = value
 }
 
-@JsonTypeName("SubPartitionKey")
-class SubPartitionKey (
+@JsonTypeName("SubPartitionFunctionKey")
+class SubPartitionFunctionKey (
     isLinear: Boolean,
     columns: MutableList<ColumnName>,
     algorithmType: String? = null     
@@ -2445,8 +2514,7 @@ class ComparasionPartitionDefinition (
     partition: Identifier,
     options: MutableList<CommonSimpleOption>,
     subPartitions: MutableList<SubPartitionDefinition>,
-    value: Expression? = null,
-    values: MutableList<Literal>     
+    valueAtoms: MutableList<PartitionDefinerAtom>     
 ): PartitionDefinition() {
     @JsonProperty("partition")
     var partition: Identifier = partition
@@ -2454,10 +2522,8 @@ class ComparasionPartitionDefinition (
     var options: MutableList<CommonSimpleOption> = options
     @JsonProperty("subPartitions")
     var subPartitions: MutableList<SubPartitionDefinition> = subPartitions
-    @JsonProperty("value")
-    var value: Expression? = value
-    @JsonProperty("values")
-    var values: MutableList<Literal> = values
+    @JsonProperty("valueAtoms")
+    var valueAtoms: MutableList<PartitionDefinerAtom> = valueAtoms
 }
 
 @JsonTypeName("ListPartitionDefinition")
@@ -2465,7 +2531,8 @@ class ListPartitionDefinition (
     partition: Identifier,
     options: MutableList<CommonSimpleOption>,
     subPartitions: MutableList<SubPartitionDefinition>,
-    values: MutableList<Literal>     
+    valueAtoms: MutableList<PartitionDefinerAtom>,
+    valueVectors: MutableList<PartitionDefinerVector>     
 ): PartitionDefinition() {
     @JsonProperty("partition")
     var partition: Identifier = partition
@@ -2473,8 +2540,47 @@ class ListPartitionDefinition (
     var options: MutableList<CommonSimpleOption> = options
     @JsonProperty("subPartitions")
     var subPartitions: MutableList<SubPartitionDefinition> = subPartitions
+    @JsonProperty("valueAtoms")
+    var valueAtoms: MutableList<PartitionDefinerAtom> = valueAtoms
+    @JsonProperty("valueVectors")
+    var valueVectors: MutableList<PartitionDefinerVector> = valueVectors
+}
+
+@JsonTypeName("PartitionDefinerAtom")
+open class PartitionDefinerAtom: Node() {
+
+}
+
+@JsonTypeName("PartitionDefinerAtomConst")
+class PartitionDefinerAtomConst (
+    value: Literal     
+): PartitionDefinerAtom() {
+    @JsonProperty("value")
+    var value: Literal = value
+}
+
+@JsonTypeName("PartitionDefinerAtomMax")
+class PartitionDefinerAtomMax (
+    value: String     
+): PartitionDefinerAtom() {
+    @JsonProperty("value")
+    var value: String = value
+}
+
+@JsonTypeName("PartitionDefinerAtomExpr")
+class PartitionDefinerAtomExpr (
+    value: Expression     
+): PartitionDefinerAtom() {
+    @JsonProperty("value")
+    var value: Expression = value
+}
+
+@JsonTypeName("PartitionDefinerVector")
+class PartitionDefinerVector (
+    values: MutableList<PartitionDefinerAtom>     
+): Node() {
     @JsonProperty("values")
-    var values: MutableList<Literal> = values
+    var values: MutableList<PartitionDefinerAtom> = values
 }
 
 @JsonTypeName("SimplePartitionDefinition")
@@ -2507,7 +2613,7 @@ class AlterDatabaseStatement (
     dbFormat: SyntaxFormat,
     dbName: SchemaName? = null,
     options: MutableList<CommonSimpleOption>,
-    isUpgradeDataDirectory: Boolean     
+    isUpgrade: Boolean     
 ): SingleQueryStatement() {
     @JsonProperty("dbFormat")
     var dbFormat: SyntaxFormat = dbFormat
@@ -2515,8 +2621,8 @@ class AlterDatabaseStatement (
     var dbName: SchemaName? = dbName
     @JsonProperty("options")
     var options: MutableList<CommonSimpleOption> = options
-    @JsonProperty("isUpgradeDataDirectory")
-    var isUpgradeDataDirectory: Boolean = isUpgradeDataDirectory
+    @JsonProperty("isUpgrade")
+    var isUpgrade: Boolean = isUpgrade
 }
 
 @JsonTypeName("AlterEventStatement")
@@ -2526,7 +2632,6 @@ class AlterEventStatement (
     eventSchedule: EventScheduleClause? = null,
     body: Statement? = null,
     definer: Node? = null,
-    ifNotExist: Boolean? = null,
     isPreserve: Boolean? = null,
     enableType: EnableEventType? = null,
     comment: String? = null     
@@ -2541,8 +2646,6 @@ class AlterEventStatement (
     var body: Statement? = body
     @JsonProperty("definer")
     var definer: Node? = definer
-    @JsonProperty("ifNotExist")
-    var ifNotExist: Boolean? = ifNotExist
     @JsonProperty("isPreserve")
     var isPreserve: Boolean? = isPreserve
     @JsonProperty("enableType")
@@ -2572,7 +2675,7 @@ class AlterLogFileGroupStatement (
     name: LogFileGroupName,
     undoFile: String,
     initialSize: String? = null,
-    isWait: Boolean? = null,
+    isWait: Boolean,
     engine: String     
 ): SingleQueryStatement() {
     @JsonProperty("name")
@@ -2582,7 +2685,7 @@ class AlterLogFileGroupStatement (
     @JsonProperty("initialSize")
     var initialSize: String? = initialSize
     @JsonProperty("isWait")
-    var isWait: Boolean? = isWait
+    var isWait: Boolean = isWait
     @JsonProperty("engine")
     var engine: String = engine
 }
@@ -2600,11 +2703,11 @@ class AlterProcedureStatement (
 
 @JsonTypeName("AlterServerStatement")
 class AlterServerStatement (
-    name: Identifier,
+    name: ServerName,
     options: MutableList<CommonSimpleOption>     
 ): SingleQueryStatement() {
     @JsonProperty("name")
-    var name: Identifier = name
+    var name: ServerName = name
     @JsonProperty("options")
     var options: MutableList<CommonSimpleOption> = options
 }
@@ -2613,7 +2716,7 @@ class AlterServerStatement (
 class AlterTableStatement (
     table: TableName,
     isIgnore: Boolean,
-    creationPlace: IntimeActionType? = null,
+    intimeAction: IntimeActionType? = null,
     alterSpecificationClauses: MutableList<AlterSpecification>,
     partitions: PartitionClause? = null     
 ): SingleQueryStatement() {
@@ -2621,8 +2724,8 @@ class AlterTableStatement (
     var table: TableName = table
     @JsonProperty("isIgnore")
     var isIgnore: Boolean = isIgnore
-    @JsonProperty("creationPlace")
-    var creationPlace: IntimeActionType? = creationPlace
+    @JsonProperty("intimeAction")
+    var intimeAction: IntimeActionType? = intimeAction
     @JsonProperty("alterSpecificationClauses")
     var alterSpecificationClauses: MutableList<AlterSpecification> = alterSpecificationClauses
     @JsonProperty("partitions")
@@ -2655,22 +2758,25 @@ class AlterTableSpaceStatement (
 @JsonTypeName("AlterViewStatement")
 class AlterViewStatement (
     algorithm: AlgorithmView? = null,
+    definer: Node? = null,
+    sqlSecurity: SecurityOwnerContext? = null,
     name: ViewName,
-    columns: MutableList<Identifier>,
-    select: CommonSelectStatement? = null,
-    options: MutableList<CommonSimpleOption>,
+    columns: MutableList<ColumnName>,
+    select: CommonSelectStatement,
     checkOption: CheckOptionView? = null     
 ): SingleQueryStatement() {
     @JsonProperty("algorithm")
     var algorithm: AlgorithmView? = algorithm
+    @JsonProperty("definer")
+    var definer: Node? = definer
+    @JsonProperty("sqlSecurity")
+    var sqlSecurity: SecurityOwnerContext? = sqlSecurity
     @JsonProperty("name")
     var name: ViewName = name
     @JsonProperty("columns")
-    var columns: MutableList<Identifier> = columns
+    var columns: MutableList<ColumnName> = columns
     @JsonProperty("select")
-    var select: CommonSelectStatement? = select
-    @JsonProperty("options")
-    var options: MutableList<CommonSimpleOption> = options
+    var select: CommonSelectStatement = select
     @JsonProperty("checkOption")
     var checkOption: CheckOptionView? = checkOption
 }
@@ -2691,14 +2797,14 @@ class AlterTableOption (
 @JsonTypeName("AlterAddColumn")
 class AlterAddColumn (
     column: ColumnDeclaration,
-    isFirst: Boolean? = null,
+    isFirst: Boolean,
     afterColumn: ColumnName? = null,
     isColumn: Boolean     
 ): AlterSpecification() {
     @JsonProperty("column")
     var column: ColumnDeclaration = column
     @JsonProperty("isFirst")
-    var isFirst: Boolean? = isFirst
+    var isFirst: Boolean = isFirst
     @JsonProperty("afterColumn")
     var afterColumn: ColumnName? = afterColumn
     @JsonProperty("isColumn")
@@ -2746,7 +2852,7 @@ class AlterChangeColumn (
     isColumn: Boolean,
     previousColumn: ColumnName,
     newColumn: ColumnDeclaration,
-    isFirst: Boolean? = null,
+    isFirst: Boolean,
     afterColumn: ColumnName? = null     
 ): AlterSpecification() {
     @JsonProperty("isColumn")
@@ -2756,7 +2862,7 @@ class AlterChangeColumn (
     @JsonProperty("newColumn")
     var newColumn: ColumnDeclaration = newColumn
     @JsonProperty("isFirst")
-    var isFirst: Boolean? = isFirst
+    var isFirst: Boolean = isFirst
     @JsonProperty("afterColumn")
     var afterColumn: ColumnName? = afterColumn
 }
@@ -2765,17 +2871,17 @@ class AlterChangeColumn (
 class AlterModifyColumn (
     isColumn: Boolean,
     column: ColumnDeclaration,
-    isFirst: Boolean? = null,
-    afterColumn: ColumnName     
+    isFirst: Boolean,
+    afterColumn: ColumnName? = null     
 ): AlterSpecification() {
     @JsonProperty("isColumn")
     var isColumn: Boolean = isColumn
     @JsonProperty("column")
     var column: ColumnDeclaration = column
     @JsonProperty("isFirst")
-    var isFirst: Boolean? = isFirst
+    var isFirst: Boolean = isFirst
     @JsonProperty("afterColumn")
-    var afterColumn: ColumnName = afterColumn
+    var afterColumn: ColumnName? = afterColumn
 }
 
 @JsonTypeName("AlterDropColumn")
@@ -2795,6 +2901,7 @@ class AlterAddKey (
     constraintName: Identifier? = null,
     indexName: IndexName? = null,
     indexType: IndexType? = null,
+    indexFormat: SyntaxFormat? = null,
     indexColumns: MutableList<IndexColumnNameClause>,
     options: MutableList<CommonSimpleOption>,
     reference: ReferenceDeclarationClause? = null     
@@ -2807,6 +2914,8 @@ class AlterAddKey (
     var indexName: IndexName? = indexName
     @JsonProperty("indexType")
     var indexType: IndexType? = indexType
+    @JsonProperty("indexFormat")
+    var indexFormat: SyntaxFormat? = indexFormat
     @JsonProperty("indexColumns")
     var indexColumns: MutableList<IndexColumnNameClause> = indexColumns
     @JsonProperty("options")
@@ -2818,10 +2927,13 @@ class AlterAddKey (
 @JsonTypeName("AlterDropKey")
 class AlterDropKey (
     keyType: KeyType,
+    indexFormat: SyntaxFormat? = null,
     indexName: IndexName? = null     
 ): AlterSpecification() {
     @JsonProperty("keyType")
     var keyType: KeyType = keyType
+    @JsonProperty("indexFormat")
+    var indexFormat: SyntaxFormat? = indexFormat
     @JsonProperty("indexName")
     var indexName: IndexName? = indexName
 }
@@ -2831,7 +2943,7 @@ class AlterSpecPartition (
     action: PartitionAction,
     isAll: Boolean? = null,
     partitions: MutableList<Identifier>,
-    newPartition: PartitionDefinition,
+    newPartition: PartitionDefinition? = null,
     coalesceValue: Int? = null,
     reorgPartitions: MutableList<PartitionDefinition>,
     exchgPartition: Identifier? = null,
@@ -2845,7 +2957,7 @@ class AlterSpecPartition (
     @JsonProperty("partitions")
     var partitions: MutableList<Identifier> = partitions
     @JsonProperty("newPartition")
-    var newPartition: PartitionDefinition = newPartition
+    var newPartition: PartitionDefinition? = newPartition
     @JsonProperty("coalesceValue")
     var coalesceValue: Int? = coalesceValue
     @JsonProperty("reorgPartitions")
@@ -2864,11 +2976,12 @@ class AlterSpecCommon (
     algorithm: IndexAlgorithmOption? = null,
     lock: LockOption? = null,
     newName: Identifier? = null,
-    orders: MutableList<Identifier>,
+    orders: MutableList<ColumnName>,
     charSetName: String? = null,
     collationName: String? = null,
     validationFormat: SyntaxFormat? = null,
-    renameFormat: SyntaxFormat? = null     
+    renameFormat: SyntaxFormat? = null,
+    isDefault: Boolean? = null     
 ): AlterSpecification() {
     @JsonProperty("action")
     var action: AlterAction = action
@@ -2879,7 +2992,7 @@ class AlterSpecCommon (
     @JsonProperty("newName")
     var newName: Identifier? = newName
     @JsonProperty("orders")
-    var orders: MutableList<Identifier> = orders
+    var orders: MutableList<ColumnName> = orders
     @JsonProperty("charSetName")
     var charSetName: String? = charSetName
     @JsonProperty("collationName")
@@ -2888,17 +3001,22 @@ class AlterSpecCommon (
     var validationFormat: SyntaxFormat? = validationFormat
     @JsonProperty("renameFormat")
     var renameFormat: SyntaxFormat? = renameFormat
+    @JsonProperty("isDefault")
+    var isDefault: Boolean? = isDefault
 }
 
 @JsonTypeName("DropDatabaseStatement")
 class DropDatabaseStatement (
     ifExist: Boolean,
-    name: SchemaName     
+    name: SchemaName,
+    dbFormat: SyntaxFormat     
 ): SingleQueryStatement() {
     @JsonProperty("ifExist")
     var ifExist: Boolean = ifExist
     @JsonProperty("name")
     var name: SchemaName = name
+    @JsonProperty("dbFormat")
+    var dbFormat: SyntaxFormat = dbFormat
 }
 
 @JsonTypeName("DropEventStatement")
@@ -2914,14 +3032,14 @@ class DropEventStatement (
 
 @JsonTypeName("DropIndexStatement")
 class DropIndexStatement (
-    creationPlace: IntimeActionType? = null,
+    intimeAction: IntimeActionType? = null,
     index: IndexName,
     table: TableName,
     algorithm: IndexAlgorithmOption? = null,
     lock: LockOption? = null     
 ): SingleQueryStatement() {
-    @JsonProperty("creationPlace")
-    var creationPlace: IntimeActionType? = creationPlace
+    @JsonProperty("intimeAction")
+    var intimeAction: IntimeActionType? = intimeAction
     @JsonProperty("index")
     var index: IndexName = index
     @JsonProperty("table")
@@ -3051,12 +3169,12 @@ class RenameTableClause (
 @JsonTypeName("TruncateStatement")
 class TruncateStatement (
     table: TableName,
-    presentTable: Boolean     
+    isKeywordTable: Boolean     
 ): SingleQueryStatement() {
     @JsonProperty("table")
     var table: TableName = table
-    @JsonProperty("presentTable")
-    var presentTable: Boolean = presentTable
+    @JsonProperty("isKeywordTable")
+    var isKeywordTable: Boolean = isKeywordTable
 }
 
 @JsonTypeName("CallStatement")
@@ -3107,21 +3225,21 @@ class SingleDeleteStatement (
 @JsonTypeName("MultipleDeleteStatement")
 class MultipleDeleteStatement (
     priority: Priority? = null,
-    format: DeletionFormat,
     isIgnore: Boolean,
     isQuick: Boolean,
+    presentUsingSyntax: Boolean,
     tables: MutableList<TableName>,
     references: MutableList<TableReferenceClause>,
     whereClause: WhereClause? = null     
 ): DeleteStatement() {
     @JsonProperty("priority")
     var priority: Priority? = priority
-    @JsonProperty("format")
-    var format: DeletionFormat = format
     @JsonProperty("isIgnore")
     var isIgnore: Boolean = isIgnore
     @JsonProperty("isQuick")
     var isQuick: Boolean = isQuick
+    @JsonProperty("presentUsingSyntax")
+    var presentUsingSyntax: Boolean = presentUsingSyntax
     @JsonProperty("tables")
     var tables: MutableList<TableName> = tables
     @JsonProperty("references")
@@ -3161,7 +3279,7 @@ class HandlerOpenStatement (
 class HandlerReadComparasionStatement (
     table: TableName,
     index: IndexName,
-    operator: ComparisonOperator? = null,
+    operator: ComparisonOperator,
     values: MutableList<Literal>,
     whereClause: WhereClause? = null,
     limit: Int? = null     
@@ -3171,7 +3289,7 @@ class HandlerReadComparasionStatement (
     @JsonProperty("index")
     var index: IndexName = index
     @JsonProperty("operator")
-    var operator: ComparisonOperator? = operator
+    var operator: ComparisonOperator = operator
     @JsonProperty("values")
     var values: MutableList<Literal> = values
     @JsonProperty("whereClause")
@@ -3230,16 +3348,15 @@ open class InsertStatement: SingleQueryStatement() {
 
 }
 
-@JsonTypeName("InsertSetStatement")
-class InsertSetStatement (
+@JsonTypeName("SetInsertStatement")
+class SetInsertStatement (
     priority: Priority? = null,
     isIgnore: Boolean,
     isIntoFormat: Boolean,
     table: TableName,
     partitions: MutableList<Identifier>,
-    columns: MutableList<ColumnName>,
-    expressions: MutableList<Expression>,
-    onDuplicateKey: DuplicateKeyClause? = null     
+    updateColumns: MutableList<UpdateColumnClause>,
+    duplicateKeyUpdates: MutableList<UpdateColumnClause>     
 ): InsertStatement() {
     @JsonProperty("priority")
     var priority: Priority? = priority
@@ -3251,16 +3368,14 @@ class InsertSetStatement (
     var table: TableName = table
     @JsonProperty("partitions")
     var partitions: MutableList<Identifier> = partitions
-    @JsonProperty("columns")
-    var columns: MutableList<ColumnName> = columns
-    @JsonProperty("expressions")
-    var expressions: MutableList<Expression> = expressions
-    @JsonProperty("onDuplicateKey")
-    var onDuplicateKey: DuplicateKeyClause? = onDuplicateKey
+    @JsonProperty("updateColumns")
+    var updateColumns: MutableList<UpdateColumnClause> = updateColumns
+    @JsonProperty("duplicateKeyUpdates")
+    var duplicateKeyUpdates: MutableList<UpdateColumnClause> = duplicateKeyUpdates
 }
 
-@JsonTypeName("InsertQueryStatement")
-class InsertQueryStatement (
+@JsonTypeName("QueryInsertStatement")
+class QueryInsertStatement (
     priority: Priority? = null,
     isIgnore: Boolean,
     isIntoFormat: Boolean,
@@ -3268,7 +3383,7 @@ class InsertQueryStatement (
     partitions: MutableList<Identifier>,
     columns: MutableList<ColumnName>,
     query: CommonSelectStatement,
-    onDuplicateKey: DuplicateKeyClause? = null     
+    duplicateKeyUpdates: MutableList<UpdateColumnClause>     
 ): InsertStatement() {
     @JsonProperty("priority")
     var priority: Priority? = priority
@@ -3284,20 +3399,21 @@ class InsertQueryStatement (
     var columns: MutableList<ColumnName> = columns
     @JsonProperty("query")
     var query: CommonSelectStatement = query
-    @JsonProperty("onDuplicateKey")
-    var onDuplicateKey: DuplicateKeyClause? = onDuplicateKey
+    @JsonProperty("duplicateKeyUpdates")
+    var duplicateKeyUpdates: MutableList<UpdateColumnClause> = duplicateKeyUpdates
 }
 
-@JsonTypeName("InsertRowStatement")
-class InsertRowStatement (
+@JsonTypeName("RowInsertStatement")
+class RowInsertStatement (
     priority: Priority? = null,
     isIgnore: Boolean,
     isIntoFormat: Boolean,
     table: TableName,
     partitions: MutableList<Identifier>,
+    insertValFormat: SyntaxFormat,
     columns: MutableList<ColumnName>,
     rows: MutableList<InsertRowClause>,
-    onDuplicateKey: DuplicateKeyClause? = null     
+    duplicateKeyUpdates: MutableList<UpdateColumnClause>     
 ): InsertStatement() {
     @JsonProperty("priority")
     var priority: Priority? = priority
@@ -3309,31 +3425,47 @@ class InsertRowStatement (
     var table: TableName = table
     @JsonProperty("partitions")
     var partitions: MutableList<Identifier> = partitions
+    @JsonProperty("insertValFormat")
+    var insertValFormat: SyntaxFormat = insertValFormat
     @JsonProperty("columns")
     var columns: MutableList<ColumnName> = columns
     @JsonProperty("rows")
     var rows: MutableList<InsertRowClause> = rows
-    @JsonProperty("onDuplicateKey")
-    var onDuplicateKey: DuplicateKeyClause? = onDuplicateKey
+    @JsonProperty("duplicateKeyUpdates")
+    var duplicateKeyUpdates: MutableList<UpdateColumnClause> = duplicateKeyUpdates
 }
 
 @JsonTypeName("InsertRowClause")
 class InsertRowClause (
-    values: MutableList<Expression>     
+    values: MutableList<InsertRowElement>     
 ): Node() {
     @JsonProperty("values")
-    var values: MutableList<Expression> = values
+    var values: MutableList<InsertRowElement> = values
 }
 
-@JsonTypeName("DuplicateKeyClause")
-class DuplicateKeyClause (
-    columns: MutableList<ColumnName>,
-    values: MutableList<Expression>     
+@JsonTypeName("InsertRowElement")
+class InsertRowElement (
+    value: Expression? = null,
+    isDefault: Boolean     
 ): Node() {
-    @JsonProperty("columns")
-    var columns: MutableList<ColumnName> = columns
-    @JsonProperty("values")
-    var values: MutableList<Expression> = values
+    @JsonProperty("value")
+    var value: Expression? = value
+    @JsonProperty("isDefault")
+    var isDefault: Boolean = isDefault
+}
+
+@JsonTypeName("UpdateColumnClause")
+class UpdateColumnClause (
+    column: ColumnName,
+    value: Expression? = null,
+    isDefault: Boolean     
+): Node() {
+    @JsonProperty("column")
+    var column: ColumnName = column
+    @JsonProperty("value")
+    var value: Expression? = value
+    @JsonProperty("isDefault")
+    var isDefault: Boolean = isDefault
 }
 
 @JsonTypeName("LoadDataStatement")
@@ -3343,13 +3475,9 @@ class LoadDataStatement (
     isLocal: Boolean,
     partitions: MutableList<Identifier>,
     table: TableName,
-    ignoreLines: Int? = null,
-    linesFormat: SyntaxFormat? = null,
     loadedColumns: MutableList<Primitive>,
-    setColumns: MutableList<ColumnName>,
-    setValues: MutableList<Expression>,
-    fieldsFormat: SyntaxFormat? = null,
-    fileUnloadOptions: MutableList<CommonSimpleOption>     
+    duplicateKeyUpdates: MutableList<UpdateColumnClause>,
+    fileUploadOptions: TextFileOptions     
 ): SingleQueryStatement() {
     @JsonProperty("priority")
     var priority: Priority? = priority
@@ -3361,20 +3489,50 @@ class LoadDataStatement (
     var partitions: MutableList<Identifier> = partitions
     @JsonProperty("table")
     var table: TableName = table
-    @JsonProperty("ignoreLines")
-    var ignoreLines: Int? = ignoreLines
-    @JsonProperty("linesFormat")
-    var linesFormat: SyntaxFormat? = linesFormat
     @JsonProperty("loadedColumns")
     var loadedColumns: MutableList<Primitive> = loadedColumns
-    @JsonProperty("setColumns")
-    var setColumns: MutableList<ColumnName> = setColumns
-    @JsonProperty("setValues")
-    var setValues: MutableList<Expression> = setValues
+    @JsonProperty("duplicateKeyUpdates")
+    var duplicateKeyUpdates: MutableList<UpdateColumnClause> = duplicateKeyUpdates
+    @JsonProperty("fileUploadOptions")
+    var fileUploadOptions: TextFileOptions = fileUploadOptions
+}
+
+@JsonTypeName("TextFileOptions")
+class TextFileOptions (
+    fileName: String,
+    charSet: String? = null,
+    tagDefinition: String? = null,
+    fieldsFormat: SyntaxFormat? = null,
+    terminationField: String? = null,
+    enclosingField: String? = null,
+    startingField: String? = null,
+    escapingField: String? = null,
+    linesFormat: SyntaxFormat? = null,
+    terminationLine: String? = null,
+    ignoreLines: Int? = null     
+): Node() {
+    @JsonProperty("fileName")
+    var fileName: String = fileName
+    @JsonProperty("charSet")
+    var charSet: String? = charSet
+    @JsonProperty("tagDefinition")
+    var tagDefinition: String? = tagDefinition
     @JsonProperty("fieldsFormat")
     var fieldsFormat: SyntaxFormat? = fieldsFormat
-    @JsonProperty("fileUnloadOptions")
-    var fileUnloadOptions: MutableList<CommonSimpleOption> = fileUnloadOptions
+    @JsonProperty("terminationField")
+    var terminationField: String? = terminationField
+    @JsonProperty("enclosingField")
+    var enclosingField: String? = enclosingField
+    @JsonProperty("startingField")
+    var startingField: String? = startingField
+    @JsonProperty("escapingField")
+    var escapingField: String? = escapingField
+    @JsonProperty("linesFormat")
+    var linesFormat: SyntaxFormat? = linesFormat
+    @JsonProperty("terminationLine")
+    var terminationLine: String? = terminationLine
+    @JsonProperty("ignoreLines")
+    var ignoreLines: Int? = ignoreLines
 }
 
 @JsonTypeName("LoadXMLStatement")
@@ -3382,15 +3540,10 @@ class LoadXMLStatement (
     priority: Priority? = null,
     keyViolation: InsertViolateBehaviour? = null,
     isLocal: Boolean,
-    fileName: String,
     table: TableName,
-    charSet: String? = null,
-    tagDefinition: String? = null,
-    ignoreLines: Int? = null,
-    linesFormat: SyntaxFormat? = null,
     loadedColumns: MutableList<Primitive>,
-    setColumns: MutableList<ColumnName>,
-    setValues: MutableList<Expression>     
+    duplicateKeyUpdates: MutableList<UpdateColumnClause>,
+    fileUploadOptions: TextFileOptions     
 ): SingleQueryStatement() {
     @JsonProperty("priority")
     var priority: Priority? = priority
@@ -3398,24 +3551,14 @@ class LoadXMLStatement (
     var keyViolation: InsertViolateBehaviour? = keyViolation
     @JsonProperty("isLocal")
     var isLocal: Boolean = isLocal
-    @JsonProperty("fileName")
-    var fileName: String = fileName
     @JsonProperty("table")
     var table: TableName = table
-    @JsonProperty("charSet")
-    var charSet: String? = charSet
-    @JsonProperty("tagDefinition")
-    var tagDefinition: String? = tagDefinition
-    @JsonProperty("ignoreLines")
-    var ignoreLines: Int? = ignoreLines
-    @JsonProperty("linesFormat")
-    var linesFormat: SyntaxFormat? = linesFormat
     @JsonProperty("loadedColumns")
     var loadedColumns: MutableList<Primitive> = loadedColumns
-    @JsonProperty("setColumns")
-    var setColumns: MutableList<ColumnName> = setColumns
-    @JsonProperty("setValues")
-    var setValues: MutableList<Expression> = setValues
+    @JsonProperty("duplicateKeyUpdates")
+    var duplicateKeyUpdates: MutableList<UpdateColumnClause> = duplicateKeyUpdates
+    @JsonProperty("fileUploadOptions")
+    var fileUploadOptions: TextFileOptions = fileUploadOptions
 }
 
 @JsonTypeName("ReplaceStatement")
@@ -3429,8 +3572,7 @@ class SetReplaceStatement (
     isIntoFormat: Boolean,
     table: TableName,
     partitions: MutableList<Identifier>,
-    columns: MutableList<ColumnName>,
-    expressions: MutableList<Expression>     
+    updateColumns: MutableList<UpdateColumnClause>     
 ): ReplaceStatement() {
     @JsonProperty("priority")
     var priority: Priority? = priority
@@ -3440,10 +3582,8 @@ class SetReplaceStatement (
     var table: TableName = table
     @JsonProperty("partitions")
     var partitions: MutableList<Identifier> = partitions
-    @JsonProperty("columns")
-    var columns: MutableList<ColumnName> = columns
-    @JsonProperty("expressions")
-    var expressions: MutableList<Expression> = expressions
+    @JsonProperty("updateColumns")
+    var updateColumns: MutableList<UpdateColumnClause> = updateColumns
 }
 
 @JsonTypeName("QueryReplaceStatement")
@@ -3475,6 +3615,7 @@ class RowReplaceStatement (
     isIntoFormat: Boolean,
     table: TableName,
     partitions: MutableList<Identifier>,
+    insertValFormat: SyntaxFormat,
     columns: MutableList<ColumnName>,
     rows: MutableList<InsertRowClause>     
 ): ReplaceStatement() {
@@ -3486,6 +3627,8 @@ class RowReplaceStatement (
     var table: TableName = table
     @JsonProperty("partitions")
     var partitions: MutableList<Identifier> = partitions
+    @JsonProperty("insertValFormat")
+    var insertValFormat: SyntaxFormat = insertValFormat
     @JsonProperty("columns")
     var columns: MutableList<ColumnName> = columns
     @JsonProperty("rows")
@@ -3547,8 +3690,7 @@ class SingleUpdateStatement (
     table: TableName,
     presentAs: Boolean,
     alias: Identifier? = null,
-    columns: MutableList<ColumnName>,
-    values: MutableList<Expression>,
+    updateColumns: MutableList<UpdateColumnClause>,
     whereClause: WhereClause? = null,
     orders: MutableList<SortItem>,
     limitLines: Int? = null,
@@ -3564,10 +3706,8 @@ class SingleUpdateStatement (
     var presentAs: Boolean = presentAs
     @JsonProperty("alias")
     var alias: Identifier? = alias
-    @JsonProperty("columns")
-    var columns: MutableList<ColumnName> = columns
-    @JsonProperty("values")
-    var values: MutableList<Expression> = values
+    @JsonProperty("updateColumns")
+    var updateColumns: MutableList<UpdateColumnClause> = updateColumns
     @JsonProperty("whereClause")
     var whereClause: WhereClause? = whereClause
     @JsonProperty("orders")
@@ -3582,8 +3722,7 @@ class SingleUpdateStatement (
 class MultipleUpdateStatement (
     priority: Priority? = null,
     isIgnore: Boolean,
-    columns: MutableList<ColumnName>,
-    values: MutableList<Expression>,
+    updateColumns: MutableList<UpdateColumnClause>,
     tables: MutableList<TableReferenceClause>,
     whereClause: WhereClause? = null     
 ): UpdateStatement() {
@@ -3591,10 +3730,8 @@ class MultipleUpdateStatement (
     var priority: Priority? = priority
     @JsonProperty("isIgnore")
     var isIgnore: Boolean = isIgnore
-    @JsonProperty("columns")
-    var columns: MutableList<ColumnName> = columns
-    @JsonProperty("values")
-    var values: MutableList<Expression> = values
+    @JsonProperty("updateColumns")
+    var updateColumns: MutableList<UpdateColumnClause> = updateColumns
     @JsonProperty("tables")
     var tables: MutableList<TableReferenceClause> = tables
     @JsonProperty("whereClause")
@@ -3625,6 +3762,14 @@ class NestedTableClause (
     var tables: MutableList<TableReferenceClause> = tables
 }
 
+@JsonTypeName("NestedSimpleTableClause")
+class NestedSimpleTableClause (
+    table: TableReferenceClause     
+): TableReferenceClause() {
+    @JsonProperty("table")
+    var table: TableReferenceClause = table
+}
+
 @JsonTypeName("JoinClause")
 class JoinClause (
     joinType: JoinType,
@@ -3647,12 +3792,12 @@ class JoinClause (
 
 @JsonTypeName("SubqueryClause")
 class SubqueryClause (
-    select: SubqueryExpression,
+    select: CommonSelectStatement,
     presentAs: Boolean,
     alias: Identifier     
 ): TableReferenceClause() {
     @JsonProperty("select")
-    var select: SubqueryExpression = select
+    var select: CommonSelectStatement = select
     @JsonProperty("presentAs")
     var presentAs: Boolean = presentAs
     @JsonProperty("alias")
@@ -3698,10 +3843,13 @@ class IndexHintList (
 
 @JsonTypeName("NestedSelectStatement")
 class NestedSelectStatement (
-    select: SelectStatement     
+    select: CommonSelectStatement,
+    lockFormat: SyntaxFormat? = null     
 ): CommonSelectStatement() {
     @JsonProperty("select")
-    var select: SelectStatement = select
+    var select: CommonSelectStatement = select
+    @JsonProperty("lockFormat")
+    var lockFormat: SyntaxFormat? = lockFormat
 }
 
 @JsonTypeName("UnionStatement")
@@ -3709,7 +3857,8 @@ class UnionStatement (
     clauses: MutableList<UnionClause>,
     orders: MutableList<SortItem>,
     limitLines: Int? = null,
-    limitOffset: Int? = null     
+    limitOffset: Int? = null,
+    lockFormat: SyntaxFormat? = null     
 ): CommonSelectStatement() {
     @JsonProperty("clauses")
     var clauses: MutableList<UnionClause> = clauses
@@ -3719,6 +3868,8 @@ class UnionStatement (
     var limitLines: Int? = limitLines
     @JsonProperty("limitOffset")
     var limitOffset: Int? = limitOffset
+    @JsonProperty("lockFormat")
+    var lockFormat: SyntaxFormat? = lockFormat
 }
 
 @JsonTypeName("UnionClause")
@@ -3769,13 +3920,10 @@ class ExportDumpFile (
 
 @JsonTypeName("ExportTextFile")
 class ExportTextFile (
-    fileName: String,
-    fileUnloadOptions: MutableList<CommonSimpleOption>     
+    fileUploadOptions: TextFileOptions     
 ): SelectExportClause() {
-    @JsonProperty("fileName")
-    var fileName: String = fileName
-    @JsonProperty("fileUnloadOptions")
-    var fileUnloadOptions: MutableList<CommonSimpleOption> = fileUnloadOptions
+    @JsonProperty("fileUploadOptions")
+    var fileUploadOptions: TextFileOptions = fileUploadOptions
 }
 
 @JsonTypeName("FromClause")
@@ -4016,15 +4164,15 @@ class ResetSlaveStatement (
 class StartSlaveStatement (
     threads: MutableList<ThreadType>,
     channel: String? = null,
-    untilOptions: MutableList<CommonSimpleOption>,
+    untilOption: CommonSimpleOption? = null,
     connectionOptions: MutableList<CommonSimpleOption>     
 ): SingleQueryStatement() {
     @JsonProperty("threads")
     var threads: MutableList<ThreadType> = threads
     @JsonProperty("channel")
     var channel: String? = channel
-    @JsonProperty("untilOptions")
-    var untilOptions: MutableList<CommonSimpleOption> = untilOptions
+    @JsonProperty("untilOption")
+    var untilOption: CommonSimpleOption? = untilOption
     @JsonProperty("connectionOptions")
     var connectionOptions: MutableList<CommonSimpleOption> = connectionOptions
 }
@@ -4113,12 +4261,12 @@ class XAPrepareStatement (
 @JsonTypeName("XACommitStatement")
 class XACommitStatement (
     name: XIDName,
-    phaseFormat: SyntaxFormat? = null     
+    presentPhase: Boolean     
 ): SingleQueryStatement() {
     @JsonProperty("name")
     var name: XIDName = name
-    @JsonProperty("phaseFormat")
-    var phaseFormat: SyntaxFormat? = phaseFormat
+    @JsonProperty("presentPhase")
+    var presentPhase: Boolean = presentPhase
 }
 
 @JsonTypeName("XARollbackStatement")
@@ -4193,31 +4341,31 @@ class BlockQueryStatement (
 class CaseStatement (
     test: Expression? = null,
     alternatives: MutableList<ConditionChoiceOption>,
-    elseAlternatives: MutableList<Statement>     
+    elseAlternatives: MutableList<CommonStatement>     
 ): RoutineStatement() {
     @JsonProperty("test")
     var test: Expression? = test
     @JsonProperty("alternatives")
     var alternatives: MutableList<ConditionChoiceOption> = alternatives
     @JsonProperty("elseAlternatives")
-    var elseAlternatives: MutableList<Statement> = elseAlternatives
+    var elseAlternatives: MutableList<CommonStatement> = elseAlternatives
 }
 
 @JsonTypeName("IfStatement")
 class IfStatement (
     test: Expression,
-    statements: MutableList<Statement>,
+    statements: MutableList<CommonStatement>,
     alternatives: MutableList<ConditionChoiceOption>,
-    elseAlternatives: MutableList<Statement>     
+    elseAlternatives: MutableList<CommonStatement>     
 ): RoutineStatement() {
     @JsonProperty("test")
     var test: Expression = test
     @JsonProperty("statements")
-    var statements: MutableList<Statement> = statements
+    var statements: MutableList<CommonStatement> = statements
     @JsonProperty("alternatives")
     var alternatives: MutableList<ConditionChoiceOption> = alternatives
     @JsonProperty("elseAlternatives")
-    var elseAlternatives: MutableList<Statement> = elseAlternatives
+    var elseAlternatives: MutableList<CommonStatement> = elseAlternatives
 }
 
 @JsonTypeName("IterateStatement")
@@ -4238,27 +4386,27 @@ class LeaveStatement (
 
 @JsonTypeName("LoopStatement")
 class LoopStatement (
-    label: Identifier,
-    statements: MutableList<Statement>     
+    label: Identifier? = null,
+    statements: MutableList<CommonStatement>     
 ): RoutineStatement() {
     @JsonProperty("label")
-    var label: Identifier = label
+    var label: Identifier? = label
     @JsonProperty("statements")
-    var statements: MutableList<Statement> = statements
+    var statements: MutableList<CommonStatement> = statements
 }
 
 @JsonTypeName("RepeatStatement")
 class RepeatStatement (
     test: Expression,
-    label: Identifier,
-    statements: MutableList<Statement>     
+    label: Identifier? = null,
+    statements: MutableList<CommonStatement>     
 ): RoutineStatement() {
     @JsonProperty("test")
     var test: Expression = test
     @JsonProperty("label")
-    var label: Identifier = label
+    var label: Identifier? = label
     @JsonProperty("statements")
-    var statements: MutableList<Statement> = statements
+    var statements: MutableList<CommonStatement> = statements
 }
 
 @JsonTypeName("ReturnStatement")
@@ -4272,15 +4420,15 @@ class ReturnStatement (
 @JsonTypeName("WhileStatement")
 class WhileStatement (
     test: Expression,
-    label: Identifier,
-    statements: MutableList<Statement>     
+    label: Identifier? = null,
+    statements: MutableList<CommonStatement>     
 ): RoutineStatement() {
     @JsonProperty("test")
     var test: Expression = test
     @JsonProperty("label")
-    var label: Identifier = label
+    var label: Identifier? = label
     @JsonProperty("statements")
-    var statements: MutableList<Statement> = statements
+    var statements: MutableList<CommonStatement> = statements
 }
 
 @JsonTypeName("OpenCursorStatement")
@@ -4403,10 +4551,10 @@ class HandlerConditionSQLState (
 
 @JsonTypeName("HandlerConditionName")
 class HandlerConditionName (
-    value: String     
+    name: Identifier     
 ): HandlerCondition() {
-    @JsonProperty("value")
-    var value: String = value
+    @JsonProperty("name")
+    var name: Identifier = name
 }
 
 @JsonTypeName("HandlerConditionWarning")
@@ -4427,69 +4575,68 @@ class HandlerConditionException: HandlerCondition() {
 @JsonTypeName("ConditionChoiceOption")
 class ConditionChoiceOption (
     test: Expression,
-    statements: MutableList<Statement>     
+    statements: MutableList<CommonStatement>     
 ): Node() {
     @JsonProperty("test")
     var test: Expression = test
     @JsonProperty("statements")
-    var statements: MutableList<Statement> = statements
+    var statements: MutableList<CommonStatement> = statements
 }
 
 @JsonTypeName("AlterUserShortStatement")
 class AlterUserShortStatement (
-    users: MutableList<UserName>,
-    passwordOptions: MutableList<PasswordExpirationClause>     
+    userDefs: MutableList<UserClauseV56>     
 ): SingleQueryStatement() {
-    @JsonProperty("users")
-    var users: MutableList<UserName> = users
-    @JsonProperty("passwordOptions")
-    var passwordOptions: MutableList<PasswordExpirationClause> = passwordOptions
+    @JsonProperty("userDefs")
+    var userDefs: MutableList<UserClauseV56> = userDefs
 }
 
 @JsonTypeName("AlterUserFullStatement")
 class AlterUserFullStatement (
     ifExists: Boolean,
-    userAuthOptions: MutableList<UserClause>,
-    tlsOptions: MutableList<TLSOptionClause>,
+    usersDefs: MutableList<UserClause>,
+    tlsOptions: TLSOptionClause? = null,
     resourseOptions: MutableList<CommonSimpleOption>,
-    passwordOptions: MutableList<PasswordExpirationClause>,
-    isLock: Boolean? = null     
+    passwordLockOptions: MutableList<PasswordLockOption>     
 ): SingleQueryStatement() {
     @JsonProperty("ifExists")
     var ifExists: Boolean = ifExists
-    @JsonProperty("userAuthOptions")
-    var userAuthOptions: MutableList<UserClause> = userAuthOptions
+    @JsonProperty("usersDefs")
+    var usersDefs: MutableList<UserClause> = usersDefs
     @JsonProperty("tlsOptions")
-    var tlsOptions: MutableList<TLSOptionClause> = tlsOptions
+    var tlsOptions: TLSOptionClause? = tlsOptions
     @JsonProperty("resourseOptions")
     var resourseOptions: MutableList<CommonSimpleOption> = resourseOptions
-    @JsonProperty("passwordOptions")
-    var passwordOptions: MutableList<PasswordExpirationClause> = passwordOptions
-    @JsonProperty("isLock")
-    var isLock: Boolean? = isLock
+    @JsonProperty("passwordLockOptions")
+    var passwordLockOptions: MutableList<PasswordLockOption> = passwordLockOptions
 }
 
-@JsonTypeName("CreateUserStatement")
-class CreateUserStatement (
+@JsonTypeName("CreateUserShortStatement")
+class CreateUserShortStatement (
+    usersDefs: MutableList<UserClause>     
+): SingleQueryStatement() {
+    @JsonProperty("usersDefs")
+    var usersDefs: MutableList<UserClause> = usersDefs
+}
+
+@JsonTypeName("CreateUserFullStatement")
+class CreateUserFullStatement (
     ifExists: Boolean,
-    userAuthOptions: MutableList<UserClause>,
-    tlsOptions: MutableList<TLSOptionClause>,
+    usersDefs: MutableList<UserClause>,
+    tlsOptions: TLSOptionClause? = null,
     resourseOptions: MutableList<CommonSimpleOption>,
-    passwordOptions: MutableList<PasswordExpirationClause>,
-    isLock: Boolean? = null     
+    passwordLockOptions: MutableList<PasswordLockOption>     
 ): SingleQueryStatement() {
     @JsonProperty("ifExists")
     var ifExists: Boolean = ifExists
-    @JsonProperty("userAuthOptions")
-    var userAuthOptions: MutableList<UserClause> = userAuthOptions
+    @JsonProperty("usersDefs")
+    var usersDefs: MutableList<UserClause> = usersDefs
     @JsonProperty("tlsOptions")
-    var tlsOptions: MutableList<TLSOptionClause> = tlsOptions
+    var tlsOptions: TLSOptionClause? = tlsOptions
     @JsonProperty("resourseOptions")
     var resourseOptions: MutableList<CommonSimpleOption> = resourseOptions
-    @JsonProperty("passwordOptions")
-    var passwordOptions: MutableList<PasswordExpirationClause> = passwordOptions
-    @JsonProperty("isLock")
-    var isLock: Boolean? = isLock
+    @JsonProperty("passwordLockOptions")
+    var passwordLockOptions: MutableList<PasswordLockOption> = passwordLockOptions
 }
 
 @JsonTypeName("DropUserStatement")
@@ -4506,9 +4653,9 @@ class DropUserStatement (
 @JsonTypeName("GrantStatement")
 class GrantStatement (
     privileges: MutableList<PrivilegeClause>,
-    objectType: PrivilegeObjectType,
-    userAuthOptions: MutableList<UserClause>,
-    tlsOptions: MutableList<TLSOptionClause>,
+    objectType: PrivilegeObjectType? = null,
+    usersDefs: MutableList<UserClause>,
+    tlsOptions: TLSOptionClause? = null,
     resourseOptions: MutableList<CommonSimpleOption>,
     isGrantOption: Boolean,
     level: PrivilegeLevelClause     
@@ -4516,11 +4663,11 @@ class GrantStatement (
     @JsonProperty("privileges")
     var privileges: MutableList<PrivilegeClause> = privileges
     @JsonProperty("objectType")
-    var objectType: PrivilegeObjectType = objectType
-    @JsonProperty("userAuthOptions")
-    var userAuthOptions: MutableList<UserClause> = userAuthOptions
+    var objectType: PrivilegeObjectType? = objectType
+    @JsonProperty("usersDefs")
+    var usersDefs: MutableList<UserClause> = usersDefs
     @JsonProperty("tlsOptions")
-    var tlsOptions: MutableList<TLSOptionClause> = tlsOptions
+    var tlsOptions: TLSOptionClause? = tlsOptions
     @JsonProperty("resourseOptions")
     var resourseOptions: MutableList<CommonSimpleOption> = resourseOptions
     @JsonProperty("isGrantOption")
@@ -4545,10 +4692,10 @@ class GrantProxyStatement (
 
 @JsonTypeName("RenameUserStatement")
 class RenameUserStatement (
-    clauses: MutableList<RenameUserClause>     
+    values: MutableList<RenameUserClause>     
 ): SingleQueryStatement() {
-    @JsonProperty("clauses")
-    var clauses: MutableList<RenameUserClause> = clauses
+    @JsonProperty("values")
+    var values: MutableList<RenameUserClause> = values
 }
 
 @JsonTypeName("RenameUserClause")
@@ -4565,14 +4712,14 @@ class RenameUserClause (
 @JsonTypeName("RevokeStatement")
 class RevokeStatement (
     privileges: MutableList<PrivilegeClause>,
-    objectType: PrivilegeObjectType,
+    objectType: PrivilegeObjectType? = null,
     level: PrivilegeLevelClause,
     users: MutableList<UserName>     
 ): SingleQueryStatement() {
     @JsonProperty("privileges")
     var privileges: MutableList<PrivilegeClause> = privileges
     @JsonProperty("objectType")
-    var objectType: PrivilegeObjectType = objectType
+    var objectType: PrivilegeObjectType? = objectType
     @JsonProperty("level")
     var level: PrivilegeLevelClause = level
     @JsonProperty("users")
@@ -4615,39 +4762,58 @@ class SetPasswordStatement (
     var expression: PasswordFunctionCall? = expression
 }
 
+@JsonTypeName("UserClauseV56")
+class UserClauseV56 (
+    user: UserName,
+    passwordExpire: PasswordExpirationClause     
+): Node() {
+    @JsonProperty("user")
+    var user: UserName = user
+    @JsonProperty("passwordExpire")
+    var passwordExpire: PasswordExpirationClause = passwordExpire
+}
+
 @JsonTypeName("PasswordExpirationClause")
 class PasswordExpirationClause (
     expireType: PasswordExpirationType? = null,
-    expireValue: Int     
+    expireDays: Int? = null     
 ): Node() {
     @JsonProperty("expireType")
     var expireType: PasswordExpirationType? = expireType
-    @JsonProperty("expireValue")
-    var expireValue: Int = expireValue
+    @JsonProperty("expireDays")
+    var expireDays: Int? = expireDays
 }
 
 @JsonTypeName("UserClause")
 class UserClause (
     user: UserName,
-    passwordFormat: SyntaxFormat,
-    hashText: String? = null,
-    plainText: String? = null,
+    passwordClauseType: PasswordClauseType,
+    authText: String? = null,
     authPlugin: AuthPlugin? = null     
 ): Node() {
     @JsonProperty("user")
     var user: UserName = user
-    @JsonProperty("passwordFormat")
-    var passwordFormat: SyntaxFormat = passwordFormat
-    @JsonProperty("hashText")
-    var hashText: String? = hashText
-    @JsonProperty("plainText")
-    var plainText: String? = plainText
+    @JsonProperty("passwordClauseType")
+    var passwordClauseType: PasswordClauseType = passwordClauseType
+    @JsonProperty("authText")
+    var authText: String? = authText
     @JsonProperty("authPlugin")
     var authPlugin: AuthPlugin? = authPlugin
 }
 
 @JsonTypeName("TLSOptionClause")
 class TLSOptionClause (
+    nonePresent: Boolean,
+    values: MutableList<TLSOptionValue>     
+): Node() {
+    @JsonProperty("nonePresent")
+    var nonePresent: Boolean = nonePresent
+    @JsonProperty("values")
+    var values: MutableList<TLSOptionValue> = values
+}
+
+@JsonTypeName("TLSOptionValue")
+class TLSOptionValue (
     option: TLSOptionName,
     value: String? = null     
 ): Node() {
@@ -4655,6 +4821,17 @@ class TLSOptionClause (
     var option: TLSOptionName = option
     @JsonProperty("value")
     var value: String? = value
+}
+
+@JsonTypeName("PasswordLockOption")
+class PasswordLockOption (
+    expireOption: PasswordExpirationClause? = null,
+    lockOption: UserLockOption? = null     
+): Node() {
+    @JsonProperty("expireOption")
+    var expireOption: PasswordExpirationClause? = expireOption
+    @JsonProperty("lockOption")
+    var lockOption: UserLockOption? = lockOption
 }
 
 @JsonTypeName("PrivilegeClause")
@@ -4671,16 +4848,19 @@ class PrivilegeClause (
 @JsonTypeName("PrivilegeLevelClause")
 class PrivilegeLevelClause (
     level: PrivilegeLevel,
-    schema: SchemaName? = null,
-    table: TableName? = null,
+    db: DbName? = null,
+    schema: Node? = null,
+    table: Node? = null,
     routine: FullName? = null     
 ): Node() {
     @JsonProperty("level")
     var level: PrivilegeLevel = level
+    @JsonProperty("db")
+    var db: DbName? = db
     @JsonProperty("schema")
-    var schema: SchemaName? = schema
+    var schema: Node? = schema
     @JsonProperty("table")
-    var table: TableName? = table
+    var table: Node? = table
     @JsonProperty("routine")
     var routine: FullName? = routine
 }
@@ -4688,12 +4868,12 @@ class PrivilegeLevelClause (
 @JsonTypeName("AnalyzeTableStatement")
 class AnalyzeTableStatement (
     tables: MutableList<TableName>,
-    actionOption: SyntaxFormat     
+    actionOption: SyntaxFormat? = null     
 ): SingleQueryStatement() {
     @JsonProperty("tables")
     var tables: MutableList<TableName> = tables
     @JsonProperty("actionOption")
-    var actionOption: SyntaxFormat = actionOption
+    var actionOption: SyntaxFormat? = actionOption
 }
 
 @JsonTypeName("CheckTableStatement")
@@ -4733,35 +4913,35 @@ class OptimizeTableStatement (
 class RepairTableStatement (
     tables: MutableList<TableName>,
     actionOption: SyntaxFormat? = null,
-    isQuick: Boolean,
-    isExtended: Boolean,
-    isUseFrm: Boolean     
+    presentQuick: Boolean,
+    presentExtended: Boolean,
+    presentUseFrm: Boolean     
 ): SingleQueryStatement() {
     @JsonProperty("tables")
     var tables: MutableList<TableName> = tables
     @JsonProperty("actionOption")
     var actionOption: SyntaxFormat? = actionOption
-    @JsonProperty("isQuick")
-    var isQuick: Boolean = isQuick
-    @JsonProperty("isExtended")
-    var isExtended: Boolean = isExtended
-    @JsonProperty("isUseFrm")
-    var isUseFrm: Boolean = isUseFrm
+    @JsonProperty("presentQuick")
+    var presentQuick: Boolean = presentQuick
+    @JsonProperty("presentExtended")
+    var presentExtended: Boolean = presentExtended
+    @JsonProperty("presentUseFrm")
+    var presentUseFrm: Boolean = presentUseFrm
 }
 
 @JsonTypeName("CreateUDFunctionStatement")
 class CreateUDFunctionStatement (
     presentAggregate: Boolean,
     id: Identifier,
-    return_: ReturnDataType,
+    returnType: ReturnDataType,
     name: String     
 ): SingleQueryStatement() {
     @JsonProperty("presentAggregate")
     var presentAggregate: Boolean = presentAggregate
     @JsonProperty("id")
     var id: Identifier = id
-    @JsonProperty("return")
-    var return_: ReturnDataType = return_
+    @JsonProperty("returnType")
+    var returnType: ReturnDataType = returnType
     @JsonProperty("name")
     var name: String = name
 }
@@ -4907,16 +5087,16 @@ class ShowColumnsStatement (
 
 @JsonTypeName("ShowCreateSchemaStatement")
 class ShowCreateSchemaStatement (
-    schemaFormat: SyntaxFormat? = null,
+    schemaFormat: SyntaxFormat,
     ifNotExists: Boolean,
-    schema: SchemaName? = null     
+    schema: SchemaName     
 ): ShowStatement() {
     @JsonProperty("schemaFormat")
-    var schemaFormat: SyntaxFormat? = schemaFormat
+    var schemaFormat: SyntaxFormat = schemaFormat
     @JsonProperty("ifNotExists")
     var ifNotExists: Boolean = ifNotExists
     @JsonProperty("schema")
-    var schema: SchemaName? = schema
+    var schema: SchemaName = schema
 }
 
 @JsonTypeName("ShowCreateNamedEntityStatement")
@@ -4949,8 +5129,8 @@ class ShowEngineStatement (
     var engineFormat: SyntaxFormat = engineFormat
 }
 
-@JsonTypeName("ShowInfoStatement")
-class ShowInfoStatement (
+@JsonTypeName("ShowObjectInfoStatement")
+class ShowObjectInfoStatement (
     entity: CommonEntity     
 ): ShowStatement() {
     @JsonProperty("entity")
@@ -4959,12 +5139,12 @@ class ShowInfoStatement (
 
 @JsonTypeName("ShowErrorsStatement")
 class ShowErrorsStatement (
-    errorFormat: SyntaxFormat,
+    entity: CommonEntity,
     limitOffset: Int? = null,
     limitCount: Int? = null     
 ): ShowStatement() {
-    @JsonProperty("errorFormat")
-    var errorFormat: SyntaxFormat = errorFormat
+    @JsonProperty("entity")
+    var entity: CommonEntity = entity
     @JsonProperty("limitOffset")
     var limitOffset: Int? = limitOffset
     @JsonProperty("limitCount")
@@ -4973,10 +5153,10 @@ class ShowErrorsStatement (
 
 @JsonTypeName("ShowCountErrorsStatement")
 class ShowCountErrorsStatement (
-    errorFormat: SyntaxFormat     
+    entity: CommonEntity     
 ): ShowStatement() {
-    @JsonProperty("errorFormat")
-    var errorFormat: SyntaxFormat = errorFormat
+    @JsonProperty("entity")
+    var entity: CommonEntity = entity
 }
 
 @JsonTypeName("ShowRoutineCodeStatement")
@@ -5062,13 +5242,13 @@ class ShowSlaveStatement (
 
 @JsonTypeName("ShowFilterClause")
 class ShowFilterClause (
-    expression: Expression? = null,
-    pattern: StringLiteral? = null     
+    whereExpression: Expression? = null,
+    likePattern: StringLiteral? = null     
 ): Node() {
-    @JsonProperty("expression")
-    var expression: Expression? = expression
-    @JsonProperty("pattern")
-    var pattern: StringLiteral? = pattern
+    @JsonProperty("whereExpression")
+    var whereExpression: Expression? = whereExpression
+    @JsonProperty("likePattern")
+    var likePattern: StringLiteral? = likePattern
 }
 
 @JsonTypeName("BinlogStatement")
@@ -5099,12 +5279,12 @@ class CacheIndexStatement (
 @JsonTypeName("FlushStatement")
 class FlushStatement (
     flushFormat: SyntaxFormat? = null,
-    options: MutableList<FlushOption>     
+    options: MutableList<FlushOptionClause>     
 ): SingleQueryStatement() {
     @JsonProperty("flushFormat")
     var flushFormat: SyntaxFormat? = flushFormat
     @JsonProperty("options")
-    var options: MutableList<FlushOption> = options
+    var options: MutableList<FlushOptionClause> = options
 }
 
 @JsonTypeName("KillStatement")
@@ -5142,8 +5322,8 @@ class TableIndexClause (
     indexFormat: SyntaxFormat? = null,
     indexes: MutableList<Identifier>,
     partitions: MutableList<Identifier>,
-    isAllPartitiions: Boolean? = null,
-    isIgnoreLeaves: Boolean? = null     
+    isAllPartitions: Boolean? = null,
+    presentIgnoreLeaves: Boolean? = null     
 ): Node() {
     @JsonProperty("table")
     var table: TableName = table
@@ -5153,10 +5333,10 @@ class TableIndexClause (
     var indexes: MutableList<Identifier> = indexes
     @JsonProperty("partitions")
     var partitions: MutableList<Identifier> = partitions
-    @JsonProperty("isAllPartitiions")
-    var isAllPartitiions: Boolean? = isAllPartitiions
-    @JsonProperty("isIgnoreLeaves")
-    var isIgnoreLeaves: Boolean? = isIgnoreLeaves
+    @JsonProperty("isAllPartitions")
+    var isAllPartitions: Boolean? = isAllPartitions
+    @JsonProperty("presentIgnoreLeaves")
+    var presentIgnoreLeaves: Boolean? = presentIgnoreLeaves
 }
 
 @JsonTypeName("FlushOptionClause")
@@ -5174,18 +5354,21 @@ class SimpleFlushOptionClause (
 
 @JsonTypeName("ChannelFlushOptionClause")
 class ChannelFlushOptionClause (
-    channel: String     
+    channel: String? = null     
 ): FlushOptionClause() {
     @JsonProperty("channel")
-    var channel: String = channel
+    var channel: String? = channel
 }
 
 @JsonTypeName("TablesFlushOptionClause")
 class TablesFlushOptionClause (
-    tables: MutableList<TableName>     
+    tables: MutableList<TableName>,
+    option: SyntaxFormat? = null     
 ): FlushOptionClause() {
     @JsonProperty("tables")
     var tables: MutableList<TableName> = tables
+    @JsonProperty("option")
+    var option: SyntaxFormat? = option
 }
 
 @JsonTypeName("TableDescription")
@@ -5350,16 +5533,27 @@ class CharSet (
 
 @JsonTypeName("XIDName")
 class XIDName (
-    gtrid: String,
+    gtrid: GTUid,
     bqual: String? = null,
     formatId: Int? = null     
 ): Node() {
     @JsonProperty("gtrid")
-    var gtrid: String = gtrid
+    var gtrid: GTUid = gtrid
     @JsonProperty("bqual")
     var bqual: String? = bqual
     @JsonProperty("formatId")
     var formatId: Int? = formatId
+}
+
+@JsonTypeName("GTUid")
+class GTUid (
+    uidValueType: GTUidType,
+    value: String     
+): Node() {
+    @JsonProperty("uidValueType")
+    var uidValueType: GTUidType = uidValueType
+    @JsonProperty("value")
+    var value: String = value
 }
 
 @JsonTypeName("AuthPlugin")
@@ -5674,16 +5868,16 @@ class CollectionCharDataTypeClause (
 @JsonTypeName("ConvertedDataType")
 class ConvertedDataType (
     dataType: ConvertedDataTypeValue,
-    firstDim: Int? = null,
-    secondDim: Int? = null,
+    length: Int? = null,
+    secondLength: Int? = null,
     charSet: CharSet? = null     
 ): Node() {
     @JsonProperty("dataType")
     var dataType: ConvertedDataTypeValue = dataType
-    @JsonProperty("firstDim")
-    var firstDim: Int? = firstDim
-    @JsonProperty("secondDim")
-    var secondDim: Int? = secondDim
+    @JsonProperty("length")
+    var length: Int? = length
+    @JsonProperty("secondLength")
+    var secondLength: Int? = secondLength
     @JsonProperty("charSet")
     var charSet: CharSet? = charSet
 }
@@ -5696,12 +5890,12 @@ open class FunctionCall: Primitive() {
 @JsonTypeName("UDFunctionCall")
 class UDFunctionCall (
     name: UDFunctionName,
-    arguments: MutableList<Expression>? = null     
+    arguments: MutableList<Expression>     
 ): FunctionCall() {
     @JsonProperty("name")
     var name: UDFunctionName = name
     @JsonProperty("arguments")
-    var arguments: MutableList<Expression>? = arguments
+    var arguments: MutableList<Expression> = arguments
 }
 
 @JsonTypeName("SimpleFunctionCall")
@@ -5937,6 +6131,23 @@ class IsExpression (
     var match: LogicalMatch = match
 }
 
+@JsonTypeName("InPredicate")
+class InPredicate (
+    notArgument: Boolean,
+    comparableValue: Predicate,
+    subquery: CommonSelectStatement? = null,
+    comparedValues: MutableList<Expression>     
+): Predicate() {
+    @JsonProperty("notArgument")
+    var notArgument: Boolean = notArgument
+    @JsonProperty("comparableValue")
+    var comparableValue: Predicate = comparableValue
+    @JsonProperty("subquery")
+    var subquery: CommonSelectStatement? = subquery
+    @JsonProperty("comparedValues")
+    var comparedValues: MutableList<Expression> = comparedValues
+}
+
 @JsonTypeName("IsNullPredicate")
 class IsNullPredicate (
     notArgument: Boolean,
@@ -5967,7 +6178,7 @@ class ComparisonSetPredicate (
     operator: ComparisonOperator,
     quantifier: QuantifierType,
     value: Predicate,
-    subquery: SubqueryExpression     
+    subquery: CommonSelectStatement     
 ): Predicate() {
     @JsonProperty("operator")
     var operator: ComparisonOperator = operator
@@ -5976,27 +6187,7 @@ class ComparisonSetPredicate (
     @JsonProperty("value")
     var value: Predicate = value
     @JsonProperty("subquery")
-    var subquery: SubqueryExpression = subquery
-}
-
-@JsonTypeName("InPredicate")
-class InPredicate (
-    isSubquery: Boolean,
-    notArgument: Boolean,
-    subquery: SubqueryExpression? = null,
-    comparableValue: Predicate,
-    comparedValues: MutableList<Expression>     
-): Predicate() {
-    @JsonProperty("isSubquery")
-    var isSubquery: Boolean = isSubquery
-    @JsonProperty("notArgument")
-    var notArgument: Boolean = notArgument
-    @JsonProperty("subquery")
-    var subquery: SubqueryExpression? = subquery
-    @JsonProperty("comparableValue")
-    var comparableValue: Predicate = comparableValue
-    @JsonProperty("comparedValues")
-    var comparedValues: MutableList<Expression> = comparedValues
+    var subquery: CommonSelectStatement = subquery
 }
 
 @JsonTypeName("BetweenPredicate")
@@ -6061,20 +6252,12 @@ class BinaryExpression (
     var right: Primitive = right
 }
 
-@JsonTypeName("ParenthesisExpression")
-class ParenthesisExpression (
-    value: Expression     
-): Primitive() {
-    @JsonProperty("value")
-    var value: Expression = value
-}
-
 @JsonTypeName("ExistsExpression")
 class ExistsExpression (
-    subquery: SubqueryExpression     
+    subquery: CommonSelectStatement     
 ): Primitive() {
     @JsonProperty("subquery")
-    var subquery: SubqueryExpression = subquery
+    var subquery: CommonSelectStatement = subquery
 }
 
 @JsonTypeName("SubqueryExpression")
@@ -6096,21 +6279,13 @@ class IntervalExpression (
     var value: Expression = value
 }
 
-@JsonTypeName("KeywordPrimitive")
-class KeywordPrimitive (
-    keyword: KeywordLiteral     
-): Primitive() {
-    @JsonProperty("keyword")
-    var keyword: KeywordLiteral = keyword
-}
-
 @JsonTypeName("RowPrimitive")
 class RowPrimitive (
-    isTuple: Boolean,
+    presentRow: Boolean,
     values: MutableList<Expression>     
 ): Primitive() {
-    @JsonProperty("isTuple")
-    var isTuple: Boolean = isTuple
+    @JsonProperty("presentRow")
+    var presentRow: Boolean = presentRow
     @JsonProperty("values")
     var values: MutableList<Expression> = values
 }
@@ -6127,6 +6302,14 @@ class StringPrimitive (
     var value: Primitive = value
     @JsonProperty("collationName")
     var collationName: String? = collationName
+}
+
+@JsonTypeName("KeywordPrimitive")
+class KeywordPrimitive (
+    keyword: KeywordLiteral     
+): Primitive() {
+    @JsonProperty("keyword")
+    var keyword: KeywordLiteral = keyword
 }
 
 @JsonTypeName("CommonSimpleOption")
@@ -6151,13 +6334,13 @@ class StringSimpleOption (
 @JsonTypeName("ListStringSimpleOption")
 class ListStringSimpleOption (
     name: String,
-    value: MutableList<String>,
+    values: MutableList<String>,
     format: SyntaxFormat? = null     
 ): CommonSimpleOption() {
     @JsonProperty("name")
     var name: String = name
-    @JsonProperty("value")
-    var value: MutableList<String> = value
+    @JsonProperty("values")
+    var values: MutableList<String> = values
     @JsonProperty("format")
     var format: SyntaxFormat? = format
 }
@@ -6204,16 +6387,16 @@ class NodeSimpleOption (
     var format: SyntaxFormat? = format
 }
 
-@JsonTypeName("ListSimpleOption")
-class ListSimpleOption (
-    name: String,
-    value: MutableList<Node>,
+@JsonTypeName("ListNodeSimpleOption")
+class ListNodeSimpleOption (
+    name: String? = null,
+    values: MutableList<Node>,
     format: SyntaxFormat? = null     
 ): CommonSimpleOption() {
     @JsonProperty("name")
-    var name: String = name
-    @JsonProperty("value")
-    var value: MutableList<Node> = value
+    var name: String? = name
+    @JsonProperty("values")
+    var values: MutableList<Node> = values
     @JsonProperty("format")
     var format: SyntaxFormat? = format
 }

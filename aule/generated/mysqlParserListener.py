@@ -917,12 +917,21 @@ class mysqlParserListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by mysqlParser#partitionList.
-    def enterPartitionList(self, ctx:mysqlParser.PartitionListContext):
+    # Enter a parse tree produced by mysqlParser#partitionListAtom.
+    def enterPartitionListAtom(self, ctx:mysqlParser.PartitionListAtomContext):
         pass
 
-    # Exit a parse tree produced by mysqlParser#partitionList.
-    def exitPartitionList(self, ctx:mysqlParser.PartitionListContext):
+    # Exit a parse tree produced by mysqlParser#partitionListAtom.
+    def exitPartitionListAtom(self, ctx:mysqlParser.PartitionListAtomContext):
+        pass
+
+
+    # Enter a parse tree produced by mysqlParser#partitionListVector.
+    def enterPartitionListVector(self, ctx:mysqlParser.PartitionListVectorContext):
+        pass
+
+    # Exit a parse tree produced by mysqlParser#partitionListVector.
+    def exitPartitionListVector(self, ctx:mysqlParser.PartitionListVectorContext):
         pass
 
 
@@ -932,6 +941,24 @@ class mysqlParserListener(ParseTreeListener):
 
     # Exit a parse tree produced by mysqlParser#partitionSimple.
     def exitPartitionSimple(self, ctx:mysqlParser.PartitionSimpleContext):
+        pass
+
+
+    # Enter a parse tree produced by mysqlParser#partitionDefinerAtom.
+    def enterPartitionDefinerAtom(self, ctx:mysqlParser.PartitionDefinerAtomContext):
+        pass
+
+    # Exit a parse tree produced by mysqlParser#partitionDefinerAtom.
+    def exitPartitionDefinerAtom(self, ctx:mysqlParser.PartitionDefinerAtomContext):
+        pass
+
+
+    # Enter a parse tree produced by mysqlParser#partitionDefinerVector.
+    def enterPartitionDefinerVector(self, ctx:mysqlParser.PartitionDefinerVectorContext):
+        pass
+
+    # Exit a parse tree produced by mysqlParser#partitionDefinerVector.
+    def exitPartitionDefinerVector(self, ctx:mysqlParser.PartitionDefinerVectorContext):
         pass
 
 
@@ -1115,12 +1142,12 @@ class mysqlParserListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by mysqlParser#alterTableOption.
-    def enterAlterTableOption(self, ctx:mysqlParser.AlterTableOptionContext):
+    # Enter a parse tree produced by mysqlParser#alterByTableOption.
+    def enterAlterByTableOption(self, ctx:mysqlParser.AlterByTableOptionContext):
         pass
 
-    # Exit a parse tree produced by mysqlParser#alterTableOption.
-    def exitAlterTableOption(self, ctx:mysqlParser.AlterTableOptionContext):
+    # Exit a parse tree produced by mysqlParser#alterByTableOption.
+    def exitAlterByTableOption(self, ctx:mysqlParser.AlterByTableOptionContext):
         pass
 
 
@@ -1187,12 +1214,12 @@ class mysqlParserListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by mysqlParser#alterTableAlgorighm.
-    def enterAlterTableAlgorighm(self, ctx:mysqlParser.AlterTableAlgorighmContext):
+    # Enter a parse tree produced by mysqlParser#alterBySetAlgorithm.
+    def enterAlterBySetAlgorithm(self, ctx:mysqlParser.AlterBySetAlgorithmContext):
         pass
 
-    # Exit a parse tree produced by mysqlParser#alterTableAlgorighm.
-    def exitAlterTableAlgorighm(self, ctx:mysqlParser.AlterTableAlgorighmContext):
+    # Exit a parse tree produced by mysqlParser#alterBySetAlgorithm.
+    def exitAlterBySetAlgorithm(self, ctx:mysqlParser.AlterBySetAlgorithmContext):
         pass
 
 
@@ -1313,12 +1340,12 @@ class mysqlParserListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by mysqlParser#alterTableDefaultCharset.
-    def enterAlterTableDefaultCharset(self, ctx:mysqlParser.AlterTableDefaultCharsetContext):
+    # Enter a parse tree produced by mysqlParser#alterByDefaultCharset.
+    def enterAlterByDefaultCharset(self, ctx:mysqlParser.AlterByDefaultCharsetContext):
         pass
 
-    # Exit a parse tree produced by mysqlParser#alterTableDefaultCharset.
-    def exitAlterTableDefaultCharset(self, ctx:mysqlParser.AlterTableDefaultCharsetContext):
+    # Exit a parse tree produced by mysqlParser#alterByDefaultCharset.
+    def exitAlterByDefaultCharset(self, ctx:mysqlParser.AlterByDefaultCharsetContext):
         pass
 
 
@@ -1601,6 +1628,15 @@ class mysqlParserListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by mysqlParser#renameTableClause.
+    def enterRenameTableClause(self, ctx:mysqlParser.RenameTableClauseContext):
+        pass
+
+    # Exit a parse tree produced by mysqlParser#renameTableClause.
+    def exitRenameTableClause(self, ctx:mysqlParser.RenameTableClauseContext):
+        pass
+
+
     # Enter a parse tree produced by mysqlParser#truncateTable.
     def enterTruncateTable(self, ctx:mysqlParser.TruncateTableContext):
         pass
@@ -1862,12 +1898,21 @@ class mysqlParserListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by mysqlParser#tableSource.
-    def enterTableSource(self, ctx:mysqlParser.TableSourceContext):
+    # Enter a parse tree produced by mysqlParser#tableSourceBase.
+    def enterTableSourceBase(self, ctx:mysqlParser.TableSourceBaseContext):
         pass
 
-    # Exit a parse tree produced by mysqlParser#tableSource.
-    def exitTableSource(self, ctx:mysqlParser.TableSourceContext):
+    # Exit a parse tree produced by mysqlParser#tableSourceBase.
+    def exitTableSourceBase(self, ctx:mysqlParser.TableSourceBaseContext):
+        pass
+
+
+    # Enter a parse tree produced by mysqlParser#tableSourceNested.
+    def enterTableSourceNested(self, ctx:mysqlParser.TableSourceNestedContext):
+        pass
+
+    # Exit a parse tree produced by mysqlParser#tableSourceNested.
+    def exitTableSourceNested(self, ctx:mysqlParser.TableSourceNestedContext):
         pass
 
 
@@ -1949,15 +1994,6 @@ class mysqlParserListener(ParseTreeListener):
 
     # Exit a parse tree produced by mysqlParser#naturalJoin.
     def exitNaturalJoin(self, ctx:mysqlParser.NaturalJoinContext):
-        pass
-
-
-    # Enter a parse tree produced by mysqlParser#subquery.
-    def enterSubquery(self, ctx:mysqlParser.SubqueryContext):
-        pass
-
-    # Exit a parse tree produced by mysqlParser#subquery.
-    def exitSubquery(self, ctx:mysqlParser.SubqueryContext):
         pass
 
 
@@ -2093,6 +2129,24 @@ class mysqlParserListener(ParseTreeListener):
 
     # Exit a parse tree produced by mysqlParser#selectIntoTextFile.
     def exitSelectIntoTextFile(self, ctx:mysqlParser.SelectIntoTextFileContext):
+        pass
+
+
+    # Enter a parse tree produced by mysqlParser#selectFieldsInto.
+    def enterSelectFieldsInto(self, ctx:mysqlParser.SelectFieldsIntoContext):
+        pass
+
+    # Exit a parse tree produced by mysqlParser#selectFieldsInto.
+    def exitSelectFieldsInto(self, ctx:mysqlParser.SelectFieldsIntoContext):
+        pass
+
+
+    # Enter a parse tree produced by mysqlParser#selectLinesInto.
+    def enterSelectLinesInto(self, ctx:mysqlParser.SelectLinesIntoContext):
+        pass
+
+    # Exit a parse tree produced by mysqlParser#selectLinesInto.
+    def exitSelectLinesInto(self, ctx:mysqlParser.SelectLinesIntoContext):
         pass
 
 
@@ -2492,6 +2546,15 @@ class mysqlParserListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by mysqlParser#tablePair.
+    def enterTablePair(self, ctx:mysqlParser.TablePairContext):
+        pass
+
+    # Exit a parse tree produced by mysqlParser#tablePair.
+    def exitTablePair(self, ctx:mysqlParser.TablePairContext):
+        pass
+
+
     # Enter a parse tree produced by mysqlParser#threadType.
     def enterThreadType(self, ctx:mysqlParser.ThreadTypeContext):
         pass
@@ -2537,12 +2600,39 @@ class mysqlParserListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by mysqlParser#connectionOption.
-    def enterConnectionOption(self, ctx:mysqlParser.ConnectionOptionContext):
+    # Enter a parse tree produced by mysqlParser#userConnectionOption.
+    def enterUserConnectionOption(self, ctx:mysqlParser.UserConnectionOptionContext):
         pass
 
-    # Exit a parse tree produced by mysqlParser#connectionOption.
-    def exitConnectionOption(self, ctx:mysqlParser.ConnectionOptionContext):
+    # Exit a parse tree produced by mysqlParser#userConnectionOption.
+    def exitUserConnectionOption(self, ctx:mysqlParser.UserConnectionOptionContext):
+        pass
+
+
+    # Enter a parse tree produced by mysqlParser#passwordConnectionOption.
+    def enterPasswordConnectionOption(self, ctx:mysqlParser.PasswordConnectionOptionContext):
+        pass
+
+    # Exit a parse tree produced by mysqlParser#passwordConnectionOption.
+    def exitPasswordConnectionOption(self, ctx:mysqlParser.PasswordConnectionOptionContext):
+        pass
+
+
+    # Enter a parse tree produced by mysqlParser#defaultAuthConnectionOption.
+    def enterDefaultAuthConnectionOption(self, ctx:mysqlParser.DefaultAuthConnectionOptionContext):
+        pass
+
+    # Exit a parse tree produced by mysqlParser#defaultAuthConnectionOption.
+    def exitDefaultAuthConnectionOption(self, ctx:mysqlParser.DefaultAuthConnectionOptionContext):
+        pass
+
+
+    # Enter a parse tree produced by mysqlParser#pluginDirConnectionOption.
+    def enterPluginDirConnectionOption(self, ctx:mysqlParser.PluginDirConnectionOptionContext):
+        pass
+
+    # Exit a parse tree produced by mysqlParser#pluginDirConnectionOption.
+    def exitPluginDirConnectionOption(self, ctx:mysqlParser.PluginDirConnectionOptionContext):
         pass
 
 
@@ -2789,12 +2879,57 @@ class mysqlParserListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by mysqlParser#handlerConditionValue.
-    def enterHandlerConditionValue(self, ctx:mysqlParser.HandlerConditionValueContext):
+    # Enter a parse tree produced by mysqlParser#handlerConditionCode.
+    def enterHandlerConditionCode(self, ctx:mysqlParser.HandlerConditionCodeContext):
         pass
 
-    # Exit a parse tree produced by mysqlParser#handlerConditionValue.
-    def exitHandlerConditionValue(self, ctx:mysqlParser.HandlerConditionValueContext):
+    # Exit a parse tree produced by mysqlParser#handlerConditionCode.
+    def exitHandlerConditionCode(self, ctx:mysqlParser.HandlerConditionCodeContext):
+        pass
+
+
+    # Enter a parse tree produced by mysqlParser#handlerConditionState.
+    def enterHandlerConditionState(self, ctx:mysqlParser.HandlerConditionStateContext):
+        pass
+
+    # Exit a parse tree produced by mysqlParser#handlerConditionState.
+    def exitHandlerConditionState(self, ctx:mysqlParser.HandlerConditionStateContext):
+        pass
+
+
+    # Enter a parse tree produced by mysqlParser#handlerConditionName.
+    def enterHandlerConditionName(self, ctx:mysqlParser.HandlerConditionNameContext):
+        pass
+
+    # Exit a parse tree produced by mysqlParser#handlerConditionName.
+    def exitHandlerConditionName(self, ctx:mysqlParser.HandlerConditionNameContext):
+        pass
+
+
+    # Enter a parse tree produced by mysqlParser#handlerConditionWarning.
+    def enterHandlerConditionWarning(self, ctx:mysqlParser.HandlerConditionWarningContext):
+        pass
+
+    # Exit a parse tree produced by mysqlParser#handlerConditionWarning.
+    def exitHandlerConditionWarning(self, ctx:mysqlParser.HandlerConditionWarningContext):
+        pass
+
+
+    # Enter a parse tree produced by mysqlParser#handlerConditionNotfound.
+    def enterHandlerConditionNotfound(self, ctx:mysqlParser.HandlerConditionNotfoundContext):
+        pass
+
+    # Exit a parse tree produced by mysqlParser#handlerConditionNotfound.
+    def exitHandlerConditionNotfound(self, ctx:mysqlParser.HandlerConditionNotfoundContext):
+        pass
+
+
+    # Enter a parse tree produced by mysqlParser#handlerConditionException.
+    def enterHandlerConditionException(self, ctx:mysqlParser.HandlerConditionExceptionContext):
+        pass
+
+    # Exit a parse tree produced by mysqlParser#handlerConditionException.
+    def exitHandlerConditionException(self, ctx:mysqlParser.HandlerConditionExceptionContext):
         pass
 
 
@@ -2933,12 +3068,12 @@ class mysqlParserListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by mysqlParser#userPasswordOption.
-    def enterUserPasswordOption(self, ctx:mysqlParser.UserPasswordOptionContext):
+    # Enter a parse tree produced by mysqlParser#userSpecification.
+    def enterUserSpecification(self, ctx:mysqlParser.UserSpecificationContext):
         pass
 
-    # Exit a parse tree produced by mysqlParser#userPasswordOption.
-    def exitUserPasswordOption(self, ctx:mysqlParser.UserPasswordOptionContext):
+    # Exit a parse tree produced by mysqlParser#userSpecification.
+    def exitUserSpecification(self, ctx:mysqlParser.UserSpecificationContext):
         pass
 
 
@@ -2987,6 +3122,15 @@ class mysqlParserListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by mysqlParser#userPasswordOption.
+    def enterUserPasswordOption(self, ctx:mysqlParser.UserPasswordOptionContext):
+        pass
+
+    # Exit a parse tree produced by mysqlParser#userPasswordOption.
+    def exitUserPasswordOption(self, ctx:mysqlParser.UserPasswordOptionContext):
+        pass
+
+
     # Enter a parse tree produced by mysqlParser#userLockOption.
     def enterUserLockOption(self, ctx:mysqlParser.UserLockOptionContext):
         pass
@@ -3014,12 +3158,57 @@ class mysqlParserListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by mysqlParser#privilegeLevel.
-    def enterPrivilegeLevel(self, ctx:mysqlParser.PrivilegeLevelContext):
+    # Enter a parse tree produced by mysqlParser#currentSchemaPriviLevel.
+    def enterCurrentSchemaPriviLevel(self, ctx:mysqlParser.CurrentSchemaPriviLevelContext):
         pass
 
-    # Exit a parse tree produced by mysqlParser#privilegeLevel.
-    def exitPrivilegeLevel(self, ctx:mysqlParser.PrivilegeLevelContext):
+    # Exit a parse tree produced by mysqlParser#currentSchemaPriviLevel.
+    def exitCurrentSchemaPriviLevel(self, ctx:mysqlParser.CurrentSchemaPriviLevelContext):
+        pass
+
+
+    # Enter a parse tree produced by mysqlParser#globalPrivLevel.
+    def enterGlobalPrivLevel(self, ctx:mysqlParser.GlobalPrivLevelContext):
+        pass
+
+    # Exit a parse tree produced by mysqlParser#globalPrivLevel.
+    def exitGlobalPrivLevel(self, ctx:mysqlParser.GlobalPrivLevelContext):
+        pass
+
+
+    # Enter a parse tree produced by mysqlParser#definiteSchemaPrivLevel.
+    def enterDefiniteSchemaPrivLevel(self, ctx:mysqlParser.DefiniteSchemaPrivLevelContext):
+        pass
+
+    # Exit a parse tree produced by mysqlParser#definiteSchemaPrivLevel.
+    def exitDefiniteSchemaPrivLevel(self, ctx:mysqlParser.DefiniteSchemaPrivLevelContext):
+        pass
+
+
+    # Enter a parse tree produced by mysqlParser#definiteFullTablePrivLevel.
+    def enterDefiniteFullTablePrivLevel(self, ctx:mysqlParser.DefiniteFullTablePrivLevelContext):
+        pass
+
+    # Exit a parse tree produced by mysqlParser#definiteFullTablePrivLevel.
+    def exitDefiniteFullTablePrivLevel(self, ctx:mysqlParser.DefiniteFullTablePrivLevelContext):
+        pass
+
+
+    # Enter a parse tree produced by mysqlParser#definiteTablePrivLevel.
+    def enterDefiniteTablePrivLevel(self, ctx:mysqlParser.DefiniteTablePrivLevelContext):
+        pass
+
+    # Exit a parse tree produced by mysqlParser#definiteTablePrivLevel.
+    def exitDefiniteTablePrivLevel(self, ctx:mysqlParser.DefiniteTablePrivLevelContext):
+        pass
+
+
+    # Enter a parse tree produced by mysqlParser#renameUserClause.
+    def enterRenameUserClause(self, ctx:mysqlParser.RenameUserClauseContext):
+        pass
+
+    # Exit a parse tree produced by mysqlParser#renameUserClause.
+    def exitRenameUserClause(self, ctx:mysqlParser.RenameUserClauseContext):
         pass
 
 
@@ -3473,6 +3662,15 @@ class mysqlParserListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by mysqlParser#flushTableOption.
+    def enterFlushTableOption(self, ctx:mysqlParser.FlushTableOptionContext):
+        pass
+
+    # Exit a parse tree produced by mysqlParser#flushTableOption.
+    def exitFlushTableOption(self, ctx:mysqlParser.FlushTableOptionContext):
+        pass
+
+
     # Enter a parse tree produced by mysqlParser#loadedTableIndexes.
     def enterLoadedTableIndexes(self, ctx:mysqlParser.LoadedTableIndexesContext):
         pass
@@ -3842,15 +4040,6 @@ class mysqlParserListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by mysqlParser#tablePairs.
-    def enterTablePairs(self, ctx:mysqlParser.TablePairsContext):
-        pass
-
-    # Exit a parse tree produced by mysqlParser#tablePairs.
-    def exitTablePairs(self, ctx:mysqlParser.TablePairsContext):
-        pass
-
-
     # Enter a parse tree produced by mysqlParser#indexColumnNames.
     def enterIndexColumnNames(self, ctx:mysqlParser.IndexColumnNamesContext):
         pass
@@ -3866,6 +4055,15 @@ class mysqlParserListener(ParseTreeListener):
 
     # Exit a parse tree produced by mysqlParser#expressions.
     def exitExpressions(self, ctx:mysqlParser.ExpressionsContext):
+        pass
+
+
+    # Enter a parse tree produced by mysqlParser#expressionsWithDefaults.
+    def enterExpressionsWithDefaults(self, ctx:mysqlParser.ExpressionsWithDefaultsContext):
+        pass
+
+    # Exit a parse tree produced by mysqlParser#expressionsWithDefaults.
+    def exitExpressionsWithDefaults(self, ctx:mysqlParser.ExpressionsWithDefaultsContext):
         pass
 
 
@@ -3902,6 +4100,15 @@ class mysqlParserListener(ParseTreeListener):
 
     # Exit a parse tree produced by mysqlParser#defaultValue.
     def exitDefaultValue(self, ctx:mysqlParser.DefaultValueContext):
+        pass
+
+
+    # Enter a parse tree produced by mysqlParser#expressionOrDefault.
+    def enterExpressionOrDefault(self, ctx:mysqlParser.ExpressionOrDefaultContext):
+        pass
+
+    # Exit a parse tree produced by mysqlParser#expressionOrDefault.
+    def exitExpressionOrDefault(self, ctx:mysqlParser.ExpressionOrDefaultContext):
         pass
 
 
@@ -4067,6 +4274,15 @@ class mysqlParserListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by mysqlParser#caseFuncAlternative.
+    def enterCaseFuncAlternative(self, ctx:mysqlParser.CaseFuncAlternativeContext):
+        pass
+
+    # Exit a parse tree produced by mysqlParser#caseFuncAlternative.
+    def exitCaseFuncAlternative(self, ctx:mysqlParser.CaseFuncAlternativeContext):
+        pass
+
+
     # Enter a parse tree produced by mysqlParser#levelWeightList.
     def enterLevelWeightList(self, ctx:mysqlParser.LevelWeightListContext):
         pass
@@ -4082,6 +4298,15 @@ class mysqlParserListener(ParseTreeListener):
 
     # Exit a parse tree produced by mysqlParser#levelWeightRange.
     def exitLevelWeightRange(self, ctx:mysqlParser.LevelWeightRangeContext):
+        pass
+
+
+    # Enter a parse tree produced by mysqlParser#levelInWeightListElement.
+    def enterLevelInWeightListElement(self, ctx:mysqlParser.LevelInWeightListElementContext):
+        pass
+
+    # Exit a parse tree produced by mysqlParser#levelInWeightListElement.
+    def exitLevelInWeightListElement(self, ctx:mysqlParser.LevelInWeightListElementContext):
         pass
 
 
@@ -4256,6 +4481,69 @@ class mysqlParserListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by mysqlParser#collateExpressionAtom.
+    def enterCollateExpressionAtom(self, ctx:mysqlParser.CollateExpressionAtomContext):
+        pass
+
+    # Exit a parse tree produced by mysqlParser#collateExpressionAtom.
+    def exitCollateExpressionAtom(self, ctx:mysqlParser.CollateExpressionAtomContext):
+        pass
+
+
+    # Enter a parse tree produced by mysqlParser#subqueryExpessionAtom.
+    def enterSubqueryExpessionAtom(self, ctx:mysqlParser.SubqueryExpessionAtomContext):
+        pass
+
+    # Exit a parse tree produced by mysqlParser#subqueryExpessionAtom.
+    def exitSubqueryExpessionAtom(self, ctx:mysqlParser.SubqueryExpessionAtomContext):
+        pass
+
+
+    # Enter a parse tree produced by mysqlParser#mysqlVariableExpressionAtom.
+    def enterMysqlVariableExpressionAtom(self, ctx:mysqlParser.MysqlVariableExpressionAtomContext):
+        pass
+
+    # Exit a parse tree produced by mysqlParser#mysqlVariableExpressionAtom.
+    def exitMysqlVariableExpressionAtom(self, ctx:mysqlParser.MysqlVariableExpressionAtomContext):
+        pass
+
+
+    # Enter a parse tree produced by mysqlParser#nestedExpressionAtom.
+    def enterNestedExpressionAtom(self, ctx:mysqlParser.NestedExpressionAtomContext):
+        pass
+
+    # Exit a parse tree produced by mysqlParser#nestedExpressionAtom.
+    def exitNestedExpressionAtom(self, ctx:mysqlParser.NestedExpressionAtomContext):
+        pass
+
+
+    # Enter a parse tree produced by mysqlParser#nestedRowExpressionAtom.
+    def enterNestedRowExpressionAtom(self, ctx:mysqlParser.NestedRowExpressionAtomContext):
+        pass
+
+    # Exit a parse tree produced by mysqlParser#nestedRowExpressionAtom.
+    def exitNestedRowExpressionAtom(self, ctx:mysqlParser.NestedRowExpressionAtomContext):
+        pass
+
+
+    # Enter a parse tree produced by mysqlParser#mathExpressionAtom.
+    def enterMathExpressionAtom(self, ctx:mysqlParser.MathExpressionAtomContext):
+        pass
+
+    # Exit a parse tree produced by mysqlParser#mathExpressionAtom.
+    def exitMathExpressionAtom(self, ctx:mysqlParser.MathExpressionAtomContext):
+        pass
+
+
+    # Enter a parse tree produced by mysqlParser#intervalExpressionAtom.
+    def enterIntervalExpressionAtom(self, ctx:mysqlParser.IntervalExpressionAtomContext):
+        pass
+
+    # Exit a parse tree produced by mysqlParser#intervalExpressionAtom.
+    def exitIntervalExpressionAtom(self, ctx:mysqlParser.IntervalExpressionAtomContext):
+        pass
+
+
     # Enter a parse tree produced by mysqlParser#existsExpessionAtom.
     def enterExistsExpessionAtom(self, ctx:mysqlParser.ExistsExpessionAtomContext):
         pass
@@ -4283,15 +4571,6 @@ class mysqlParserListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by mysqlParser#mysqlVariableExpressionAtom.
-    def enterMysqlVariableExpressionAtom(self, ctx:mysqlParser.MysqlVariableExpressionAtomContext):
-        pass
-
-    # Exit a parse tree produced by mysqlParser#mysqlVariableExpressionAtom.
-    def exitMysqlVariableExpressionAtom(self, ctx:mysqlParser.MysqlVariableExpressionAtomContext):
-        pass
-
-
     # Enter a parse tree produced by mysqlParser#binaryExpressionAtom.
     def enterBinaryExpressionAtom(self, ctx:mysqlParser.BinaryExpressionAtomContext):
         pass
@@ -4310,48 +4589,12 @@ class mysqlParserListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by mysqlParser#defaultExpressionAtom.
-    def enterDefaultExpressionAtom(self, ctx:mysqlParser.DefaultExpressionAtomContext):
-        pass
-
-    # Exit a parse tree produced by mysqlParser#defaultExpressionAtom.
-    def exitDefaultExpressionAtom(self, ctx:mysqlParser.DefaultExpressionAtomContext):
-        pass
-
-
     # Enter a parse tree produced by mysqlParser#bitExpressionAtom.
     def enterBitExpressionAtom(self, ctx:mysqlParser.BitExpressionAtomContext):
         pass
 
     # Exit a parse tree produced by mysqlParser#bitExpressionAtom.
     def exitBitExpressionAtom(self, ctx:mysqlParser.BitExpressionAtomContext):
-        pass
-
-
-    # Enter a parse tree produced by mysqlParser#nestedExpressionAtom.
-    def enterNestedExpressionAtom(self, ctx:mysqlParser.NestedExpressionAtomContext):
-        pass
-
-    # Exit a parse tree produced by mysqlParser#nestedExpressionAtom.
-    def exitNestedExpressionAtom(self, ctx:mysqlParser.NestedExpressionAtomContext):
-        pass
-
-
-    # Enter a parse tree produced by mysqlParser#mathExpressionAtom.
-    def enterMathExpressionAtom(self, ctx:mysqlParser.MathExpressionAtomContext):
-        pass
-
-    # Exit a parse tree produced by mysqlParser#mathExpressionAtom.
-    def exitMathExpressionAtom(self, ctx:mysqlParser.MathExpressionAtomContext):
-        pass
-
-
-    # Enter a parse tree produced by mysqlParser#intervalExpressionAtom.
-    def enterIntervalExpressionAtom(self, ctx:mysqlParser.IntervalExpressionAtomContext):
-        pass
-
-    # Exit a parse tree produced by mysqlParser#intervalExpressionAtom.
-    def exitIntervalExpressionAtom(self, ctx:mysqlParser.IntervalExpressionAtomContext):
         pass
 
 

@@ -514,13 +514,28 @@ class mysqlParserVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by mysqlParser#partitionList.
-    def visitPartitionList(self, ctx:mysqlParser.PartitionListContext):
+    # Visit a parse tree produced by mysqlParser#partitionListAtom.
+    def visitPartitionListAtom(self, ctx:mysqlParser.PartitionListAtomContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by mysqlParser#partitionListVector.
+    def visitPartitionListVector(self, ctx:mysqlParser.PartitionListVectorContext):
         return self.visitChildren(ctx)
 
 
     # Visit a parse tree produced by mysqlParser#partitionSimple.
     def visitPartitionSimple(self, ctx:mysqlParser.PartitionSimpleContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by mysqlParser#partitionDefinerAtom.
+    def visitPartitionDefinerAtom(self, ctx:mysqlParser.PartitionDefinerAtomContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by mysqlParser#partitionDefinerVector.
+    def visitPartitionDefinerVector(self, ctx:mysqlParser.PartitionDefinerVectorContext):
         return self.visitChildren(ctx)
 
 
@@ -624,8 +639,8 @@ class mysqlParserVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by mysqlParser#alterTableOption.
-    def visitAlterTableOption(self, ctx:mysqlParser.AlterTableOptionContext):
+    # Visit a parse tree produced by mysqlParser#alterByTableOption.
+    def visitAlterByTableOption(self, ctx:mysqlParser.AlterByTableOptionContext):
         return self.visitChildren(ctx)
 
 
@@ -664,8 +679,8 @@ class mysqlParserVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by mysqlParser#alterTableAlgorighm.
-    def visitAlterTableAlgorighm(self, ctx:mysqlParser.AlterTableAlgorighmContext):
+    # Visit a parse tree produced by mysqlParser#alterBySetAlgorithm.
+    def visitAlterBySetAlgorithm(self, ctx:mysqlParser.AlterBySetAlgorithmContext):
         return self.visitChildren(ctx)
 
 
@@ -734,8 +749,8 @@ class mysqlParserVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by mysqlParser#alterTableDefaultCharset.
-    def visitAlterTableDefaultCharset(self, ctx:mysqlParser.AlterTableDefaultCharsetContext):
+    # Visit a parse tree produced by mysqlParser#alterByDefaultCharset.
+    def visitAlterByDefaultCharset(self, ctx:mysqlParser.AlterByDefaultCharsetContext):
         return self.visitChildren(ctx)
 
 
@@ -894,6 +909,11 @@ class mysqlParserVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by mysqlParser#renameTableClause.
+    def visitRenameTableClause(self, ctx:mysqlParser.RenameTableClauseContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by mysqlParser#truncateTable.
     def visitTruncateTable(self, ctx:mysqlParser.TruncateTableContext):
         return self.visitChildren(ctx)
@@ -1039,8 +1059,13 @@ class mysqlParserVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by mysqlParser#tableSource.
-    def visitTableSource(self, ctx:mysqlParser.TableSourceContext):
+    # Visit a parse tree produced by mysqlParser#tableSourceBase.
+    def visitTableSourceBase(self, ctx:mysqlParser.TableSourceBaseContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by mysqlParser#tableSourceNested.
+    def visitTableSourceNested(self, ctx:mysqlParser.TableSourceNestedContext):
         return self.visitChildren(ctx)
 
 
@@ -1086,11 +1111,6 @@ class mysqlParserVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by mysqlParser#naturalJoin.
     def visitNaturalJoin(self, ctx:mysqlParser.NaturalJoinContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by mysqlParser#subquery.
-    def visitSubquery(self, ctx:mysqlParser.SubqueryContext):
         return self.visitChildren(ctx)
 
 
@@ -1166,6 +1186,16 @@ class mysqlParserVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by mysqlParser#selectIntoTextFile.
     def visitSelectIntoTextFile(self, ctx:mysqlParser.SelectIntoTextFileContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by mysqlParser#selectFieldsInto.
+    def visitSelectFieldsInto(self, ctx:mysqlParser.SelectFieldsIntoContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by mysqlParser#selectLinesInto.
+    def visitSelectLinesInto(self, ctx:mysqlParser.SelectLinesIntoContext):
         return self.visitChildren(ctx)
 
 
@@ -1389,6 +1419,11 @@ class mysqlParserVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by mysqlParser#tablePair.
+    def visitTablePair(self, ctx:mysqlParser.TablePairContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by mysqlParser#threadType.
     def visitThreadType(self, ctx:mysqlParser.ThreadTypeContext):
         return self.visitChildren(ctx)
@@ -1414,8 +1449,23 @@ class mysqlParserVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by mysqlParser#connectionOption.
-    def visitConnectionOption(self, ctx:mysqlParser.ConnectionOptionContext):
+    # Visit a parse tree produced by mysqlParser#userConnectionOption.
+    def visitUserConnectionOption(self, ctx:mysqlParser.UserConnectionOptionContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by mysqlParser#passwordConnectionOption.
+    def visitPasswordConnectionOption(self, ctx:mysqlParser.PasswordConnectionOptionContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by mysqlParser#defaultAuthConnectionOption.
+    def visitDefaultAuthConnectionOption(self, ctx:mysqlParser.DefaultAuthConnectionOptionContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by mysqlParser#pluginDirConnectionOption.
+    def visitPluginDirConnectionOption(self, ctx:mysqlParser.PluginDirConnectionOptionContext):
         return self.visitChildren(ctx)
 
 
@@ -1554,8 +1604,33 @@ class mysqlParserVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by mysqlParser#handlerConditionValue.
-    def visitHandlerConditionValue(self, ctx:mysqlParser.HandlerConditionValueContext):
+    # Visit a parse tree produced by mysqlParser#handlerConditionCode.
+    def visitHandlerConditionCode(self, ctx:mysqlParser.HandlerConditionCodeContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by mysqlParser#handlerConditionState.
+    def visitHandlerConditionState(self, ctx:mysqlParser.HandlerConditionStateContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by mysqlParser#handlerConditionName.
+    def visitHandlerConditionName(self, ctx:mysqlParser.HandlerConditionNameContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by mysqlParser#handlerConditionWarning.
+    def visitHandlerConditionWarning(self, ctx:mysqlParser.HandlerConditionWarningContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by mysqlParser#handlerConditionNotfound.
+    def visitHandlerConditionNotfound(self, ctx:mysqlParser.HandlerConditionNotfoundContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by mysqlParser#handlerConditionException.
+    def visitHandlerConditionException(self, ctx:mysqlParser.HandlerConditionExceptionContext):
         return self.visitChildren(ctx)
 
 
@@ -1634,8 +1709,8 @@ class mysqlParserVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by mysqlParser#userPasswordOption.
-    def visitUserPasswordOption(self, ctx:mysqlParser.UserPasswordOptionContext):
+    # Visit a parse tree produced by mysqlParser#userSpecification.
+    def visitUserSpecification(self, ctx:mysqlParser.UserSpecificationContext):
         return self.visitChildren(ctx)
 
 
@@ -1664,6 +1739,11 @@ class mysqlParserVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by mysqlParser#userPasswordOption.
+    def visitUserPasswordOption(self, ctx:mysqlParser.UserPasswordOptionContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by mysqlParser#userLockOption.
     def visitUserLockOption(self, ctx:mysqlParser.UserLockOptionContext):
         return self.visitChildren(ctx)
@@ -1679,8 +1759,33 @@ class mysqlParserVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by mysqlParser#privilegeLevel.
-    def visitPrivilegeLevel(self, ctx:mysqlParser.PrivilegeLevelContext):
+    # Visit a parse tree produced by mysqlParser#currentSchemaPriviLevel.
+    def visitCurrentSchemaPriviLevel(self, ctx:mysqlParser.CurrentSchemaPriviLevelContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by mysqlParser#globalPrivLevel.
+    def visitGlobalPrivLevel(self, ctx:mysqlParser.GlobalPrivLevelContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by mysqlParser#definiteSchemaPrivLevel.
+    def visitDefiniteSchemaPrivLevel(self, ctx:mysqlParser.DefiniteSchemaPrivLevelContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by mysqlParser#definiteFullTablePrivLevel.
+    def visitDefiniteFullTablePrivLevel(self, ctx:mysqlParser.DefiniteFullTablePrivLevelContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by mysqlParser#definiteTablePrivLevel.
+    def visitDefiniteTablePrivLevel(self, ctx:mysqlParser.DefiniteTablePrivLevelContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by mysqlParser#renameUserClause.
+    def visitRenameUserClause(self, ctx:mysqlParser.RenameUserClauseContext):
         return self.visitChildren(ctx)
 
 
@@ -1934,6 +2039,11 @@ class mysqlParserVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by mysqlParser#flushTableOption.
+    def visitFlushTableOption(self, ctx:mysqlParser.FlushTableOptionContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by mysqlParser#loadedTableIndexes.
     def visitLoadedTableIndexes(self, ctx:mysqlParser.LoadedTableIndexesContext):
         return self.visitChildren(ctx)
@@ -2139,11 +2249,6 @@ class mysqlParserVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by mysqlParser#tablePairs.
-    def visitTablePairs(self, ctx:mysqlParser.TablePairsContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by mysqlParser#indexColumnNames.
     def visitIndexColumnNames(self, ctx:mysqlParser.IndexColumnNamesContext):
         return self.visitChildren(ctx)
@@ -2151,6 +2256,11 @@ class mysqlParserVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by mysqlParser#expressions.
     def visitExpressions(self, ctx:mysqlParser.ExpressionsContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by mysqlParser#expressionsWithDefaults.
+    def visitExpressionsWithDefaults(self, ctx:mysqlParser.ExpressionsWithDefaultsContext):
         return self.visitChildren(ctx)
 
 
@@ -2171,6 +2281,11 @@ class mysqlParserVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by mysqlParser#defaultValue.
     def visitDefaultValue(self, ctx:mysqlParser.DefaultValueContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by mysqlParser#expressionOrDefault.
+    def visitExpressionOrDefault(self, ctx:mysqlParser.ExpressionOrDefaultContext):
         return self.visitChildren(ctx)
 
 
@@ -2264,6 +2379,11 @@ class mysqlParserVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by mysqlParser#caseFuncAlternative.
+    def visitCaseFuncAlternative(self, ctx:mysqlParser.CaseFuncAlternativeContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by mysqlParser#levelWeightList.
     def visitLevelWeightList(self, ctx:mysqlParser.LevelWeightListContext):
         return self.visitChildren(ctx)
@@ -2271,6 +2391,11 @@ class mysqlParserVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by mysqlParser#levelWeightRange.
     def visitLevelWeightRange(self, ctx:mysqlParser.LevelWeightRangeContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by mysqlParser#levelInWeightListElement.
+    def visitLevelInWeightListElement(self, ctx:mysqlParser.LevelInWeightListElementContext):
         return self.visitChildren(ctx)
 
 
@@ -2369,6 +2494,41 @@ class mysqlParserVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by mysqlParser#collateExpressionAtom.
+    def visitCollateExpressionAtom(self, ctx:mysqlParser.CollateExpressionAtomContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by mysqlParser#subqueryExpessionAtom.
+    def visitSubqueryExpessionAtom(self, ctx:mysqlParser.SubqueryExpessionAtomContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by mysqlParser#mysqlVariableExpressionAtom.
+    def visitMysqlVariableExpressionAtom(self, ctx:mysqlParser.MysqlVariableExpressionAtomContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by mysqlParser#nestedExpressionAtom.
+    def visitNestedExpressionAtom(self, ctx:mysqlParser.NestedExpressionAtomContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by mysqlParser#nestedRowExpressionAtom.
+    def visitNestedRowExpressionAtom(self, ctx:mysqlParser.NestedRowExpressionAtomContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by mysqlParser#mathExpressionAtom.
+    def visitMathExpressionAtom(self, ctx:mysqlParser.MathExpressionAtomContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by mysqlParser#intervalExpressionAtom.
+    def visitIntervalExpressionAtom(self, ctx:mysqlParser.IntervalExpressionAtomContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by mysqlParser#existsExpessionAtom.
     def visitExistsExpessionAtom(self, ctx:mysqlParser.ExistsExpessionAtomContext):
         return self.visitChildren(ctx)
@@ -2384,11 +2544,6 @@ class mysqlParserVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by mysqlParser#mysqlVariableExpressionAtom.
-    def visitMysqlVariableExpressionAtom(self, ctx:mysqlParser.MysqlVariableExpressionAtomContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by mysqlParser#binaryExpressionAtom.
     def visitBinaryExpressionAtom(self, ctx:mysqlParser.BinaryExpressionAtomContext):
         return self.visitChildren(ctx)
@@ -2399,28 +2554,8 @@ class mysqlParserVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by mysqlParser#defaultExpressionAtom.
-    def visitDefaultExpressionAtom(self, ctx:mysqlParser.DefaultExpressionAtomContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by mysqlParser#bitExpressionAtom.
     def visitBitExpressionAtom(self, ctx:mysqlParser.BitExpressionAtomContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by mysqlParser#nestedExpressionAtom.
-    def visitNestedExpressionAtom(self, ctx:mysqlParser.NestedExpressionAtomContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by mysqlParser#mathExpressionAtom.
-    def visitMathExpressionAtom(self, ctx:mysqlParser.MathExpressionAtomContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by mysqlParser#intervalExpressionAtom.
-    def visitIntervalExpressionAtom(self, ctx:mysqlParser.IntervalExpressionAtomContext):
         return self.visitChildren(ctx)
 
 
