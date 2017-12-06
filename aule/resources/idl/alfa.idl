@@ -68,14 +68,10 @@ interface EffectStatement <: Statement {
 }
 
 interface TargetStatement <: Statement {
-    clauses: [TargetClause];
+    clauses: [Expression];
 }
 
 interface ConditionStatement <: Statement {
-    statement: Statement;
-}
-
-interface TargetClause <: Statement {
     statement: Statement;
 }
 
