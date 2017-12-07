@@ -86,10 +86,24 @@ class Constructor(MethodDeclaration):
         return "<Constructor {}>".format(super(Constructor, self).__repr__())
 
 
+class ClassAnnotation(object):
+    def __init__(self,
+                 value: str) -> None:
+        """
+        :type value: str
+        """
+        self.node = "ClassAnnotation"
+        self.value = value
+
+    def __repr__(self):
+        return "<ClassAnnotation [{0.value}]>".format(self)
+
+
 class ClassDeclaration(object):
     def __init__(self,
                  name: Identifier,
                  parents: List[Identifier] = None,
+                 annotations: List[ClassAnnotation] = None,
                  fields: List[FieldDeclaration] = None,
                  methods: List[MethodDeclaration] = None,
                  constructor: Constructor = None,
@@ -106,6 +120,7 @@ class ClassDeclaration(object):
         self.name = name
         self.modifiers = modifiers or []
         self.parents = parents or []
+        self.annotations = annotations or []
         self.fields = fields or []
         self.methods = methods or []
         self.constructor = constructor or self._create_constructor()

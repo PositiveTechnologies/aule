@@ -5,6 +5,7 @@ Diagnostic tool to work with parsers stuff via CLI.
 """
 
 # General
+import json
 import sys
 import getopt
 import time
@@ -120,7 +121,8 @@ def main(argv):
         node = ast_parser.parse(text)
         exec_time = time.time() - start_time
         print("AST creation time - 2: " + str(exec_time))
-        print(ASTParser.dumps(node))
+        tree_str = ASTParser.dumps(node)
+        print(json.dumps(json.loads(tree_str), sort_keys=True, indent=2))
 
     elif mode == "tokenizer":
         print("Mode: tokenizer")

@@ -1,0 +1,14 @@
+#begin
+
+interface Entity {
+  abstract id: str;
+}
+
+[angine=entity]
+interface UrlEntity <: Entity {
+  path: str;
+  level: int;
+  tags: [str];
+}
+
+#end

@@ -62,6 +62,15 @@ class idlListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by idlParser#interface_annotation.
+    def enterInterface_annotation(self, ctx:idlParser.Interface_annotationContext):
+        pass
+
+    # Exit a parse tree produced by idlParser#interface_annotation.
+    def exitInterface_annotation(self, ctx:idlParser.Interface_annotationContext):
+        pass
+
+
     # Enter a parse tree produced by idlParser#interface_inheritance.
     def enterInterface_inheritance(self, ctx:idlParser.Interface_inheritanceContext):
         pass

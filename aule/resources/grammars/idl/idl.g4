@@ -60,7 +60,12 @@ enum_member:
     ;
 
 interface_header:
+    interface_annotation*
     INTERFACE name=interface_name interface_inheritance?
+    ;
+
+interface_annotation:
+    SQUARE_BRACKET_OPEN ID (EQUALS_SYMBOL ID)? SQUARE_BRACKET_CLOSE
     ;
 
 interface_inheritance:
