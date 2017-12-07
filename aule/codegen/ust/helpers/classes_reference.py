@@ -1,4 +1,4 @@
-from typing import Iterable, List, Optional
+from typing import Iterable, Optional
 
 from ..classnodes  import *
 from ..simplenodes  import *
@@ -93,6 +93,20 @@ class ClassesReference(object):
             method = next((method for method in c.methods if member.name == method.name), None)
             if method is not None:
                 return method
+            # Enqueue class parents
+            queue.extend(self.classes[x] for x in c.parents)
+        return None
+
+    def get_field(self, cls: ClassDeclaration, field_name: Union[str,Identifier]) -> Optional[FieldDeclaration]:
+        if isinstance(field_name, str):
+            field_name = Identifier(field_name)
+        queue = [cls]
+        while len(queue) != 0:
+            c = queue.pop(0)
+            # Check field override
+            field = next((field for field in c.fields if field_name == field.name), None)
+            if field is not None:
+                return field
             # Enqueue class parents
             queue.extend(self.classes[x] for x in c.parents)
         return None
