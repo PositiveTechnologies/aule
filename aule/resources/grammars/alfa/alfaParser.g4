@@ -21,7 +21,7 @@ nameSpaceBody
     ;
 
 policySetDeclaration
-    : EXPORT? POLICYSET policySetId=ID '{' targetStatement? conditionStatement? applyStatement policySetBody* event*  '}'
+    : EXPORT? POLICYSET policySetId=ID '{' targetStatement? applyStatement policySetBody* '}'
     ;
 
 policySetBody
@@ -31,7 +31,7 @@ policySetBody
     ;
 
 policyDeclaration
-    : EXPORT? POLICY policyId=ID '{' targetStatement? conditionStatement? applyStatement ruleDeclaration* event* '}'
+    : EXPORT? POLICY policyId=ID '{' targetStatement? applyStatement ruleDeclaration* '}'
     ;
 
 applyStatement
@@ -39,7 +39,7 @@ applyStatement
     ;
 
 ruleDeclaration
-    : RULE ruleId=ID? '{' effectStatement targetStatement? conditionStatement? event* '}'
+    : RULE ruleId=ID? '{' effectStatement targetStatement? '}'
     ;
 
 effectStatement
@@ -50,48 +50,18 @@ targetStatement
     : TARGET (CLAUSE targetExpression)+
     ;
 
-conditionStatement
-    : CONDITION conditionExpression
-    ;
-
 targetExpression
     : unaryOperator targetExpression                          #targetUnaryExpression
-    | targetExpression binaryOperator targetExpression        #targetBaseExpression
-    | targetExpression AND targetExpression                   #targetAndExpression
-    | targetExpression OR  targetExpression                   #targetOrExpression
+    | targetExpression logicalOperator targetExpression       #targetLogicalExpression
+    | targetPrimitive                                         #targetPrimitive
     | anyExpression                                           #targetAnyExpression
-    | attributeAccessExpression                               #targetAttributeAccessExpression
-    | attributeValue                                          #targetAttributeValueExpression
-    | arrayExpression                                         #targetArrayExpression
+    | booleanLiteral                                          #targetBooleanExpression
+    | OPEN_PAREN targetExpression CLOSE_PAREN                 #targetParenthesisExpression
     ;
 
-conditionExpression
-    : unaryOperator conditionExpression                       #conditionUnaryExpression
-    | conditionExpression binaryOperator conditionExpression  #conditionBaseExpression
-    | conditionExpression AND conditionExpression             #conditionAndExpression
-    | conditionExpression OR  conditionExpression             #conditionOrExpression
-    | attributeAccessExpression                               #conditionAttributeAccessExpression
-    | attributeValue                                          #conditionAttributeValueExpression
-    | arrayExpression                                         #conditionArrayExpression
-    | callExpression                                          #conditionCallExpression
-    ;
-
-event: 
-    ON (PERMIT|DENY) '{' eventBody+ '}'
-    ;
-
-eventBody
-    : obligation 
-    | advice
-    ;
-
-
-obligation
-    : OBLIGATION ID
-    ;
-
-advice
-    : ADVICE ID
+targetPrimitive
+    : attributeAccessExpression binaryOperator attributeValue #targetPrimitiveBinary 
+    | attributeAccessExpression setOperator   arrayExpression #targetPrimitiveSet
     ;
 
 unaryOperator
@@ -99,16 +69,16 @@ unaryOperator
     ;
 
 binaryOperator
-    : EQUALS | NOT_EQUALS | LESS_THAN | MORE_THAN | LESS_EQUAL | GREAT_EQUAL | IN | SUBSET | SUBSETEQ
+    : EQUALS | NOT_EQUALS | LESS_THAN | MORE_THAN | LESS_EQUAL | GREAT_EQUAL
+    ;
+    
+logicalOperator
+    : OR | AND
     ;
 
-callExpression
-    : ID arguments
-    ;
-
-arguments
-    : '(' ')'
-    ;
+setOperator
+   : IN | SUBSET | SUBSETEQ
+   ;
 
 anyExpression
     : ANY (attributeAccessExpression | arrayExpression) IN (attributeAccessExpression | arrayExpression)
@@ -133,7 +103,7 @@ literal:
     | boolean_literal
     ;
 
-boolean_literal:
+booleanLiteral:
     TRUE 
     | FALSE
     ;
