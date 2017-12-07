@@ -82,12 +82,10 @@ namespace example {
 namespace aa {
     export policy Main {
         target clause action == "select" and a.b.c.d == 1
-        condition check_levels() == true
         apply denyUnlessPermit
         rule aaa{
             permit
-            condition check_roles() == true and check_groups() == true
-
+            target clause true
         }
     }
 }
@@ -97,32 +95,6 @@ namespace aa {
 namespace example {
     export policy Main {
         target clause action == "update"
-        apply denyUnlessPermit
-        rule r1 {
-            permit
-            target clause subject.level > entity.level
-        }
-    }
-}
-#end
-
-#begin
-namespace example {
-    export policy Main {
-      target clause action == "select"
-        apply denyUnlessPermit
-        rule r1 {
-            permit
-            target clause subject.level > entity.level
-        }
-    }
-}
-#end
-
-#begin
-namespace example {
-    export policy Main {
-      condition a()
         apply denyUnlessPermit
         rule r1 {
             permit

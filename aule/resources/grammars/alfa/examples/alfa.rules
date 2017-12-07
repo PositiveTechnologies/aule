@@ -61,15 +61,13 @@ namespace corp {
         }
 
         policySet newBottomLevel {
-            condition a()
             apply denyOverrides
             medicalPolicy
             policy printerPolicy {
-                condition b()
                 apply denyOverrides
                 rule {
                     permit
-                    condition c()
+                    target clause true
                 }
             }
 
@@ -117,12 +115,6 @@ namespace com {
                 permit
                 target clause Attributes.role == "doctor"
             }
-            on permit {
-                obligation checkroles
-            }
-            on deny {
-                advice log
-            }
         }
     }    
 }    
@@ -136,7 +128,7 @@ namespace com {
             apply denyOverrides
             rule {
                 permit
-                condition checkroles() == true
+                target clause (true)
             }
         }
     }
@@ -147,26 +139,11 @@ namespace com {
 namespace com {
     namespace corp {
         export policy topLevel {
-            condition a()
+            target clause true
             apply denyOverrides
             rule {
                 permit
-                condition checkroles() == true
-            }
-        }
-    }
-}
-#end
-
-#begin
-namespace com {
-    namespace corp {
-        export policy topLevel {
-            condition a()
-            apply denyOverrides
-            rule {
-                permit
-                target clause any user.roles in ["admin", "guest"]
+                target clause (a > 1)
             }
         }
     }
@@ -184,21 +161,6 @@ namespace com {
             rule {
                 permit
                 target clause any user.roles in ["admin", "guest"]
-            }
-        }
-    }
-}
-#end
-
-#begin
-namespace com {
-    namespace corp {
-        export policy topLevel {
-            target clause Attributes.resource == "medical"
-            apply denyOverrides
-            rule {
-                permit
-                condition call() == session.user.id
             }
         }
     }

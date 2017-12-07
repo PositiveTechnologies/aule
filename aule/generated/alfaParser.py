@@ -8,135 +8,97 @@ import sys
 def serializedATN():
     with StringIO() as buf:
         buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\64")
-        buf.write("\u0128\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7")
+        buf.write("\u00e3\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7")
         buf.write("\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4\f\t\f\4\r\t\r\4\16")
         buf.write("\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22\4\23\t\23")
-        buf.write("\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\4\30\t\30\4\31")
-        buf.write("\t\31\4\32\t\32\4\33\t\33\4\34\t\34\3\2\7\2:\n\2\f\2\16")
-        buf.write("\2=\13\2\3\2\3\2\3\3\3\3\3\3\3\3\7\3E\n\3\f\3\16\3H\13")
-        buf.write("\3\3\3\3\3\3\4\3\4\3\4\5\4O\n\4\3\5\5\5R\n\5\3\5\3\5\3")
-        buf.write("\5\3\5\5\5X\n\5\3\5\5\5[\n\5\3\5\3\5\7\5_\n\5\f\5\16\5")
-        buf.write("b\13\5\3\5\7\5e\n\5\f\5\16\5h\13\5\3\5\3\5\3\6\3\6\3\6")
-        buf.write("\5\6o\n\6\3\7\5\7r\n\7\3\7\3\7\3\7\3\7\5\7x\n\7\3\7\5")
-        buf.write("\7{\n\7\3\7\3\7\7\7\177\n\7\f\7\16\7\u0082\13\7\3\7\7")
-        buf.write("\7\u0085\n\7\f\7\16\7\u0088\13\7\3\7\3\7\3\b\3\b\3\b\3")
-        buf.write("\t\3\t\5\t\u0091\n\t\3\t\3\t\3\t\5\t\u0096\n\t\3\t\5\t")
-        buf.write("\u0099\n\t\3\t\7\t\u009c\n\t\f\t\16\t\u009f\13\t\3\t\3")
-        buf.write("\t\3\n\3\n\3\13\3\13\3\13\6\13\u00a8\n\13\r\13\16\13\u00a9")
-        buf.write("\3\f\3\f\3\f\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\5\r\u00b7")
-        buf.write("\n\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\7\r\u00c3")
-        buf.write("\n\r\f\r\16\r\u00c6\13\r\3\16\3\16\3\16\3\16\3\16\3\16")
-        buf.write("\3\16\3\16\5\16\u00d0\n\16\3\16\3\16\3\16\3\16\3\16\3")
-        buf.write("\16\3\16\3\16\3\16\3\16\7\16\u00dc\n\16\f\16\16\16\u00df")
-        buf.write("\13\16\3\17\3\17\3\17\3\17\6\17\u00e5\n\17\r\17\16\17")
-        buf.write("\u00e6\3\17\3\17\3\20\3\20\5\20\u00ed\n\20\3\21\3\21\3")
-        buf.write("\21\3\22\3\22\3\22\3\23\3\23\3\24\3\24\3\25\3\25\3\25")
-        buf.write("\3\26\3\26\3\26\3\27\3\27\3\27\5\27\u0102\n\27\3\27\3")
-        buf.write("\27\3\27\5\27\u0107\n\27\3\30\3\30\3\30\3\30\3\30\3\30")
-        buf.write("\7\30\u010f\n\30\f\30\16\30\u0112\13\30\3\31\3\31\3\32")
-        buf.write("\3\32\3\32\3\32\7\32\u011a\n\32\f\32\16\32\u011d\13\32")
-        buf.write("\3\32\3\32\3\33\3\33\3\33\5\33\u0124\n\33\3\34\3\34\3")
-        buf.write("\34\2\5\30\32.\35\2\4\6\b\n\f\16\20\22\24\26\30\32\34")
-        buf.write("\36 \"$&(*,.\60\62\64\66\2\6\3\2\35\"\3\2*+\3\2\6\16\3")
-        buf.write("\2$%\2\u0137\2;\3\2\2\2\4@\3\2\2\2\6N\3\2\2\2\bQ\3\2\2")
-        buf.write("\2\nn\3\2\2\2\fq\3\2\2\2\16\u008b\3\2\2\2\20\u008e\3\2")
-        buf.write("\2\2\22\u00a2\3\2\2\2\24\u00a4\3\2\2\2\26\u00ab\3\2\2")
-        buf.write("\2\30\u00b6\3\2\2\2\32\u00cf\3\2\2\2\34\u00e0\3\2\2\2")
-        buf.write("\36\u00ec\3\2\2\2 \u00ee\3\2\2\2\"\u00f1\3\2\2\2$\u00f4")
-        buf.write("\3\2\2\2&\u00f6\3\2\2\2(\u00f8\3\2\2\2*\u00fb\3\2\2\2")
-        buf.write(",\u00fe\3\2\2\2.\u0108\3\2\2\2\60\u0113\3\2\2\2\62\u0115")
-        buf.write("\3\2\2\2\64\u0123\3\2\2\2\66\u0125\3\2\2\28:\5\4\3\29")
-        buf.write("8\3\2\2\2:=\3\2\2\2;9\3\2\2\2;<\3\2\2\2<>\3\2\2\2=;\3")
-        buf.write("\2\2\2>?\7\2\2\3?\3\3\2\2\2@A\7\30\2\2AB\7\62\2\2BF\7")
-        buf.write("\17\2\2CE\5\6\4\2DC\3\2\2\2EH\3\2\2\2FD\3\2\2\2FG\3\2")
-        buf.write("\2\2GI\3\2\2\2HF\3\2\2\2IJ\7\20\2\2J\5\3\2\2\2KO\5\b\5")
-        buf.write("\2LO\5\f\7\2MO\5\4\3\2NK\3\2\2\2NL\3\2\2\2NM\3\2\2\2O")
-        buf.write("\7\3\2\2\2PR\7\27\2\2QP\3\2\2\2QR\3\2\2\2RS\3\2\2\2ST")
-        buf.write("\7\31\2\2TU\7\62\2\2UW\7\17\2\2VX\5\24\13\2WV\3\2\2\2")
-        buf.write("WX\3\2\2\2XZ\3\2\2\2Y[\5\26\f\2ZY\3\2\2\2Z[\3\2\2\2[\\")
-        buf.write("\3\2\2\2\\`\5\16\b\2]_\5\n\6\2^]\3\2\2\2_b\3\2\2\2`^\3")
-        buf.write("\2\2\2`a\3\2\2\2af\3\2\2\2b`\3\2\2\2ce\5\34\17\2dc\3\2")
-        buf.write("\2\2eh\3\2\2\2fd\3\2\2\2fg\3\2\2\2gi\3\2\2\2hf\3\2\2\2")
-        buf.write("ij\7\20\2\2j\t\3\2\2\2ko\7\62\2\2lo\5\f\7\2mo\5\b\5\2")
-        buf.write("nk\3\2\2\2nl\3\2\2\2nm\3\2\2\2o\13\3\2\2\2pr\7\27\2\2")
-        buf.write("qp\3\2\2\2qr\3\2\2\2rs\3\2\2\2st\7\32\2\2tu\7\62\2\2u")
-        buf.write("w\7\17\2\2vx\5\24\13\2wv\3\2\2\2wx\3\2\2\2xz\3\2\2\2y")
-        buf.write("{\5\26\f\2zy\3\2\2\2z{\3\2\2\2{|\3\2\2\2|\u0080\5\16\b")
-        buf.write("\2}\177\5\20\t\2~}\3\2\2\2\177\u0082\3\2\2\2\u0080~\3")
-        buf.write("\2\2\2\u0080\u0081\3\2\2\2\u0081\u0086\3\2\2\2\u0082\u0080")
-        buf.write("\3\2\2\2\u0083\u0085\5\34\17\2\u0084\u0083\3\2\2\2\u0085")
-        buf.write("\u0088\3\2\2\2\u0086\u0084\3\2\2\2\u0086\u0087\3\2\2\2")
-        buf.write("\u0087\u0089\3\2\2\2\u0088\u0086\3\2\2\2\u0089\u008a\7")
-        buf.write("\20\2\2\u008a\r\3\2\2\2\u008b\u008c\7\34\2\2\u008c\u008d")
-        buf.write("\t\2\2\2\u008d\17\3\2\2\2\u008e\u0090\7\33\2\2\u008f\u0091")
-        buf.write("\7\62\2\2\u0090\u008f\3\2\2\2\u0090\u0091\3\2\2\2\u0091")
-        buf.write("\u0092\3\2\2\2\u0092\u0093\7\17\2\2\u0093\u0095\5\22\n")
-        buf.write("\2\u0094\u0096\5\24\13\2\u0095\u0094\3\2\2\2\u0095\u0096")
-        buf.write("\3\2\2\2\u0096\u0098\3\2\2\2\u0097\u0099\5\26\f\2\u0098")
-        buf.write("\u0097\3\2\2\2\u0098\u0099\3\2\2\2\u0099\u009d\3\2\2\2")
-        buf.write("\u009a\u009c\5\34\17\2\u009b\u009a\3\2\2\2\u009c\u009f")
-        buf.write("\3\2\2\2\u009d\u009b\3\2\2\2\u009d\u009e\3\2\2\2\u009e")
-        buf.write("\u00a0\3\2\2\2\u009f\u009d\3\2\2\2\u00a0\u00a1\7\20\2")
-        buf.write("\2\u00a1\21\3\2\2\2\u00a2\u00a3\t\3\2\2\u00a3\23\3\2\2")
-        buf.write("\2\u00a4\u00a7\7#\2\2\u00a5\u00a6\7&\2\2\u00a6\u00a8\5")
-        buf.write("\30\r\2\u00a7\u00a5\3\2\2\2\u00a8\u00a9\3\2\2\2\u00a9")
-        buf.write("\u00a7\3\2\2\2\u00a9\u00aa\3\2\2\2\u00aa\25\3\2\2\2\u00ab")
-        buf.write("\u00ac\7\'\2\2\u00ac\u00ad\5\32\16\2\u00ad\27\3\2\2\2")
-        buf.write("\u00ae\u00af\b\r\1\2\u00af\u00b0\5$\23\2\u00b0\u00b1\5")
-        buf.write("\30\r\n\u00b1\u00b7\3\2\2\2\u00b2\u00b7\5,\27\2\u00b3")
-        buf.write("\u00b7\5.\30\2\u00b4\u00b7\5\60\31\2\u00b5\u00b7\5\62")
-        buf.write("\32\2\u00b6\u00ae\3\2\2\2\u00b6\u00b2\3\2\2\2\u00b6\u00b3")
-        buf.write("\3\2\2\2\u00b6\u00b4\3\2\2\2\u00b6\u00b5\3\2\2\2\u00b7")
-        buf.write("\u00c4\3\2\2\2\u00b8\u00b9\f\t\2\2\u00b9\u00ba\5&\24\2")
-        buf.write("\u00ba\u00bb\5\30\r\n\u00bb\u00c3\3\2\2\2\u00bc\u00bd")
-        buf.write("\f\b\2\2\u00bd\u00be\7.\2\2\u00be\u00c3\5\30\r\t\u00bf")
-        buf.write("\u00c0\f\7\2\2\u00c0\u00c1\7-\2\2\u00c1\u00c3\5\30\r\b")
-        buf.write("\u00c2\u00b8\3\2\2\2\u00c2\u00bc\3\2\2\2\u00c2\u00bf\3")
-        buf.write("\2\2\2\u00c3\u00c6\3\2\2\2\u00c4\u00c2\3\2\2\2\u00c4\u00c5")
-        buf.write("\3\2\2\2\u00c5\31\3\2\2\2\u00c6\u00c4\3\2\2\2\u00c7\u00c8")
-        buf.write("\b\16\1\2\u00c8\u00c9\5$\23\2\u00c9\u00ca\5\32\16\n\u00ca")
-        buf.write("\u00d0\3\2\2\2\u00cb\u00d0\5.\30\2\u00cc\u00d0\5\60\31")
-        buf.write("\2\u00cd\u00d0\5\62\32\2\u00ce\u00d0\5(\25\2\u00cf\u00c7")
-        buf.write("\3\2\2\2\u00cf\u00cb\3\2\2\2\u00cf\u00cc\3\2\2\2\u00cf")
-        buf.write("\u00cd\3\2\2\2\u00cf\u00ce\3\2\2\2\u00d0\u00dd\3\2\2\2")
-        buf.write("\u00d1\u00d2\f\t\2\2\u00d2\u00d3\5&\24\2\u00d3\u00d4\5")
-        buf.write("\32\16\n\u00d4\u00dc\3\2\2\2\u00d5\u00d6\f\b\2\2\u00d6")
-        buf.write("\u00d7\7.\2\2\u00d7\u00dc\5\32\16\t\u00d8\u00d9\f\7\2")
-        buf.write("\2\u00d9\u00da\7-\2\2\u00da\u00dc\5\32\16\b\u00db\u00d1")
-        buf.write("\3\2\2\2\u00db\u00d5\3\2\2\2\u00db\u00d8\3\2\2\2\u00dc")
-        buf.write("\u00df\3\2\2\2\u00dd\u00db\3\2\2\2\u00dd\u00de\3\2\2\2")
-        buf.write("\u00de\33\3\2\2\2\u00df\u00dd\3\2\2\2\u00e0\u00e1\7,\2")
-        buf.write("\2\u00e1\u00e2\t\3\2\2\u00e2\u00e4\7\17\2\2\u00e3\u00e5")
-        buf.write("\5\36\20\2\u00e4\u00e3\3\2\2\2\u00e5\u00e6\3\2\2\2\u00e6")
-        buf.write("\u00e4\3\2\2\2\u00e6\u00e7\3\2\2\2\u00e7\u00e8\3\2\2\2")
-        buf.write("\u00e8\u00e9\7\20\2\2\u00e9\35\3\2\2\2\u00ea\u00ed\5 ")
-        buf.write("\21\2\u00eb\u00ed\5\"\22\2\u00ec\u00ea\3\2\2\2\u00ec\u00eb")
-        buf.write("\3\2\2\2\u00ed\37\3\2\2\2\u00ee\u00ef\7(\2\2\u00ef\u00f0")
-        buf.write("\7\62\2\2\u00f0!\3\2\2\2\u00f1\u00f2\7)\2\2\u00f2\u00f3")
-        buf.write("\7\62\2\2\u00f3#\3\2\2\2\u00f4\u00f5\7/\2\2\u00f5%\3\2")
-        buf.write("\2\2\u00f6\u00f7\t\4\2\2\u00f7\'\3\2\2\2\u00f8\u00f9\7")
-        buf.write("\62\2\2\u00f9\u00fa\5*\26\2\u00fa)\3\2\2\2\u00fb\u00fc")
-        buf.write("\7\24\2\2\u00fc\u00fd\7\25\2\2\u00fd+\3\2\2\2\u00fe\u0101")
-        buf.write("\7\26\2\2\u00ff\u0102\5.\30\2\u0100\u0102\5\62\32\2\u0101")
-        buf.write("\u00ff\3\2\2\2\u0101\u0100\3\2\2\2\u0102\u0103\3\2\2\2")
-        buf.write("\u0103\u0106\7\f\2\2\u0104\u0107\5.\30\2\u0105\u0107\5")
-        buf.write("\62\32\2\u0106\u0104\3\2\2\2\u0106\u0105\3\2\2\2\u0107")
-        buf.write("-\3\2\2\2\u0108\u0109\b\30\1\2\u0109\u010a\7\62\2\2\u010a")
-        buf.write("\u0110\3\2\2\2\u010b\u010c\f\4\2\2\u010c\u010d\7\60\2")
-        buf.write("\2\u010d\u010f\7\62\2\2\u010e\u010b\3\2\2\2\u010f\u0112")
-        buf.write("\3\2\2\2\u0110\u010e\3\2\2\2\u0110\u0111\3\2\2\2\u0111")
-        buf.write("/\3\2\2\2\u0112\u0110\3\2\2\2\u0113\u0114\5\64\33\2\u0114")
-        buf.write("\61\3\2\2\2\u0115\u0116\7\21\2\2\u0116\u011b\5\64\33\2")
-        buf.write("\u0117\u0118\7\23\2\2\u0118\u011a\5\64\33\2\u0119\u0117")
-        buf.write("\3\2\2\2\u011a\u011d\3\2\2\2\u011b\u0119\3\2\2\2\u011b")
-        buf.write("\u011c\3\2\2\2\u011c\u011e\3\2\2\2\u011d\u011b\3\2\2\2")
-        buf.write("\u011e\u011f\7\22\2\2\u011f\63\3\2\2\2\u0120\u0124\7\63")
-        buf.write("\2\2\u0121\u0124\7\61\2\2\u0122\u0124\5\66\34\2\u0123")
-        buf.write("\u0120\3\2\2\2\u0123\u0121\3\2\2\2\u0123\u0122\3\2\2\2")
-        buf.write("\u0124\65\3\2\2\2\u0125\u0126\t\5\2\2\u0126\67\3\2\2\2")
-        buf.write("\";FNQWZ`fnqwz\u0080\u0086\u0090\u0095\u0098\u009d\u00a9")
-        buf.write("\u00b6\u00c2\u00c4\u00cf\u00db\u00dd\u00e6\u00ec\u0101")
-        buf.write("\u0106\u0110\u011b\u0123")
+        buf.write("\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\4\30\t\30\3\2")
+        buf.write("\7\2\62\n\2\f\2\16\2\65\13\2\3\2\3\2\3\3\3\3\3\3\3\3\7")
+        buf.write("\3=\n\3\f\3\16\3@\13\3\3\3\3\3\3\4\3\4\3\4\5\4G\n\4\3")
+        buf.write("\5\5\5J\n\5\3\5\3\5\3\5\3\5\5\5P\n\5\3\5\3\5\7\5T\n\5")
+        buf.write("\f\5\16\5W\13\5\3\5\3\5\3\6\3\6\3\6\5\6^\n\6\3\7\5\7a")
+        buf.write("\n\7\3\7\3\7\3\7\3\7\5\7g\n\7\3\7\3\7\7\7k\n\7\f\7\16")
+        buf.write("\7n\13\7\3\7\3\7\3\b\3\b\3\b\3\t\3\t\5\tw\n\t\3\t\3\t")
+        buf.write("\3\t\5\t|\n\t\3\t\3\t\3\n\3\n\3\13\3\13\3\13\6\13\u0085")
+        buf.write("\n\13\r\13\16\13\u0086\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f")
+        buf.write("\3\f\3\f\3\f\5\f\u0094\n\f\3\f\3\f\3\f\3\f\7\f\u009a\n")
+        buf.write("\f\f\f\16\f\u009d\13\f\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r")
+        buf.write("\3\r\3\r\3\r\3\r\5\r\u00ab\n\r\3\16\3\16\3\16\5\16\u00b0")
+        buf.write("\n\16\3\17\3\17\3\20\3\20\3\21\3\21\3\22\3\22\3\23\3\23")
+        buf.write("\3\23\5\23\u00bd\n\23\3\23\3\23\3\23\5\23\u00c2\n\23\3")
+        buf.write("\24\3\24\3\24\3\24\3\24\3\24\7\24\u00ca\n\24\f\24\16\24")
+        buf.write("\u00cd\13\24\3\25\3\25\3\26\3\26\3\26\3\26\7\26\u00d5")
+        buf.write("\n\26\f\26\16\26\u00d8\13\26\3\26\3\26\3\27\3\27\3\27")
+        buf.write("\5\27\u00df\n\27\3\30\3\30\3\30\2\4\26&\31\2\4\6\b\n\f")
+        buf.write("\16\20\22\24\26\30\32\34\36 \"$&(*,.\2\b\3\2\35\"\3\2")
+        buf.write("*+\3\2\6\13\3\2-.\3\2\f\16\3\2$%\2\u00e9\2\63\3\2\2\2")
+        buf.write("\48\3\2\2\2\6F\3\2\2\2\bI\3\2\2\2\n]\3\2\2\2\f`\3\2\2")
+        buf.write("\2\16q\3\2\2\2\20t\3\2\2\2\22\177\3\2\2\2\24\u0081\3\2")
+        buf.write("\2\2\26\u0093\3\2\2\2\30\u00aa\3\2\2\2\32\u00af\3\2\2")
+        buf.write("\2\34\u00b1\3\2\2\2\36\u00b3\3\2\2\2 \u00b5\3\2\2\2\"")
+        buf.write("\u00b7\3\2\2\2$\u00b9\3\2\2\2&\u00c3\3\2\2\2(\u00ce\3")
+        buf.write("\2\2\2*\u00d0\3\2\2\2,\u00de\3\2\2\2.\u00e0\3\2\2\2\60")
+        buf.write("\62\5\4\3\2\61\60\3\2\2\2\62\65\3\2\2\2\63\61\3\2\2\2")
+        buf.write("\63\64\3\2\2\2\64\66\3\2\2\2\65\63\3\2\2\2\66\67\7\2\2")
+        buf.write("\3\67\3\3\2\2\289\7\30\2\29:\7\62\2\2:>\7\17\2\2;=\5\6")
+        buf.write("\4\2<;\3\2\2\2=@\3\2\2\2><\3\2\2\2>?\3\2\2\2?A\3\2\2\2")
+        buf.write("@>\3\2\2\2AB\7\20\2\2B\5\3\2\2\2CG\5\b\5\2DG\5\f\7\2E")
+        buf.write("G\5\4\3\2FC\3\2\2\2FD\3\2\2\2FE\3\2\2\2G\7\3\2\2\2HJ\7")
+        buf.write("\27\2\2IH\3\2\2\2IJ\3\2\2\2JK\3\2\2\2KL\7\31\2\2LM\7\62")
+        buf.write("\2\2MO\7\17\2\2NP\5\24\13\2ON\3\2\2\2OP\3\2\2\2PQ\3\2")
+        buf.write("\2\2QU\5\16\b\2RT\5\n\6\2SR\3\2\2\2TW\3\2\2\2US\3\2\2")
+        buf.write("\2UV\3\2\2\2VX\3\2\2\2WU\3\2\2\2XY\7\20\2\2Y\t\3\2\2\2")
+        buf.write("Z^\7\62\2\2[^\5\f\7\2\\^\5\b\5\2]Z\3\2\2\2][\3\2\2\2]")
+        buf.write("\\\3\2\2\2^\13\3\2\2\2_a\7\27\2\2`_\3\2\2\2`a\3\2\2\2")
+        buf.write("ab\3\2\2\2bc\7\32\2\2cd\7\62\2\2df\7\17\2\2eg\5\24\13")
+        buf.write("\2fe\3\2\2\2fg\3\2\2\2gh\3\2\2\2hl\5\16\b\2ik\5\20\t\2")
+        buf.write("ji\3\2\2\2kn\3\2\2\2lj\3\2\2\2lm\3\2\2\2mo\3\2\2\2nl\3")
+        buf.write("\2\2\2op\7\20\2\2p\r\3\2\2\2qr\7\34\2\2rs\t\2\2\2s\17")
+        buf.write("\3\2\2\2tv\7\33\2\2uw\7\62\2\2vu\3\2\2\2vw\3\2\2\2wx\3")
+        buf.write("\2\2\2xy\7\17\2\2y{\5\22\n\2z|\5\24\13\2{z\3\2\2\2{|\3")
+        buf.write("\2\2\2|}\3\2\2\2}~\7\20\2\2~\21\3\2\2\2\177\u0080\t\3")
+        buf.write("\2\2\u0080\23\3\2\2\2\u0081\u0084\7#\2\2\u0082\u0083\7")
+        buf.write("&\2\2\u0083\u0085\5\26\f\2\u0084\u0082\3\2\2\2\u0085\u0086")
+        buf.write("\3\2\2\2\u0086\u0084\3\2\2\2\u0086\u0087\3\2\2\2\u0087")
+        buf.write("\25\3\2\2\2\u0088\u0089\b\f\1\2\u0089\u008a\5\34\17\2")
+        buf.write("\u008a\u008b\5\26\f\b\u008b\u0094\3\2\2\2\u008c\u0094")
+        buf.write("\5\30\r\2\u008d\u0094\5$\23\2\u008e\u0094\5.\30\2\u008f")
+        buf.write("\u0090\7\24\2\2\u0090\u0091\5\26\f\2\u0091\u0092\7\25")
+        buf.write("\2\2\u0092\u0094\3\2\2\2\u0093\u0088\3\2\2\2\u0093\u008c")
+        buf.write("\3\2\2\2\u0093\u008d\3\2\2\2\u0093\u008e\3\2\2\2\u0093")
+        buf.write("\u008f\3\2\2\2\u0094\u009b\3\2\2\2\u0095\u0096\f\7\2\2")
+        buf.write("\u0096\u0097\5 \21\2\u0097\u0098\5\26\f\b\u0098\u009a")
+        buf.write("\3\2\2\2\u0099\u0095\3\2\2\2\u009a\u009d\3\2\2\2\u009b")
+        buf.write("\u0099\3\2\2\2\u009b\u009c\3\2\2\2\u009c\27\3\2\2\2\u009d")
+        buf.write("\u009b\3\2\2\2\u009e\u009f\5\32\16\2\u009f\u00a0\5\36")
+        buf.write("\20\2\u00a0\u00a1\5\32\16\2\u00a1\u00ab\3\2\2\2\u00a2")
+        buf.write("\u00a3\5\32\16\2\u00a3\u00a4\5\"\22\2\u00a4\u00a5\5*\26")
+        buf.write("\2\u00a5\u00ab\3\2\2\2\u00a6\u00a7\5(\25\2\u00a7\u00a8")
+        buf.write("\7\f\2\2\u00a8\u00a9\5&\24\2\u00a9\u00ab\3\2\2\2\u00aa")
+        buf.write("\u009e\3\2\2\2\u00aa\u00a2\3\2\2\2\u00aa\u00a6\3\2\2\2")
+        buf.write("\u00ab\31\3\2\2\2\u00ac\u00b0\5&\24\2\u00ad\u00b0\5(\25")
+        buf.write("\2\u00ae\u00b0\5*\26\2\u00af\u00ac\3\2\2\2\u00af\u00ad")
+        buf.write("\3\2\2\2\u00af\u00ae\3\2\2\2\u00b0\33\3\2\2\2\u00b1\u00b2")
+        buf.write("\7/\2\2\u00b2\35\3\2\2\2\u00b3\u00b4\t\4\2\2\u00b4\37")
+        buf.write("\3\2\2\2\u00b5\u00b6\t\5\2\2\u00b6!\3\2\2\2\u00b7\u00b8")
+        buf.write("\t\6\2\2\u00b8#\3\2\2\2\u00b9\u00bc\7\26\2\2\u00ba\u00bd")
+        buf.write("\5&\24\2\u00bb\u00bd\5*\26\2\u00bc\u00ba\3\2\2\2\u00bc")
+        buf.write("\u00bb\3\2\2\2\u00bd\u00be\3\2\2\2\u00be\u00c1\7\f\2\2")
+        buf.write("\u00bf\u00c2\5&\24\2\u00c0\u00c2\5*\26\2\u00c1\u00bf\3")
+        buf.write("\2\2\2\u00c1\u00c0\3\2\2\2\u00c2%\3\2\2\2\u00c3\u00c4")
+        buf.write("\b\24\1\2\u00c4\u00c5\7\62\2\2\u00c5\u00cb\3\2\2\2\u00c6")
+        buf.write("\u00c7\f\4\2\2\u00c7\u00c8\7\60\2\2\u00c8\u00ca\7\62\2")
+        buf.write("\2\u00c9\u00c6\3\2\2\2\u00ca\u00cd\3\2\2\2\u00cb\u00c9")
+        buf.write("\3\2\2\2\u00cb\u00cc\3\2\2\2\u00cc\'\3\2\2\2\u00cd\u00cb")
+        buf.write("\3\2\2\2\u00ce\u00cf\5,\27\2\u00cf)\3\2\2\2\u00d0\u00d1")
+        buf.write("\7\21\2\2\u00d1\u00d6\5,\27\2\u00d2\u00d3\7\23\2\2\u00d3")
+        buf.write("\u00d5\5,\27\2\u00d4\u00d2\3\2\2\2\u00d5\u00d8\3\2\2\2")
+        buf.write("\u00d6\u00d4\3\2\2\2\u00d6\u00d7\3\2\2\2\u00d7\u00d9\3")
+        buf.write("\2\2\2\u00d8\u00d6\3\2\2\2\u00d9\u00da\7\22\2\2\u00da")
+        buf.write("+\3\2\2\2\u00db\u00df\7\63\2\2\u00dc\u00df\7\61\2\2\u00dd")
+        buf.write("\u00df\5.\30\2\u00de\u00db\3\2\2\2\u00de\u00dc\3\2\2\2")
+        buf.write("\u00de\u00dd\3\2\2\2\u00df-\3\2\2\2\u00e0\u00e1\t\7\2")
+        buf.write("\2\u00e1/\3\2\2\2\30\63>FIOU]`flv{\u0086\u0093\u009b\u00aa")
+        buf.write("\u00af\u00bc\u00c1\u00cb\u00d6\u00de")
         return buf.getvalue()
 
 
@@ -183,32 +145,27 @@ class alfaParser ( Parser ):
     RULE_ruleDeclaration = 7
     RULE_effectStatement = 8
     RULE_targetStatement = 9
-    RULE_conditionStatement = 10
-    RULE_targetExpression = 11
-    RULE_conditionExpression = 12
-    RULE_event = 13
-    RULE_eventBody = 14
-    RULE_obligation = 15
-    RULE_advice = 16
-    RULE_unaryOperator = 17
-    RULE_binaryOperator = 18
-    RULE_callExpression = 19
-    RULE_arguments = 20
-    RULE_anyExpression = 21
-    RULE_attributeAccessExpression = 22
-    RULE_attributeValue = 23
-    RULE_arrayExpression = 24
-    RULE_literal = 25
-    RULE_boolean_literal = 26
+    RULE_targetExpression = 10
+    RULE_targetPrimitive = 11
+    RULE_targetAtom = 12
+    RULE_unaryOperator = 13
+    RULE_binaryOperator = 14
+    RULE_logicalOperator = 15
+    RULE_setOperator = 16
+    RULE_anyExpression = 17
+    RULE_attributeAccessExpression = 18
+    RULE_attributeValue = 19
+    RULE_arrayExpression = 20
+    RULE_literal = 21
+    RULE_booleanLiteral = 22
 
     ruleNames =  [ "root", "nameSpaceDeclaration", "nameSpaceBody", "policySetDeclaration", 
                    "policySetBody", "policyDeclaration", "applyStatement", 
                    "ruleDeclaration", "effectStatement", "targetStatement", 
-                   "conditionStatement", "targetExpression", "conditionExpression", 
-                   "event", "eventBody", "obligation", "advice", "unaryOperator", 
-                   "binaryOperator", "callExpression", "arguments", "anyExpression", 
-                   "attributeAccessExpression", "attributeValue", "arrayExpression", 
-                   "literal", "boolean_literal" ]
+                   "targetExpression", "targetPrimitive", "targetAtom", 
+                   "unaryOperator", "binaryOperator", "logicalOperator", 
+                   "setOperator", "anyExpression", "attributeAccessExpression", 
+                   "attributeValue", "arrayExpression", "literal", "booleanLiteral" ]
 
     EOF = Token.EOF
     SPACE=1
@@ -313,17 +270,17 @@ class alfaParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 57
+            self.state = 49
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while _la==alfaParser.NAMESPACE:
-                self.state = 54
+                self.state = 46
                 self.nameSpaceDeclaration()
-                self.state = 59
+                self.state = 51
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 60
+            self.state = 52
             self.match(alfaParser.EOF)
         except RecognitionException as re:
             localctx.exception = re
@@ -380,23 +337,23 @@ class alfaParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 62
+            self.state = 54
             self.match(alfaParser.NAMESPACE)
-            self.state = 63
+            self.state = 55
             localctx.nameSpaceId = self.match(alfaParser.ID)
-            self.state = 64
+            self.state = 56
             self.match(alfaParser.OPEN_BRACE)
-            self.state = 68
+            self.state = 60
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << alfaParser.EXPORT) | (1 << alfaParser.NAMESPACE) | (1 << alfaParser.POLICYSET) | (1 << alfaParser.POLICY))) != 0):
-                self.state = 65
+                self.state = 57
                 self.nameSpaceBody()
-                self.state = 70
+                self.state = 62
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 71
+            self.state = 63
             self.match(alfaParser.CLOSE_BRACE)
         except RecognitionException as re:
             localctx.exception = re
@@ -449,24 +406,24 @@ class alfaParser ( Parser ):
         localctx = alfaParser.NameSpaceBodyContext(self, self._ctx, self.state)
         self.enterRule(localctx, 4, self.RULE_nameSpaceBody)
         try:
-            self.state = 76
+            self.state = 68
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,2,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 73
+                self.state = 65
                 self.policySetDeclaration()
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 74
+                self.state = 66
                 self.policyDeclaration()
                 pass
 
             elif la_ == 3:
                 self.enterOuterAlt(localctx, 3)
-                self.state = 75
+                self.state = 67
                 self.nameSpaceDeclaration()
                 pass
 
@@ -503,22 +460,11 @@ class alfaParser ( Parser ):
             return self.getTypedRuleContext(alfaParser.TargetStatementContext,0)
 
 
-        def conditionStatement(self):
-            return self.getTypedRuleContext(alfaParser.ConditionStatementContext,0)
-
-
         def policySetBody(self, i:int=None):
             if i is None:
                 return self.getTypedRuleContexts(alfaParser.PolicySetBodyContext)
             else:
                 return self.getTypedRuleContext(alfaParser.PolicySetBodyContext,i)
-
-
-        def event(self, i:int=None):
-            if i is None:
-                return self.getTypedRuleContexts(alfaParser.EventContext)
-            else:
-                return self.getTypedRuleContext(alfaParser.EventContext,i)
 
 
         def getRuleIndex(self):
@@ -548,59 +494,41 @@ class alfaParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 79
+            self.state = 71
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==alfaParser.EXPORT:
-                self.state = 78
+                self.state = 70
                 self.match(alfaParser.EXPORT)
 
 
-            self.state = 81
+            self.state = 73
             self.match(alfaParser.POLICYSET)
-            self.state = 82
+            self.state = 74
             localctx.policySetId = self.match(alfaParser.ID)
-            self.state = 83
+            self.state = 75
             self.match(alfaParser.OPEN_BRACE)
-            self.state = 85
+            self.state = 77
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==alfaParser.TARGET:
-                self.state = 84
+                self.state = 76
                 self.targetStatement()
 
 
-            self.state = 88
-            self._errHandler.sync(self)
-            _la = self._input.LA(1)
-            if _la==alfaParser.CONDITION:
-                self.state = 87
-                self.conditionStatement()
-
-
-            self.state = 90
+            self.state = 79
             self.applyStatement()
-            self.state = 94
+            self.state = 83
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << alfaParser.EXPORT) | (1 << alfaParser.POLICYSET) | (1 << alfaParser.POLICY) | (1 << alfaParser.ID))) != 0):
-                self.state = 91
+                self.state = 80
                 self.policySetBody()
-                self.state = 96
+                self.state = 85
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 100
-            self._errHandler.sync(self)
-            _la = self._input.LA(1)
-            while _la==alfaParser.ON:
-                self.state = 97
-                self.event()
-                self.state = 102
-                self._errHandler.sync(self)
-                _la = self._input.LA(1)
-
-            self.state = 103
+            self.state = 86
             self.match(alfaParser.CLOSE_BRACE)
         except RecognitionException as re:
             localctx.exception = re
@@ -652,24 +580,24 @@ class alfaParser ( Parser ):
         localctx = alfaParser.PolicySetBodyContext(self, self._ctx, self.state)
         self.enterRule(localctx, 8, self.RULE_policySetBody)
         try:
-            self.state = 108
+            self.state = 91
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,8,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input,6,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 105
+                self.state = 88
                 self.match(alfaParser.ID)
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 106
+                self.state = 89
                 self.policyDeclaration()
                 pass
 
             elif la_ == 3:
                 self.enterOuterAlt(localctx, 3)
-                self.state = 107
+                self.state = 90
                 self.policySetDeclaration()
                 pass
 
@@ -706,22 +634,11 @@ class alfaParser ( Parser ):
             return self.getTypedRuleContext(alfaParser.TargetStatementContext,0)
 
 
-        def conditionStatement(self):
-            return self.getTypedRuleContext(alfaParser.ConditionStatementContext,0)
-
-
         def ruleDeclaration(self, i:int=None):
             if i is None:
                 return self.getTypedRuleContexts(alfaParser.RuleDeclarationContext)
             else:
                 return self.getTypedRuleContext(alfaParser.RuleDeclarationContext,i)
-
-
-        def event(self, i:int=None):
-            if i is None:
-                return self.getTypedRuleContexts(alfaParser.EventContext)
-            else:
-                return self.getTypedRuleContext(alfaParser.EventContext,i)
 
 
         def getRuleIndex(self):
@@ -751,59 +668,41 @@ class alfaParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 111
+            self.state = 94
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==alfaParser.EXPORT:
-                self.state = 110
+                self.state = 93
                 self.match(alfaParser.EXPORT)
 
 
-            self.state = 113
+            self.state = 96
             self.match(alfaParser.POLICY)
-            self.state = 114
+            self.state = 97
             localctx.policyId = self.match(alfaParser.ID)
-            self.state = 115
+            self.state = 98
             self.match(alfaParser.OPEN_BRACE)
-            self.state = 117
+            self.state = 100
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==alfaParser.TARGET:
-                self.state = 116
+                self.state = 99
                 self.targetStatement()
 
 
-            self.state = 120
-            self._errHandler.sync(self)
-            _la = self._input.LA(1)
-            if _la==alfaParser.CONDITION:
-                self.state = 119
-                self.conditionStatement()
-
-
-            self.state = 122
+            self.state = 102
             self.applyStatement()
-            self.state = 126
+            self.state = 106
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while _la==alfaParser.RULE:
-                self.state = 123
+                self.state = 103
                 self.ruleDeclaration()
-                self.state = 128
+                self.state = 108
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 132
-            self._errHandler.sync(self)
-            _la = self._input.LA(1)
-            while _la==alfaParser.ON:
-                self.state = 129
-                self.event()
-                self.state = 134
-                self._errHandler.sync(self)
-                _la = self._input.LA(1)
-
-            self.state = 135
+            self.state = 109
             self.match(alfaParser.CLOSE_BRACE)
         except RecognitionException as re:
             localctx.exception = re
@@ -868,9 +767,9 @@ class alfaParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 137
+            self.state = 111
             self.match(alfaParser.APPLY)
-            self.state = 138
+            self.state = 112
             localctx.algorithm = self._input.LT(1)
             _la = self._input.LA(1)
             if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << alfaParser.PEMIT_OVERRIDES) | (1 << alfaParser.DENY_OVERRIDES) | (1 << alfaParser.FIRST_APPLICABLE) | (1 << alfaParser.PERMIT_UNLESS_DENY) | (1 << alfaParser.DENY_UNLESS_PERMIT) | (1 << alfaParser.ONLY_ONE_APPLICABLE))) != 0)):
@@ -904,17 +803,6 @@ class alfaParser ( Parser ):
             return self.getTypedRuleContext(alfaParser.TargetStatementContext,0)
 
 
-        def conditionStatement(self):
-            return self.getTypedRuleContext(alfaParser.ConditionStatementContext,0)
-
-
-        def event(self, i:int=None):
-            if i is None:
-                return self.getTypedRuleContexts(alfaParser.EventContext)
-            else:
-                return self.getTypedRuleContext(alfaParser.EventContext,i)
-
-
         def ID(self):
             return self.getToken(alfaParser.ID, 0)
 
@@ -945,47 +833,29 @@ class alfaParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 140
+            self.state = 114
             self.match(alfaParser.RULE)
-            self.state = 142
+            self.state = 116
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==alfaParser.ID:
-                self.state = 141
+                self.state = 115
                 localctx.ruleId = self.match(alfaParser.ID)
 
 
-            self.state = 144
+            self.state = 118
             self.match(alfaParser.OPEN_BRACE)
-            self.state = 145
+            self.state = 119
             self.effectStatement()
-            self.state = 147
+            self.state = 121
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==alfaParser.TARGET:
-                self.state = 146
+                self.state = 120
                 self.targetStatement()
 
 
-            self.state = 150
-            self._errHandler.sync(self)
-            _la = self._input.LA(1)
-            if _la==alfaParser.CONDITION:
-                self.state = 149
-                self.conditionStatement()
-
-
-            self.state = 155
-            self._errHandler.sync(self)
-            _la = self._input.LA(1)
-            while _la==alfaParser.ON:
-                self.state = 152
-                self.event()
-                self.state = 157
-                self._errHandler.sync(self)
-                _la = self._input.LA(1)
-
-            self.state = 158
+            self.state = 123
             self.match(alfaParser.CLOSE_BRACE)
         except RecognitionException as re:
             localctx.exception = re
@@ -1034,7 +904,7 @@ class alfaParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 160
+            self.state = 125
             _la = self._input.LA(1)
             if not(_la==alfaParser.PERMIT or _la==alfaParser.DENY):
                 self._errHandler.recoverInline(self)
@@ -1098,73 +968,22 @@ class alfaParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 162
+            self.state = 127
             self.match(alfaParser.TARGET)
-            self.state = 165 
+            self.state = 130 
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
-                self.state = 163
+                self.state = 128
                 self.match(alfaParser.CLAUSE)
-                self.state = 164
+                self.state = 129
                 self.targetExpression(0)
-                self.state = 167 
+                self.state = 132 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if not (_la==alfaParser.CLAUSE):
                     break
 
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-    class ConditionStatementContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def CONDITION(self):
-            return self.getToken(alfaParser.CONDITION, 0)
-
-        def conditionExpression(self):
-            return self.getTypedRuleContext(alfaParser.ConditionExpressionContext,0)
-
-
-        def getRuleIndex(self):
-            return alfaParser.RULE_conditionStatement
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterConditionStatement" ):
-                listener.enterConditionStatement(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitConditionStatement" ):
-                listener.exitConditionStatement(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitConditionStatement" ):
-                return visitor.visitConditionStatement(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def conditionStatement(self):
-
-        localctx = alfaParser.ConditionStatementContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 20, self.RULE_conditionStatement)
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 169
-            self.match(alfaParser.CONDITION)
-            self.state = 170
-            self.conditionExpression(0)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1186,6 +1005,31 @@ class alfaParser ( Parser ):
      
         def copyFrom(self, ctx:ParserRuleContext):
             super().copyFrom(ctx)
+
+
+    class TargetPrimitiveExpressionContext(TargetExpressionContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a alfaParser.TargetExpressionContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+        def targetPrimitive(self):
+            return self.getTypedRuleContext(alfaParser.TargetPrimitiveContext,0)
+
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterTargetPrimitiveExpression" ):
+                listener.enterTargetPrimitiveExpression(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitTargetPrimitiveExpression" ):
+                listener.exitTargetPrimitiveExpression(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitTargetPrimitiveExpression" ):
+                return visitor.visitTargetPrimitiveExpression(self)
+            else:
+                return visitor.visitChildren(self)
 
 
     class TargetAnyExpressionContext(TargetExpressionContext):
@@ -1213,7 +1057,7 @@ class alfaParser ( Parser ):
                 return visitor.visitChildren(self)
 
 
-    class TargetAndExpressionContext(TargetExpressionContext):
+    class TargetLogicalExpressionContext(TargetExpressionContext):
 
         def __init__(self, parser, ctx:ParserRuleContext): # actually a alfaParser.TargetExpressionContext
             super().__init__(parser)
@@ -1225,50 +1069,50 @@ class alfaParser ( Parser ):
             else:
                 return self.getTypedRuleContext(alfaParser.TargetExpressionContext,i)
 
-        def AND(self):
-            return self.getToken(alfaParser.AND, 0)
+        def logicalOperator(self):
+            return self.getTypedRuleContext(alfaParser.LogicalOperatorContext,0)
+
 
         def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterTargetAndExpression" ):
-                listener.enterTargetAndExpression(self)
+            if hasattr( listener, "enterTargetLogicalExpression" ):
+                listener.enterTargetLogicalExpression(self)
 
         def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitTargetAndExpression" ):
-                listener.exitTargetAndExpression(self)
+            if hasattr( listener, "exitTargetLogicalExpression" ):
+                listener.exitTargetLogicalExpression(self)
 
         def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitTargetAndExpression" ):
-                return visitor.visitTargetAndExpression(self)
+            if hasattr( visitor, "visitTargetLogicalExpression" ):
+                return visitor.visitTargetLogicalExpression(self)
             else:
                 return visitor.visitChildren(self)
 
 
-    class TargetOrExpressionContext(TargetExpressionContext):
+    class TargetParenthesisExpressionContext(TargetExpressionContext):
 
         def __init__(self, parser, ctx:ParserRuleContext): # actually a alfaParser.TargetExpressionContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
-        def targetExpression(self, i:int=None):
-            if i is None:
-                return self.getTypedRuleContexts(alfaParser.TargetExpressionContext)
-            else:
-                return self.getTypedRuleContext(alfaParser.TargetExpressionContext,i)
+        def OPEN_PAREN(self):
+            return self.getToken(alfaParser.OPEN_PAREN, 0)
+        def targetExpression(self):
+            return self.getTypedRuleContext(alfaParser.TargetExpressionContext,0)
 
-        def OR(self):
-            return self.getToken(alfaParser.OR, 0)
+        def CLOSE_PAREN(self):
+            return self.getToken(alfaParser.CLOSE_PAREN, 0)
 
         def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterTargetOrExpression" ):
-                listener.enterTargetOrExpression(self)
+            if hasattr( listener, "enterTargetParenthesisExpression" ):
+                listener.enterTargetParenthesisExpression(self)
 
         def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitTargetOrExpression" ):
-                listener.exitTargetOrExpression(self)
+            if hasattr( listener, "exitTargetParenthesisExpression" ):
+                listener.exitTargetParenthesisExpression(self)
 
         def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitTargetOrExpression" ):
-                return visitor.visitTargetOrExpression(self)
+            if hasattr( visitor, "visitTargetParenthesisExpression" ):
+                return visitor.visitTargetParenthesisExpression(self)
             else:
                 return visitor.visitChildren(self)
 
@@ -1301,108 +1145,27 @@ class alfaParser ( Parser ):
                 return visitor.visitChildren(self)
 
 
-    class TargetArrayExpressionContext(TargetExpressionContext):
+    class TargetBooleanExpressionContext(TargetExpressionContext):
 
         def __init__(self, parser, ctx:ParserRuleContext): # actually a alfaParser.TargetExpressionContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
-        def arrayExpression(self):
-            return self.getTypedRuleContext(alfaParser.ArrayExpressionContext,0)
+        def booleanLiteral(self):
+            return self.getTypedRuleContext(alfaParser.BooleanLiteralContext,0)
 
 
         def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterTargetArrayExpression" ):
-                listener.enterTargetArrayExpression(self)
+            if hasattr( listener, "enterTargetBooleanExpression" ):
+                listener.enterTargetBooleanExpression(self)
 
         def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitTargetArrayExpression" ):
-                listener.exitTargetArrayExpression(self)
+            if hasattr( listener, "exitTargetBooleanExpression" ):
+                listener.exitTargetBooleanExpression(self)
 
         def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitTargetArrayExpression" ):
-                return visitor.visitTargetArrayExpression(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-    class TargetAttributeValueExpressionContext(TargetExpressionContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a alfaParser.TargetExpressionContext
-            super().__init__(parser)
-            self.copyFrom(ctx)
-
-        def attributeValue(self):
-            return self.getTypedRuleContext(alfaParser.AttributeValueContext,0)
-
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterTargetAttributeValueExpression" ):
-                listener.enterTargetAttributeValueExpression(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitTargetAttributeValueExpression" ):
-                listener.exitTargetAttributeValueExpression(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitTargetAttributeValueExpression" ):
-                return visitor.visitTargetAttributeValueExpression(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-    class TargetAttributeAccessExpressionContext(TargetExpressionContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a alfaParser.TargetExpressionContext
-            super().__init__(parser)
-            self.copyFrom(ctx)
-
-        def attributeAccessExpression(self):
-            return self.getTypedRuleContext(alfaParser.AttributeAccessExpressionContext,0)
-
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterTargetAttributeAccessExpression" ):
-                listener.enterTargetAttributeAccessExpression(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitTargetAttributeAccessExpression" ):
-                listener.exitTargetAttributeAccessExpression(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitTargetAttributeAccessExpression" ):
-                return visitor.visitTargetAttributeAccessExpression(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-    class TargetBaseExpressionContext(TargetExpressionContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a alfaParser.TargetExpressionContext
-            super().__init__(parser)
-            self.copyFrom(ctx)
-
-        def targetExpression(self, i:int=None):
-            if i is None:
-                return self.getTypedRuleContexts(alfaParser.TargetExpressionContext)
-            else:
-                return self.getTypedRuleContext(alfaParser.TargetExpressionContext,i)
-
-        def binaryOperator(self):
-            return self.getTypedRuleContext(alfaParser.BinaryOperatorContext,0)
-
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterTargetBaseExpression" ):
-                listener.enterTargetBaseExpression(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitTargetBaseExpression" ):
-                listener.exitTargetBaseExpression(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitTargetBaseExpression" ):
-                return visitor.visitTargetBaseExpression(self)
+            if hasattr( visitor, "visitTargetBooleanExpression" ):
+                return visitor.visitTargetBooleanExpression(self)
             else:
                 return visitor.visitChildren(self)
 
@@ -1413,109 +1176,83 @@ class alfaParser ( Parser ):
         _parentState = self.state
         localctx = alfaParser.TargetExpressionContext(self, self._ctx, _parentState)
         _prevctx = localctx
-        _startState = 22
-        self.enterRecursionRule(localctx, 22, self.RULE_targetExpression, _p)
+        _startState = 20
+        self.enterRecursionRule(localctx, 20, self.RULE_targetExpression, _p)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 180
+            self.state = 145
             self._errHandler.sync(self)
-            token = self._input.LA(1)
-            if token in [alfaParser.NOT]:
+            la_ = self._interp.adaptivePredict(self._input,13,self._ctx)
+            if la_ == 1:
                 localctx = alfaParser.TargetUnaryExpressionContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
 
-                self.state = 173
+                self.state = 135
                 self.unaryOperator()
-                self.state = 174
-                self.targetExpression(8)
+                self.state = 136
+                self.targetExpression(6)
                 pass
-            elif token in [alfaParser.ANY]:
+
+            elif la_ == 2:
+                localctx = alfaParser.TargetPrimitiveExpressionContext(self, localctx)
+                self._ctx = localctx
+                _prevctx = localctx
+                self.state = 138
+                self.targetPrimitive()
+                pass
+
+            elif la_ == 3:
                 localctx = alfaParser.TargetAnyExpressionContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
-                self.state = 176
+                self.state = 139
                 self.anyExpression()
                 pass
-            elif token in [alfaParser.ID]:
-                localctx = alfaParser.TargetAttributeAccessExpressionContext(self, localctx)
+
+            elif la_ == 4:
+                localctx = alfaParser.TargetBooleanExpressionContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
-                self.state = 177
-                self.attributeAccessExpression(0)
+                self.state = 140
+                self.booleanLiteral()
                 pass
-            elif token in [alfaParser.TRUE, alfaParser.FALSE, alfaParser.STRING, alfaParser.INT]:
-                localctx = alfaParser.TargetAttributeValueExpressionContext(self, localctx)
+
+            elif la_ == 5:
+                localctx = alfaParser.TargetParenthesisExpressionContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
-                self.state = 178
-                self.attributeValue()
+                self.state = 141
+                self.match(alfaParser.OPEN_PAREN)
+                self.state = 142
+                self.targetExpression(0)
+                self.state = 143
+                self.match(alfaParser.CLOSE_PAREN)
                 pass
-            elif token in [alfaParser.OPEN_BRACKET]:
-                localctx = alfaParser.TargetArrayExpressionContext(self, localctx)
-                self._ctx = localctx
-                _prevctx = localctx
-                self.state = 179
-                self.arrayExpression()
-                pass
-            else:
-                raise NoViableAltException(self)
+
 
             self._ctx.stop = self._input.LT(-1)
-            self.state = 194
+            self.state = 153
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,21,self._ctx)
+            _alt = self._interp.adaptivePredict(self._input,14,self._ctx)
             while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                 if _alt==1:
                     if self._parseListeners is not None:
                         self.triggerExitRuleEvent()
                     _prevctx = localctx
-                    self.state = 192
-                    self._errHandler.sync(self)
-                    la_ = self._interp.adaptivePredict(self._input,20,self._ctx)
-                    if la_ == 1:
-                        localctx = alfaParser.TargetBaseExpressionContext(self, alfaParser.TargetExpressionContext(self, _parentctx, _parentState))
-                        self.pushNewRecursionContext(localctx, _startState, self.RULE_targetExpression)
-                        self.state = 182
-                        if not self.precpred(self._ctx, 7):
-                            from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 7)")
-                        self.state = 183
-                        self.binaryOperator()
-                        self.state = 184
-                        self.targetExpression(8)
-                        pass
-
-                    elif la_ == 2:
-                        localctx = alfaParser.TargetAndExpressionContext(self, alfaParser.TargetExpressionContext(self, _parentctx, _parentState))
-                        self.pushNewRecursionContext(localctx, _startState, self.RULE_targetExpression)
-                        self.state = 186
-                        if not self.precpred(self._ctx, 6):
-                            from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 6)")
-                        self.state = 187
-                        self.match(alfaParser.AND)
-                        self.state = 188
-                        self.targetExpression(7)
-                        pass
-
-                    elif la_ == 3:
-                        localctx = alfaParser.TargetOrExpressionContext(self, alfaParser.TargetExpressionContext(self, _parentctx, _parentState))
-                        self.pushNewRecursionContext(localctx, _startState, self.RULE_targetExpression)
-                        self.state = 189
-                        if not self.precpred(self._ctx, 5):
-                            from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 5)")
-                        self.state = 190
-                        self.match(alfaParser.OR)
-                        self.state = 191
-                        self.targetExpression(6)
-                        pass
-
-             
-                self.state = 196
+                    localctx = alfaParser.TargetLogicalExpressionContext(self, alfaParser.TargetExpressionContext(self, _parentctx, _parentState))
+                    self.pushNewRecursionContext(localctx, _startState, self.RULE_targetExpression)
+                    self.state = 147
+                    if not self.precpred(self._ctx, 5):
+                        from antlr4.error.Errors import FailedPredicateException
+                        raise FailedPredicateException(self, "self.precpred(self._ctx, 5)")
+                    self.state = 148
+                    self.logicalOperator()
+                    self.state = 149
+                    self.targetExpression(6) 
+                self.state = 155
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,21,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input,14,self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -1525,7 +1262,7 @@ class alfaParser ( Parser ):
             self.unrollRecursionContexts(_parentctx)
         return localctx
 
-    class ConditionExpressionContext(ParserRuleContext):
+    class TargetPrimitiveContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -1533,427 +1270,149 @@ class alfaParser ( Parser ):
 
 
         def getRuleIndex(self):
-            return alfaParser.RULE_conditionExpression
+            return alfaParser.RULE_targetPrimitive
 
      
         def copyFrom(self, ctx:ParserRuleContext):
             super().copyFrom(ctx)
 
 
-    class ConditionOrExpressionContext(ConditionExpressionContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a alfaParser.ConditionExpressionContext
+    class TargetPrimitiveBinaryContext(TargetPrimitiveContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a alfaParser.TargetPrimitiveContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
-        def conditionExpression(self, i:int=None):
+        def targetAtom(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(alfaParser.ConditionExpressionContext)
+                return self.getTypedRuleContexts(alfaParser.TargetAtomContext)
             else:
-                return self.getTypedRuleContext(alfaParser.ConditionExpressionContext,i)
-
-        def OR(self):
-            return self.getToken(alfaParser.OR, 0)
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterConditionOrExpression" ):
-                listener.enterConditionOrExpression(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitConditionOrExpression" ):
-                listener.exitConditionOrExpression(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitConditionOrExpression" ):
-                return visitor.visitConditionOrExpression(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-    class ConditionAttributeValueExpressionContext(ConditionExpressionContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a alfaParser.ConditionExpressionContext
-            super().__init__(parser)
-            self.copyFrom(ctx)
-
-        def attributeValue(self):
-            return self.getTypedRuleContext(alfaParser.AttributeValueContext,0)
-
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterConditionAttributeValueExpression" ):
-                listener.enterConditionAttributeValueExpression(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitConditionAttributeValueExpression" ):
-                listener.exitConditionAttributeValueExpression(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitConditionAttributeValueExpression" ):
-                return visitor.visitConditionAttributeValueExpression(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-    class ConditionUnaryExpressionContext(ConditionExpressionContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a alfaParser.ConditionExpressionContext
-            super().__init__(parser)
-            self.copyFrom(ctx)
-
-        def unaryOperator(self):
-            return self.getTypedRuleContext(alfaParser.UnaryOperatorContext,0)
-
-        def conditionExpression(self):
-            return self.getTypedRuleContext(alfaParser.ConditionExpressionContext,0)
-
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterConditionUnaryExpression" ):
-                listener.enterConditionUnaryExpression(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitConditionUnaryExpression" ):
-                listener.exitConditionUnaryExpression(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitConditionUnaryExpression" ):
-                return visitor.visitConditionUnaryExpression(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-    class ConditionAndExpressionContext(ConditionExpressionContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a alfaParser.ConditionExpressionContext
-            super().__init__(parser)
-            self.copyFrom(ctx)
-
-        def conditionExpression(self, i:int=None):
-            if i is None:
-                return self.getTypedRuleContexts(alfaParser.ConditionExpressionContext)
-            else:
-                return self.getTypedRuleContext(alfaParser.ConditionExpressionContext,i)
-
-        def AND(self):
-            return self.getToken(alfaParser.AND, 0)
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterConditionAndExpression" ):
-                listener.enterConditionAndExpression(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitConditionAndExpression" ):
-                listener.exitConditionAndExpression(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitConditionAndExpression" ):
-                return visitor.visitConditionAndExpression(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-    class ConditionCallExpressionContext(ConditionExpressionContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a alfaParser.ConditionExpressionContext
-            super().__init__(parser)
-            self.copyFrom(ctx)
-
-        def callExpression(self):
-            return self.getTypedRuleContext(alfaParser.CallExpressionContext,0)
-
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterConditionCallExpression" ):
-                listener.enterConditionCallExpression(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitConditionCallExpression" ):
-                listener.exitConditionCallExpression(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitConditionCallExpression" ):
-                return visitor.visitConditionCallExpression(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-    class ConditionBaseExpressionContext(ConditionExpressionContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a alfaParser.ConditionExpressionContext
-            super().__init__(parser)
-            self.copyFrom(ctx)
-
-        def conditionExpression(self, i:int=None):
-            if i is None:
-                return self.getTypedRuleContexts(alfaParser.ConditionExpressionContext)
-            else:
-                return self.getTypedRuleContext(alfaParser.ConditionExpressionContext,i)
+                return self.getTypedRuleContext(alfaParser.TargetAtomContext,i)
 
         def binaryOperator(self):
             return self.getTypedRuleContext(alfaParser.BinaryOperatorContext,0)
 
 
         def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterConditionBaseExpression" ):
-                listener.enterConditionBaseExpression(self)
+            if hasattr( listener, "enterTargetPrimitiveBinary" ):
+                listener.enterTargetPrimitiveBinary(self)
 
         def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitConditionBaseExpression" ):
-                listener.exitConditionBaseExpression(self)
+            if hasattr( listener, "exitTargetPrimitiveBinary" ):
+                listener.exitTargetPrimitiveBinary(self)
 
         def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitConditionBaseExpression" ):
-                return visitor.visitConditionBaseExpression(self)
+            if hasattr( visitor, "visitTargetPrimitiveBinary" ):
+                return visitor.visitTargetPrimitiveBinary(self)
             else:
                 return visitor.visitChildren(self)
 
 
-    class ConditionAttributeAccessExpressionContext(ConditionExpressionContext):
+    class TargetPrimitiveSetContext(TargetPrimitiveContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a alfaParser.ConditionExpressionContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a alfaParser.TargetPrimitiveContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
-        def attributeAccessExpression(self):
-            return self.getTypedRuleContext(alfaParser.AttributeAccessExpressionContext,0)
+        def targetAtom(self):
+            return self.getTypedRuleContext(alfaParser.TargetAtomContext,0)
 
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterConditionAttributeAccessExpression" ):
-                listener.enterConditionAttributeAccessExpression(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitConditionAttributeAccessExpression" ):
-                listener.exitConditionAttributeAccessExpression(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitConditionAttributeAccessExpression" ):
-                return visitor.visitConditionAttributeAccessExpression(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-    class ConditionArrayExpressionContext(ConditionExpressionContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a alfaParser.ConditionExpressionContext
-            super().__init__(parser)
-            self.copyFrom(ctx)
+        def setOperator(self):
+            return self.getTypedRuleContext(alfaParser.SetOperatorContext,0)
 
         def arrayExpression(self):
             return self.getTypedRuleContext(alfaParser.ArrayExpressionContext,0)
 
 
         def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterConditionArrayExpression" ):
-                listener.enterConditionArrayExpression(self)
+            if hasattr( listener, "enterTargetPrimitiveSet" ):
+                listener.enterTargetPrimitiveSet(self)
 
         def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitConditionArrayExpression" ):
-                listener.exitConditionArrayExpression(self)
+            if hasattr( listener, "exitTargetPrimitiveSet" ):
+                listener.exitTargetPrimitiveSet(self)
 
         def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitConditionArrayExpression" ):
-                return visitor.visitConditionArrayExpression(self)
+            if hasattr( visitor, "visitTargetPrimitiveSet" ):
+                return visitor.visitTargetPrimitiveSet(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+    class TargetPrimitiveInContext(TargetPrimitiveContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a alfaParser.TargetPrimitiveContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+        def attributeValue(self):
+            return self.getTypedRuleContext(alfaParser.AttributeValueContext,0)
+
+        def IN(self):
+            return self.getToken(alfaParser.IN, 0)
+        def attributeAccessExpression(self):
+            return self.getTypedRuleContext(alfaParser.AttributeAccessExpressionContext,0)
+
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterTargetPrimitiveIn" ):
+                listener.enterTargetPrimitiveIn(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitTargetPrimitiveIn" ):
+                listener.exitTargetPrimitiveIn(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitTargetPrimitiveIn" ):
+                return visitor.visitTargetPrimitiveIn(self)
             else:
                 return visitor.visitChildren(self)
 
 
 
-    def conditionExpression(self, _p:int=0):
-        _parentctx = self._ctx
-        _parentState = self.state
-        localctx = alfaParser.ConditionExpressionContext(self, self._ctx, _parentState)
-        _prevctx = localctx
-        _startState = 24
-        self.enterRecursionRule(localctx, 24, self.RULE_conditionExpression, _p)
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 205
-            self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,22,self._ctx)
-            if la_ == 1:
-                localctx = alfaParser.ConditionUnaryExpressionContext(self, localctx)
-                self._ctx = localctx
-                _prevctx = localctx
+    def targetPrimitive(self):
 
-                self.state = 198
-                self.unaryOperator()
-                self.state = 199
-                self.conditionExpression(8)
+        localctx = alfaParser.TargetPrimitiveContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 22, self.RULE_targetPrimitive)
+        try:
+            self.state = 168
+            self._errHandler.sync(self)
+            la_ = self._interp.adaptivePredict(self._input,15,self._ctx)
+            if la_ == 1:
+                localctx = alfaParser.TargetPrimitiveBinaryContext(self, localctx)
+                self.enterOuterAlt(localctx, 1)
+                self.state = 156
+                self.targetAtom()
+                self.state = 157
+                self.binaryOperator()
+                self.state = 158
+                self.targetAtom()
                 pass
 
             elif la_ == 2:
-                localctx = alfaParser.ConditionAttributeAccessExpressionContext(self, localctx)
-                self._ctx = localctx
-                _prevctx = localctx
-                self.state = 201
-                self.attributeAccessExpression(0)
-                pass
-
-            elif la_ == 3:
-                localctx = alfaParser.ConditionAttributeValueExpressionContext(self, localctx)
-                self._ctx = localctx
-                _prevctx = localctx
-                self.state = 202
-                self.attributeValue()
-                pass
-
-            elif la_ == 4:
-                localctx = alfaParser.ConditionArrayExpressionContext(self, localctx)
-                self._ctx = localctx
-                _prevctx = localctx
-                self.state = 203
+                localctx = alfaParser.TargetPrimitiveSetContext(self, localctx)
+                self.enterOuterAlt(localctx, 2)
+                self.state = 160
+                self.targetAtom()
+                self.state = 161
+                self.setOperator()
+                self.state = 162
                 self.arrayExpression()
                 pass
 
-            elif la_ == 5:
-                localctx = alfaParser.ConditionCallExpressionContext(self, localctx)
-                self._ctx = localctx
-                _prevctx = localctx
-                self.state = 204
-                self.callExpression()
+            elif la_ == 3:
+                localctx = alfaParser.TargetPrimitiveInContext(self, localctx)
+                self.enterOuterAlt(localctx, 3)
+                self.state = 164
+                self.attributeValue()
+                self.state = 165
+                self.match(alfaParser.IN)
+                self.state = 166
+                self.attributeAccessExpression(0)
                 pass
 
 
-            self._ctx.stop = self._input.LT(-1)
-            self.state = 219
-            self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,24,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
-                    if self._parseListeners is not None:
-                        self.triggerExitRuleEvent()
-                    _prevctx = localctx
-                    self.state = 217
-                    self._errHandler.sync(self)
-                    la_ = self._interp.adaptivePredict(self._input,23,self._ctx)
-                    if la_ == 1:
-                        localctx = alfaParser.ConditionBaseExpressionContext(self, alfaParser.ConditionExpressionContext(self, _parentctx, _parentState))
-                        self.pushNewRecursionContext(localctx, _startState, self.RULE_conditionExpression)
-                        self.state = 207
-                        if not self.precpred(self._ctx, 7):
-                            from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 7)")
-                        self.state = 208
-                        self.binaryOperator()
-                        self.state = 209
-                        self.conditionExpression(8)
-                        pass
-
-                    elif la_ == 2:
-                        localctx = alfaParser.ConditionAndExpressionContext(self, alfaParser.ConditionExpressionContext(self, _parentctx, _parentState))
-                        self.pushNewRecursionContext(localctx, _startState, self.RULE_conditionExpression)
-                        self.state = 211
-                        if not self.precpred(self._ctx, 6):
-                            from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 6)")
-                        self.state = 212
-                        self.match(alfaParser.AND)
-                        self.state = 213
-                        self.conditionExpression(7)
-                        pass
-
-                    elif la_ == 3:
-                        localctx = alfaParser.ConditionOrExpressionContext(self, alfaParser.ConditionExpressionContext(self, _parentctx, _parentState))
-                        self.pushNewRecursionContext(localctx, _startState, self.RULE_conditionExpression)
-                        self.state = 214
-                        if not self.precpred(self._ctx, 5):
-                            from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 5)")
-                        self.state = 215
-                        self.match(alfaParser.OR)
-                        self.state = 216
-                        self.conditionExpression(6)
-                        pass
-
-             
-                self.state = 221
-                self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,24,self._ctx)
-
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.unrollRecursionContexts(_parentctx)
-        return localctx
-
-    class EventContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def ON(self):
-            return self.getToken(alfaParser.ON, 0)
-
-        def PERMIT(self):
-            return self.getToken(alfaParser.PERMIT, 0)
-
-        def DENY(self):
-            return self.getToken(alfaParser.DENY, 0)
-
-        def eventBody(self, i:int=None):
-            if i is None:
-                return self.getTypedRuleContexts(alfaParser.EventBodyContext)
-            else:
-                return self.getTypedRuleContext(alfaParser.EventBodyContext,i)
-
-
-        def getRuleIndex(self):
-            return alfaParser.RULE_event
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterEvent" ):
-                listener.enterEvent(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitEvent" ):
-                listener.exitEvent(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitEvent" ):
-                return visitor.visitEvent(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def event(self):
-
-        localctx = alfaParser.EventContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 26, self.RULE_event)
-        self._la = 0 # Token type
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 222
-            self.match(alfaParser.ON)
-            self.state = 223
-            _la = self._input.LA(1)
-            if not(_la==alfaParser.PERMIT or _la==alfaParser.DENY):
-                self._errHandler.recoverInline(self)
-            else:
-                self._errHandler.reportMatch(self)
-                self.consume()
-            self.state = 224
-            self.match(alfaParser.OPEN_BRACE)
-            self.state = 226 
-            self._errHandler.sync(self)
-            _la = self._input.LA(1)
-            while True:
-                self.state = 225
-                self.eventBody()
-                self.state = 228 
-                self._errHandler.sync(self)
-                _la = self._input.LA(1)
-                if not (_la==alfaParser.OBLIGATION or _la==alfaParser.ADVICE):
-                    break
-
-            self.state = 230
-            self.match(alfaParser.CLOSE_BRACE)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1962,161 +1421,70 @@ class alfaParser ( Parser ):
             self.exitRule()
         return localctx
 
-    class EventBodyContext(ParserRuleContext):
+    class TargetAtomContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def obligation(self):
-            return self.getTypedRuleContext(alfaParser.ObligationContext,0)
+        def attributeAccessExpression(self):
+            return self.getTypedRuleContext(alfaParser.AttributeAccessExpressionContext,0)
 
 
-        def advice(self):
-            return self.getTypedRuleContext(alfaParser.AdviceContext,0)
+        def attributeValue(self):
+            return self.getTypedRuleContext(alfaParser.AttributeValueContext,0)
+
+
+        def arrayExpression(self):
+            return self.getTypedRuleContext(alfaParser.ArrayExpressionContext,0)
 
 
         def getRuleIndex(self):
-            return alfaParser.RULE_eventBody
+            return alfaParser.RULE_targetAtom
 
         def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterEventBody" ):
-                listener.enterEventBody(self)
+            if hasattr( listener, "enterTargetAtom" ):
+                listener.enterTargetAtom(self)
 
         def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitEventBody" ):
-                listener.exitEventBody(self)
+            if hasattr( listener, "exitTargetAtom" ):
+                listener.exitTargetAtom(self)
 
         def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitEventBody" ):
-                return visitor.visitEventBody(self)
+            if hasattr( visitor, "visitTargetAtom" ):
+                return visitor.visitTargetAtom(self)
             else:
                 return visitor.visitChildren(self)
 
 
 
 
-    def eventBody(self):
+    def targetAtom(self):
 
-        localctx = alfaParser.EventBodyContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 28, self.RULE_eventBody)
+        localctx = alfaParser.TargetAtomContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 24, self.RULE_targetAtom)
         try:
-            self.state = 234
+            self.state = 173
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [alfaParser.OBLIGATION]:
+            if token in [alfaParser.ID]:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 232
-                self.obligation()
+                self.state = 170
+                self.attributeAccessExpression(0)
                 pass
-            elif token in [alfaParser.ADVICE]:
+            elif token in [alfaParser.TRUE, alfaParser.FALSE, alfaParser.STRING, alfaParser.INT]:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 233
-                self.advice()
+                self.state = 171
+                self.attributeValue()
+                pass
+            elif token in [alfaParser.OPEN_BRACKET]:
+                self.enterOuterAlt(localctx, 3)
+                self.state = 172
+                self.arrayExpression()
                 pass
             else:
                 raise NoViableAltException(self)
 
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-    class ObligationContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def OBLIGATION(self):
-            return self.getToken(alfaParser.OBLIGATION, 0)
-
-        def ID(self):
-            return self.getToken(alfaParser.ID, 0)
-
-        def getRuleIndex(self):
-            return alfaParser.RULE_obligation
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterObligation" ):
-                listener.enterObligation(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitObligation" ):
-                listener.exitObligation(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitObligation" ):
-                return visitor.visitObligation(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def obligation(self):
-
-        localctx = alfaParser.ObligationContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 30, self.RULE_obligation)
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 236
-            self.match(alfaParser.OBLIGATION)
-            self.state = 237
-            self.match(alfaParser.ID)
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-    class AdviceContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def ADVICE(self):
-            return self.getToken(alfaParser.ADVICE, 0)
-
-        def ID(self):
-            return self.getToken(alfaParser.ID, 0)
-
-        def getRuleIndex(self):
-            return alfaParser.RULE_advice
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterAdvice" ):
-                listener.enterAdvice(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitAdvice" ):
-                listener.exitAdvice(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitAdvice" ):
-                return visitor.visitAdvice(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def advice(self):
-
-        localctx = alfaParser.AdviceContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 32, self.RULE_advice)
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 239
-            self.match(alfaParser.ADVICE)
-            self.state = 240
-            self.match(alfaParser.ID)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -2157,10 +1525,10 @@ class alfaParser ( Parser ):
     def unaryOperator(self):
 
         localctx = alfaParser.UnaryOperatorContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 34, self.RULE_unaryOperator)
+        self.enterRule(localctx, 26, self.RULE_unaryOperator)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 242
+            self.state = 175
             self.match(alfaParser.NOT)
         except RecognitionException as re:
             localctx.exception = re
@@ -2194,15 +1562,6 @@ class alfaParser ( Parser ):
         def GREAT_EQUAL(self):
             return self.getToken(alfaParser.GREAT_EQUAL, 0)
 
-        def IN(self):
-            return self.getToken(alfaParser.IN, 0)
-
-        def SUBSET(self):
-            return self.getToken(alfaParser.SUBSET, 0)
-
-        def SUBSETEQ(self):
-            return self.getToken(alfaParser.SUBSETEQ, 0)
-
         def getRuleIndex(self):
             return alfaParser.RULE_binaryOperator
 
@@ -2226,13 +1585,13 @@ class alfaParser ( Parser ):
     def binaryOperator(self):
 
         localctx = alfaParser.BinaryOperatorContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 36, self.RULE_binaryOperator)
+        self.enterRule(localctx, 28, self.RULE_binaryOperator)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 244
+            self.state = 177
             _la = self._input.LA(1)
-            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << alfaParser.LESS_THAN) | (1 << alfaParser.MORE_THAN) | (1 << alfaParser.GREAT_EQUAL) | (1 << alfaParser.LESS_EQUAL) | (1 << alfaParser.EQUALS) | (1 << alfaParser.NOT_EQUALS) | (1 << alfaParser.IN) | (1 << alfaParser.SUBSET) | (1 << alfaParser.SUBSETEQ))) != 0)):
+            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << alfaParser.LESS_THAN) | (1 << alfaParser.MORE_THAN) | (1 << alfaParser.GREAT_EQUAL) | (1 << alfaParser.LESS_EQUAL) | (1 << alfaParser.EQUALS) | (1 << alfaParser.NOT_EQUALS))) != 0)):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -2245,49 +1604,52 @@ class alfaParser ( Parser ):
             self.exitRule()
         return localctx
 
-    class CallExpressionContext(ParserRuleContext):
+    class LogicalOperatorContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def ID(self):
-            return self.getToken(alfaParser.ID, 0)
+        def OR(self):
+            return self.getToken(alfaParser.OR, 0)
 
-        def arguments(self):
-            return self.getTypedRuleContext(alfaParser.ArgumentsContext,0)
-
+        def AND(self):
+            return self.getToken(alfaParser.AND, 0)
 
         def getRuleIndex(self):
-            return alfaParser.RULE_callExpression
+            return alfaParser.RULE_logicalOperator
 
         def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterCallExpression" ):
-                listener.enterCallExpression(self)
+            if hasattr( listener, "enterLogicalOperator" ):
+                listener.enterLogicalOperator(self)
 
         def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitCallExpression" ):
-                listener.exitCallExpression(self)
+            if hasattr( listener, "exitLogicalOperator" ):
+                listener.exitLogicalOperator(self)
 
         def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitCallExpression" ):
-                return visitor.visitCallExpression(self)
+            if hasattr( visitor, "visitLogicalOperator" ):
+                return visitor.visitLogicalOperator(self)
             else:
                 return visitor.visitChildren(self)
 
 
 
 
-    def callExpression(self):
+    def logicalOperator(self):
 
-        localctx = alfaParser.CallExpressionContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 38, self.RULE_callExpression)
+        localctx = alfaParser.LogicalOperatorContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 30, self.RULE_logicalOperator)
+        self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 246
-            self.match(alfaParser.ID)
-            self.state = 247
-            self.arguments()
+            self.state = 179
+            _la = self._input.LA(1)
+            if not(_la==alfaParser.OR or _la==alfaParser.AND):
+                self._errHandler.recoverInline(self)
+            else:
+                self._errHandler.reportMatch(self)
+                self.consume()
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -2296,43 +1658,55 @@ class alfaParser ( Parser ):
             self.exitRule()
         return localctx
 
-    class ArgumentsContext(ParserRuleContext):
+    class SetOperatorContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
+        def IN(self):
+            return self.getToken(alfaParser.IN, 0)
+
+        def SUBSET(self):
+            return self.getToken(alfaParser.SUBSET, 0)
+
+        def SUBSETEQ(self):
+            return self.getToken(alfaParser.SUBSETEQ, 0)
 
         def getRuleIndex(self):
-            return alfaParser.RULE_arguments
+            return alfaParser.RULE_setOperator
 
         def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterArguments" ):
-                listener.enterArguments(self)
+            if hasattr( listener, "enterSetOperator" ):
+                listener.enterSetOperator(self)
 
         def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitArguments" ):
-                listener.exitArguments(self)
+            if hasattr( listener, "exitSetOperator" ):
+                listener.exitSetOperator(self)
 
         def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitArguments" ):
-                return visitor.visitArguments(self)
+            if hasattr( visitor, "visitSetOperator" ):
+                return visitor.visitSetOperator(self)
             else:
                 return visitor.visitChildren(self)
 
 
 
 
-    def arguments(self):
+    def setOperator(self):
 
-        localctx = alfaParser.ArgumentsContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 40, self.RULE_arguments)
+        localctx = alfaParser.SetOperatorContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 32, self.RULE_setOperator)
+        self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 249
-            self.match(alfaParser.OPEN_PAREN)
-            self.state = 250
-            self.match(alfaParser.CLOSE_PAREN)
+            self.state = 181
+            _la = self._input.LA(1)
+            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << alfaParser.IN) | (1 << alfaParser.SUBSET) | (1 << alfaParser.SUBSETEQ))) != 0)):
+                self._errHandler.recoverInline(self)
+            else:
+                self._errHandler.reportMatch(self)
+                self.consume()
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -2390,36 +1764,36 @@ class alfaParser ( Parser ):
     def anyExpression(self):
 
         localctx = alfaParser.AnyExpressionContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 42, self.RULE_anyExpression)
+        self.enterRule(localctx, 34, self.RULE_anyExpression)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 252
+            self.state = 183
             self.match(alfaParser.ANY)
-            self.state = 255
+            self.state = 186
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [alfaParser.ID]:
-                self.state = 253
+                self.state = 184
                 self.attributeAccessExpression(0)
                 pass
             elif token in [alfaParser.OPEN_BRACKET]:
-                self.state = 254
+                self.state = 185
                 self.arrayExpression()
                 pass
             else:
                 raise NoViableAltException(self)
 
-            self.state = 257
+            self.state = 188
             self.match(alfaParser.IN)
-            self.state = 260
+            self.state = 191
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [alfaParser.ID]:
-                self.state = 258
+                self.state = 189
                 self.attributeAccessExpression(0)
                 pass
             elif token in [alfaParser.OPEN_BRACKET]:
-                self.state = 259
+                self.state = 190
                 self.arrayExpression()
                 pass
             else:
@@ -2470,16 +1844,16 @@ class alfaParser ( Parser ):
         _parentState = self.state
         localctx = alfaParser.AttributeAccessExpressionContext(self, self._ctx, _parentState)
         _prevctx = localctx
-        _startState = 44
-        self.enterRecursionRule(localctx, 44, self.RULE_attributeAccessExpression, _p)
+        _startState = 36
+        self.enterRecursionRule(localctx, 36, self.RULE_attributeAccessExpression, _p)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 263
+            self.state = 194
             self.match(alfaParser.ID)
             self._ctx.stop = self._input.LT(-1)
-            self.state = 270
+            self.state = 201
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,29,self._ctx)
+            _alt = self._interp.adaptivePredict(self._input,19,self._ctx)
             while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                 if _alt==1:
                     if self._parseListeners is not None:
@@ -2487,17 +1861,17 @@ class alfaParser ( Parser ):
                     _prevctx = localctx
                     localctx = alfaParser.AttributeAccessExpressionContext(self, _parentctx, _parentState)
                     self.pushNewRecursionContext(localctx, _startState, self.RULE_attributeAccessExpression)
-                    self.state = 265
+                    self.state = 196
                     if not self.precpred(self._ctx, 2):
                         from antlr4.error.Errors import FailedPredicateException
                         raise FailedPredicateException(self, "self.precpred(self._ctx, 2)")
-                    self.state = 266
+                    self.state = 197
                     self.match(alfaParser.DOT)
-                    self.state = 267
+                    self.state = 198
                     self.match(alfaParser.ID) 
-                self.state = 272
+                self.state = 203
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,29,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input,19,self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -2540,10 +1914,10 @@ class alfaParser ( Parser ):
     def attributeValue(self):
 
         localctx = alfaParser.AttributeValueContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 46, self.RULE_attributeValue)
+        self.enterRule(localctx, 38, self.RULE_attributeValue)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 273
+            self.state = 204
             self.literal()
         except RecognitionException as re:
             localctx.exception = re
@@ -2589,27 +1963,27 @@ class alfaParser ( Parser ):
     def arrayExpression(self):
 
         localctx = alfaParser.ArrayExpressionContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 48, self.RULE_arrayExpression)
+        self.enterRule(localctx, 40, self.RULE_arrayExpression)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 275
+            self.state = 206
             self.match(alfaParser.OPEN_BRACKET)
-            self.state = 276
+            self.state = 207
             self.literal()
-            self.state = 281
+            self.state = 212
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while _la==alfaParser.COMMA:
-                self.state = 277
+                self.state = 208
                 self.match(alfaParser.COMMA)
-                self.state = 278
+                self.state = 209
                 self.literal()
-                self.state = 283
+                self.state = 214
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 284
+            self.state = 215
             self.match(alfaParser.CLOSE_BRACKET)
         except RecognitionException as re:
             localctx.exception = re
@@ -2631,8 +2005,8 @@ class alfaParser ( Parser ):
         def STRING(self):
             return self.getToken(alfaParser.STRING, 0)
 
-        def boolean_literal(self):
-            return self.getTypedRuleContext(alfaParser.Boolean_literalContext,0)
+        def booleanLiteral(self):
+            return self.getTypedRuleContext(alfaParser.BooleanLiteralContext,0)
 
 
         def getRuleIndex(self):
@@ -2658,25 +2032,25 @@ class alfaParser ( Parser ):
     def literal(self):
 
         localctx = alfaParser.LiteralContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 50, self.RULE_literal)
+        self.enterRule(localctx, 42, self.RULE_literal)
         try:
-            self.state = 289
+            self.state = 220
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [alfaParser.INT]:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 286
+                self.state = 217
                 self.match(alfaParser.INT)
                 pass
             elif token in [alfaParser.STRING]:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 287
+                self.state = 218
                 self.match(alfaParser.STRING)
                 pass
             elif token in [alfaParser.TRUE, alfaParser.FALSE]:
                 self.enterOuterAlt(localctx, 3)
-                self.state = 288
-                self.boolean_literal()
+                self.state = 219
+                self.booleanLiteral()
                 pass
             else:
                 raise NoViableAltException(self)
@@ -2689,7 +2063,7 @@ class alfaParser ( Parser ):
             self.exitRule()
         return localctx
 
-    class Boolean_literalContext(ParserRuleContext):
+    class BooleanLiteralContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -2702,33 +2076,33 @@ class alfaParser ( Parser ):
             return self.getToken(alfaParser.FALSE, 0)
 
         def getRuleIndex(self):
-            return alfaParser.RULE_boolean_literal
+            return alfaParser.RULE_booleanLiteral
 
         def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterBoolean_literal" ):
-                listener.enterBoolean_literal(self)
+            if hasattr( listener, "enterBooleanLiteral" ):
+                listener.enterBooleanLiteral(self)
 
         def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitBoolean_literal" ):
-                listener.exitBoolean_literal(self)
+            if hasattr( listener, "exitBooleanLiteral" ):
+                listener.exitBooleanLiteral(self)
 
         def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitBoolean_literal" ):
-                return visitor.visitBoolean_literal(self)
+            if hasattr( visitor, "visitBooleanLiteral" ):
+                return visitor.visitBooleanLiteral(self)
             else:
                 return visitor.visitChildren(self)
 
 
 
 
-    def boolean_literal(self):
+    def booleanLiteral(self):
 
-        localctx = alfaParser.Boolean_literalContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 52, self.RULE_boolean_literal)
+        localctx = alfaParser.BooleanLiteralContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 44, self.RULE_booleanLiteral)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 291
+            self.state = 222
             _la = self._input.LA(1)
             if not(_la==alfaParser.TRUE or _la==alfaParser.FALSE):
                 self._errHandler.recoverInline(self)
@@ -2748,9 +2122,8 @@ class alfaParser ( Parser ):
     def sempred(self, localctx:RuleContext, ruleIndex:int, predIndex:int):
         if self._predicates == None:
             self._predicates = dict()
-        self._predicates[11] = self.targetExpression_sempred
-        self._predicates[12] = self.conditionExpression_sempred
-        self._predicates[22] = self.attributeAccessExpression_sempred
+        self._predicates[10] = self.targetExpression_sempred
+        self._predicates[18] = self.attributeAccessExpression_sempred
         pred = self._predicates.get(ruleIndex, None)
         if pred is None:
             raise Exception("No predicate with index:" + str(ruleIndex))
@@ -2759,32 +2132,11 @@ class alfaParser ( Parser ):
 
     def targetExpression_sempred(self, localctx:TargetExpressionContext, predIndex:int):
             if predIndex == 0:
-                return self.precpred(self._ctx, 7)
-         
-
-            if predIndex == 1:
-                return self.precpred(self._ctx, 6)
-         
-
-            if predIndex == 2:
-                return self.precpred(self._ctx, 5)
-         
-
-    def conditionExpression_sempred(self, localctx:ConditionExpressionContext, predIndex:int):
-            if predIndex == 3:
-                return self.precpred(self._ctx, 7)
-         
-
-            if predIndex == 4:
-                return self.precpred(self._ctx, 6)
-         
-
-            if predIndex == 5:
                 return self.precpred(self._ctx, 5)
          
 
     def attributeAccessExpression_sempred(self, localctx:AttributeAccessExpressionContext, predIndex:int):
-            if predIndex == 6:
+            if predIndex == 1:
                 return self.precpred(self._ctx, 2)
          
 

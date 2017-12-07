@@ -98,12 +98,12 @@ class alfaParserListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by alfaParser#conditionStatement.
-    def enterConditionStatement(self, ctx:alfaParser.ConditionStatementContext):
+    # Enter a parse tree produced by alfaParser#targetPrimitiveExpression.
+    def enterTargetPrimitiveExpression(self, ctx:alfaParser.TargetPrimitiveExpressionContext):
         pass
 
-    # Exit a parse tree produced by alfaParser#conditionStatement.
-    def exitConditionStatement(self, ctx:alfaParser.ConditionStatementContext):
+    # Exit a parse tree produced by alfaParser#targetPrimitiveExpression.
+    def exitTargetPrimitiveExpression(self, ctx:alfaParser.TargetPrimitiveExpressionContext):
         pass
 
 
@@ -116,21 +116,21 @@ class alfaParserListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by alfaParser#targetAndExpression.
-    def enterTargetAndExpression(self, ctx:alfaParser.TargetAndExpressionContext):
+    # Enter a parse tree produced by alfaParser#targetLogicalExpression.
+    def enterTargetLogicalExpression(self, ctx:alfaParser.TargetLogicalExpressionContext):
         pass
 
-    # Exit a parse tree produced by alfaParser#targetAndExpression.
-    def exitTargetAndExpression(self, ctx:alfaParser.TargetAndExpressionContext):
+    # Exit a parse tree produced by alfaParser#targetLogicalExpression.
+    def exitTargetLogicalExpression(self, ctx:alfaParser.TargetLogicalExpressionContext):
         pass
 
 
-    # Enter a parse tree produced by alfaParser#targetOrExpression.
-    def enterTargetOrExpression(self, ctx:alfaParser.TargetOrExpressionContext):
+    # Enter a parse tree produced by alfaParser#targetParenthesisExpression.
+    def enterTargetParenthesisExpression(self, ctx:alfaParser.TargetParenthesisExpressionContext):
         pass
 
-    # Exit a parse tree produced by alfaParser#targetOrExpression.
-    def exitTargetOrExpression(self, ctx:alfaParser.TargetOrExpressionContext):
+    # Exit a parse tree produced by alfaParser#targetParenthesisExpression.
+    def exitTargetParenthesisExpression(self, ctx:alfaParser.TargetParenthesisExpressionContext):
         pass
 
 
@@ -143,147 +143,48 @@ class alfaParserListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by alfaParser#targetArrayExpression.
-    def enterTargetArrayExpression(self, ctx:alfaParser.TargetArrayExpressionContext):
+    # Enter a parse tree produced by alfaParser#targetBooleanExpression.
+    def enterTargetBooleanExpression(self, ctx:alfaParser.TargetBooleanExpressionContext):
         pass
 
-    # Exit a parse tree produced by alfaParser#targetArrayExpression.
-    def exitTargetArrayExpression(self, ctx:alfaParser.TargetArrayExpressionContext):
-        pass
-
-
-    # Enter a parse tree produced by alfaParser#targetAttributeValueExpression.
-    def enterTargetAttributeValueExpression(self, ctx:alfaParser.TargetAttributeValueExpressionContext):
-        pass
-
-    # Exit a parse tree produced by alfaParser#targetAttributeValueExpression.
-    def exitTargetAttributeValueExpression(self, ctx:alfaParser.TargetAttributeValueExpressionContext):
+    # Exit a parse tree produced by alfaParser#targetBooleanExpression.
+    def exitTargetBooleanExpression(self, ctx:alfaParser.TargetBooleanExpressionContext):
         pass
 
 
-    # Enter a parse tree produced by alfaParser#targetAttributeAccessExpression.
-    def enterTargetAttributeAccessExpression(self, ctx:alfaParser.TargetAttributeAccessExpressionContext):
+    # Enter a parse tree produced by alfaParser#targetPrimitiveBinary.
+    def enterTargetPrimitiveBinary(self, ctx:alfaParser.TargetPrimitiveBinaryContext):
         pass
 
-    # Exit a parse tree produced by alfaParser#targetAttributeAccessExpression.
-    def exitTargetAttributeAccessExpression(self, ctx:alfaParser.TargetAttributeAccessExpressionContext):
-        pass
-
-
-    # Enter a parse tree produced by alfaParser#targetBaseExpression.
-    def enterTargetBaseExpression(self, ctx:alfaParser.TargetBaseExpressionContext):
-        pass
-
-    # Exit a parse tree produced by alfaParser#targetBaseExpression.
-    def exitTargetBaseExpression(self, ctx:alfaParser.TargetBaseExpressionContext):
+    # Exit a parse tree produced by alfaParser#targetPrimitiveBinary.
+    def exitTargetPrimitiveBinary(self, ctx:alfaParser.TargetPrimitiveBinaryContext):
         pass
 
 
-    # Enter a parse tree produced by alfaParser#conditionOrExpression.
-    def enterConditionOrExpression(self, ctx:alfaParser.ConditionOrExpressionContext):
+    # Enter a parse tree produced by alfaParser#targetPrimitiveSet.
+    def enterTargetPrimitiveSet(self, ctx:alfaParser.TargetPrimitiveSetContext):
         pass
 
-    # Exit a parse tree produced by alfaParser#conditionOrExpression.
-    def exitConditionOrExpression(self, ctx:alfaParser.ConditionOrExpressionContext):
-        pass
-
-
-    # Enter a parse tree produced by alfaParser#conditionAttributeValueExpression.
-    def enterConditionAttributeValueExpression(self, ctx:alfaParser.ConditionAttributeValueExpressionContext):
-        pass
-
-    # Exit a parse tree produced by alfaParser#conditionAttributeValueExpression.
-    def exitConditionAttributeValueExpression(self, ctx:alfaParser.ConditionAttributeValueExpressionContext):
+    # Exit a parse tree produced by alfaParser#targetPrimitiveSet.
+    def exitTargetPrimitiveSet(self, ctx:alfaParser.TargetPrimitiveSetContext):
         pass
 
 
-    # Enter a parse tree produced by alfaParser#conditionUnaryExpression.
-    def enterConditionUnaryExpression(self, ctx:alfaParser.ConditionUnaryExpressionContext):
+    # Enter a parse tree produced by alfaParser#targetPrimitiveIn.
+    def enterTargetPrimitiveIn(self, ctx:alfaParser.TargetPrimitiveInContext):
         pass
 
-    # Exit a parse tree produced by alfaParser#conditionUnaryExpression.
-    def exitConditionUnaryExpression(self, ctx:alfaParser.ConditionUnaryExpressionContext):
-        pass
-
-
-    # Enter a parse tree produced by alfaParser#conditionAndExpression.
-    def enterConditionAndExpression(self, ctx:alfaParser.ConditionAndExpressionContext):
-        pass
-
-    # Exit a parse tree produced by alfaParser#conditionAndExpression.
-    def exitConditionAndExpression(self, ctx:alfaParser.ConditionAndExpressionContext):
+    # Exit a parse tree produced by alfaParser#targetPrimitiveIn.
+    def exitTargetPrimitiveIn(self, ctx:alfaParser.TargetPrimitiveInContext):
         pass
 
 
-    # Enter a parse tree produced by alfaParser#conditionCallExpression.
-    def enterConditionCallExpression(self, ctx:alfaParser.ConditionCallExpressionContext):
+    # Enter a parse tree produced by alfaParser#targetAtom.
+    def enterTargetAtom(self, ctx:alfaParser.TargetAtomContext):
         pass
 
-    # Exit a parse tree produced by alfaParser#conditionCallExpression.
-    def exitConditionCallExpression(self, ctx:alfaParser.ConditionCallExpressionContext):
-        pass
-
-
-    # Enter a parse tree produced by alfaParser#conditionBaseExpression.
-    def enterConditionBaseExpression(self, ctx:alfaParser.ConditionBaseExpressionContext):
-        pass
-
-    # Exit a parse tree produced by alfaParser#conditionBaseExpression.
-    def exitConditionBaseExpression(self, ctx:alfaParser.ConditionBaseExpressionContext):
-        pass
-
-
-    # Enter a parse tree produced by alfaParser#conditionAttributeAccessExpression.
-    def enterConditionAttributeAccessExpression(self, ctx:alfaParser.ConditionAttributeAccessExpressionContext):
-        pass
-
-    # Exit a parse tree produced by alfaParser#conditionAttributeAccessExpression.
-    def exitConditionAttributeAccessExpression(self, ctx:alfaParser.ConditionAttributeAccessExpressionContext):
-        pass
-
-
-    # Enter a parse tree produced by alfaParser#conditionArrayExpression.
-    def enterConditionArrayExpression(self, ctx:alfaParser.ConditionArrayExpressionContext):
-        pass
-
-    # Exit a parse tree produced by alfaParser#conditionArrayExpression.
-    def exitConditionArrayExpression(self, ctx:alfaParser.ConditionArrayExpressionContext):
-        pass
-
-
-    # Enter a parse tree produced by alfaParser#event.
-    def enterEvent(self, ctx:alfaParser.EventContext):
-        pass
-
-    # Exit a parse tree produced by alfaParser#event.
-    def exitEvent(self, ctx:alfaParser.EventContext):
-        pass
-
-
-    # Enter a parse tree produced by alfaParser#eventBody.
-    def enterEventBody(self, ctx:alfaParser.EventBodyContext):
-        pass
-
-    # Exit a parse tree produced by alfaParser#eventBody.
-    def exitEventBody(self, ctx:alfaParser.EventBodyContext):
-        pass
-
-
-    # Enter a parse tree produced by alfaParser#obligation.
-    def enterObligation(self, ctx:alfaParser.ObligationContext):
-        pass
-
-    # Exit a parse tree produced by alfaParser#obligation.
-    def exitObligation(self, ctx:alfaParser.ObligationContext):
-        pass
-
-
-    # Enter a parse tree produced by alfaParser#advice.
-    def enterAdvice(self, ctx:alfaParser.AdviceContext):
-        pass
-
-    # Exit a parse tree produced by alfaParser#advice.
-    def exitAdvice(self, ctx:alfaParser.AdviceContext):
+    # Exit a parse tree produced by alfaParser#targetAtom.
+    def exitTargetAtom(self, ctx:alfaParser.TargetAtomContext):
         pass
 
 
@@ -305,21 +206,21 @@ class alfaParserListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by alfaParser#callExpression.
-    def enterCallExpression(self, ctx:alfaParser.CallExpressionContext):
+    # Enter a parse tree produced by alfaParser#logicalOperator.
+    def enterLogicalOperator(self, ctx:alfaParser.LogicalOperatorContext):
         pass
 
-    # Exit a parse tree produced by alfaParser#callExpression.
-    def exitCallExpression(self, ctx:alfaParser.CallExpressionContext):
+    # Exit a parse tree produced by alfaParser#logicalOperator.
+    def exitLogicalOperator(self, ctx:alfaParser.LogicalOperatorContext):
         pass
 
 
-    # Enter a parse tree produced by alfaParser#arguments.
-    def enterArguments(self, ctx:alfaParser.ArgumentsContext):
+    # Enter a parse tree produced by alfaParser#setOperator.
+    def enterSetOperator(self, ctx:alfaParser.SetOperatorContext):
         pass
 
-    # Exit a parse tree produced by alfaParser#arguments.
-    def exitArguments(self, ctx:alfaParser.ArgumentsContext):
+    # Exit a parse tree produced by alfaParser#setOperator.
+    def exitSetOperator(self, ctx:alfaParser.SetOperatorContext):
         pass
 
 
@@ -368,12 +269,12 @@ class alfaParserListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by alfaParser#boolean_literal.
-    def enterBoolean_literal(self, ctx:alfaParser.Boolean_literalContext):
+    # Enter a parse tree produced by alfaParser#booleanLiteral.
+    def enterBooleanLiteral(self, ctx:alfaParser.BooleanLiteralContext):
         pass
 
-    # Exit a parse tree produced by alfaParser#boolean_literal.
-    def exitBoolean_literal(self, ctx:alfaParser.Boolean_literalContext):
+    # Exit a parse tree produced by alfaParser#booleanLiteral.
+    def exitBooleanLiteral(self, ctx:alfaParser.BooleanLiteralContext):
         pass
 
 

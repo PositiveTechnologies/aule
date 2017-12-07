@@ -53,15 +53,22 @@ targetStatement
 targetExpression
     : unaryOperator targetExpression                          #targetUnaryExpression
     | targetExpression logicalOperator targetExpression       #targetLogicalExpression
-    | targetPrimitive                                         #targetPrimitive
+    | targetPrimitive                                         #targetPrimitiveExpression
     | anyExpression                                           #targetAnyExpression
     | booleanLiteral                                          #targetBooleanExpression
     | OPEN_PAREN targetExpression CLOSE_PAREN                 #targetParenthesisExpression
     ;
 
 targetPrimitive
-    : attributeAccessExpression binaryOperator attributeValue #targetPrimitiveBinary 
-    | attributeAccessExpression setOperator   arrayExpression #targetPrimitiveSet
+    : targetAtom binaryOperator targetAtom                    #targetPrimitiveBinary
+    | targetAtom setOperator   arrayExpression                #targetPrimitiveSet
+    | attributeValue IN  attributeAccessExpression            #targetPrimitiveIn
+    ;
+
+targetAtom
+    : attributeAccessExpression
+    | attributeValue
+    | arrayExpression
     ;
 
 unaryOperator
@@ -100,7 +107,7 @@ arrayExpression
 literal:
     INT 
     | STRING 
-    | boolean_literal
+    | booleanLiteral
     ;
 
 booleanLiteral:

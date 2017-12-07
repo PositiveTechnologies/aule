@@ -19,44 +19,26 @@ interface NameSpaceDeclaration <: Statement {
 interface PolicySetDeclaration <: Statement {
     name: str;
     algorithm: ApplyStatement;
-    targetStatement: TargetStatement;
-    conditionStatement: ConditionStatement;
+    target: TargetStatement;
     references: [Identifier];
     policies: [PolicyDeclaration];
     policysets: [PolicySetDeclaration];
-    events: [EventDeclaration];
     modifiers: [Keywords];
 }
 
 interface PolicyDeclaration <: Statement {
     name: str;
     algorithm: ApplyStatement;
-    targetStatement: TargetStatement;
-    conditionStatement: ConditionStatement;
+    target: TargetStatement;
     rules: [RuleDeclaration];
-    events: [EventDeclaration];
     modifiers: [Keywords];
 }
 
 interface RuleDeclaration <: Statement {
     name: str;
     effect: EffectStatement;
-    targetStatement: TargetStatement;
-    conditionStatement: ConditionStatement;
+    target: TargetStatement;
     events: [Event];
-}
-
-interface Event <: Statement {
-    eventType: str;
-    body: [Statement];
-}
-
-interface Obligation <: Statement {
-    name: str;
-}
-
-interface Advice <: Statement {
-    name: str;
 }
 
 interface ApplyStatement <: Statement {
@@ -71,18 +53,9 @@ interface TargetStatement <: Statement {
     clauses: [Expression];
 }
 
-interface ConditionStatement <: Statement {
-    statement: Statement;
-}
-
 interface AttributeAccessExpression <: Expression {
     expression: Expression;
     name: str;
-}
-
-interface CallExpression <: Expression {
-    callee: Identifier;
-    arguments: [Identifier];
 }
 
 interface AnyExpression <: Expression {

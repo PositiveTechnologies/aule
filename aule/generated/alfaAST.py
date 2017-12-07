@@ -67,63 +67,36 @@ class NameSpaceDeclaration(Statement):
     __mangled__ = {}
 
 class PolicySetDeclaration(Statement):
-    def __init__(self, name=None, algorithm=None, targetStatement=None, conditionStatement=None, references=None, policies=None, policysets=None, events=None, modifiers=None, *args, **kwargs):
+    def __init__(self, name=None, algorithm=None, target=None, references=None, policies=None, policysets=None, modifiers=None, *args, **kwargs):
         super(PolicySetDeclaration, self).__init__(*args, **kwargs)
         self.name = name
         self.algorithm = algorithm
-        self.targetStatement = targetStatement
-        self.conditionStatement = conditionStatement
+        self.target = target
         self.references = references
         self.policies = policies
         self.policysets = policysets
-        self.events = events
         self.modifiers = modifiers    
     
     __mangled__ = {}
 
 class PolicyDeclaration(Statement):
-    def __init__(self, name=None, algorithm=None, targetStatement=None, conditionStatement=None, rules=None, events=None, modifiers=None, *args, **kwargs):
+    def __init__(self, name=None, algorithm=None, target=None, rules=None, modifiers=None, *args, **kwargs):
         super(PolicyDeclaration, self).__init__(*args, **kwargs)
         self.name = name
         self.algorithm = algorithm
-        self.targetStatement = targetStatement
-        self.conditionStatement = conditionStatement
+        self.target = target
         self.rules = rules
-        self.events = events
         self.modifiers = modifiers    
     
     __mangled__ = {}
 
 class RuleDeclaration(Statement):
-    def __init__(self, name=None, effect=None, targetStatement=None, conditionStatement=None, events=None, *args, **kwargs):
+    def __init__(self, name=None, effect=None, target=None, events=None, *args, **kwargs):
         super(RuleDeclaration, self).__init__(*args, **kwargs)
         self.name = name
         self.effect = effect
-        self.targetStatement = targetStatement
-        self.conditionStatement = conditionStatement
+        self.target = target
         self.events = events    
-    
-    __mangled__ = {}
-
-class Event(Statement):
-    def __init__(self, eventType=None, body=None, *args, **kwargs):
-        super(Event, self).__init__(*args, **kwargs)
-        self.eventType = eventType
-        self.body = body    
-    
-    __mangled__ = {}
-
-class Obligation(Statement):
-    def __init__(self, name=None, *args, **kwargs):
-        super(Obligation, self).__init__(*args, **kwargs)
-        self.name = name    
-    
-    __mangled__ = {}
-
-class Advice(Statement):
-    def __init__(self, name=None, *args, **kwargs):
-        super(Advice, self).__init__(*args, **kwargs)
-        self.name = name    
     
     __mangled__ = {}
 
@@ -148,26 +121,11 @@ class TargetStatement(Statement):
     
     __mangled__ = {}
 
-class ConditionStatement(Statement):
-    def __init__(self, statement=None, *args, **kwargs):
-        super(ConditionStatement, self).__init__(*args, **kwargs)
-        self.statement = statement    
-    
-    __mangled__ = {}
-
 class AttributeAccessExpression(Expression):
     def __init__(self, expression=None, name=None, *args, **kwargs):
         super(AttributeAccessExpression, self).__init__(*args, **kwargs)
         self.expression = expression
         self.name = name    
-    
-    __mangled__ = {}
-
-class CallExpression(Expression):
-    def __init__(self, callee=None, arguments=None, *args, **kwargs):
-        super(CallExpression, self).__init__(*args, **kwargs)
-        self.callee = callee
-        self.arguments = arguments    
     
     __mangled__ = {}
 
