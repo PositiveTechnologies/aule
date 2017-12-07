@@ -39,6 +39,11 @@ class idlVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by idlParser#interface_annotation.
+    def visitInterface_annotation(self, ctx:idlParser.Interface_annotationContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by idlParser#interface_inheritance.
     def visitInterface_inheritance(self, ctx:idlParser.Interface_inheritanceContext):
         return self.visitChildren(ctx)

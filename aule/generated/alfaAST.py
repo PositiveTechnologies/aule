@@ -155,13 +155,6 @@ class ConditionStatement(Statement):
     
     __mangled__ = {}
 
-class TargetClause(Statement):
-    def __init__(self, statement=None, *args, **kwargs):
-        super(TargetClause, self).__init__(*args, **kwargs)
-        self.statement = statement    
-    
-    __mangled__ = {}
-
 class AttributeAccessExpression(Expression):
     def __init__(self, expression=None, name=None, *args, **kwargs):
         super(AttributeAccessExpression, self).__init__(*args, **kwargs)

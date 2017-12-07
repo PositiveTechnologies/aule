@@ -24,9 +24,9 @@ class idlASTVisitor(idlVisitor):
         return EnumDeclaration(enum_name, members)
 
     def visitInterface_statement(self, ctx):
-        name, parents = self.visit(ctx.interface_header())
+        name, parents, annotations = self.visit(ctx.interface_header())
         fields = self.visit(ctx.interface_body())
-        return ClassDeclaration(name=name, parents=parents, fields=fields)
+        return ClassDeclaration(name=name, parents=parents, annotations=annotations, fields=fields)
 
     def visitInterface_header(self, ctx):
         name = "undefined"
@@ -35,7 +35,15 @@ class idlASTVisitor(idlVisitor):
         parents = []
         if ctx.interface_inheritance():
             parents = self.visit(ctx.interface_inheritance())
-        return name, parents
+        i = 0
+        annotations = []
+        while ctx.interface_annotation(i):
+            annotation_ctx = ctx.interface_annotation(i)
+            annotations.append(
+                ClassAnnotation(annotation_ctx.getText().strip('[]'))
+            )
+            i += 1
+        return name, parents, annotations
 
     def visitInterface_body(self, ctx):
         fields = []

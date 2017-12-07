@@ -22,8 +22,73 @@ def test_idl_syntax():
                 assert False
 
 
-def test_idl_ast():
-    """ IDL node smoke tests. """
+def test_basic_idl_ast():
+    """ Very basic IDL visiting test """
+    interface = """
+        interface SQLEntity {
+            database: str;
+            ip: str;
+    }
+    """
+    ast_parser = ASTParserFactory.create("idl")
+    nodes = ast_parser.parse(interface)
+    assert len(nodes) == 1
+    assert nodes[0].name.name == "SQLEntity"
+    assert nodes[0].node == "ClassDeclaration"
+    assert nodes[0].parents == []
+    assert nodes[0].fields[0].node == "FieldDeclaration"
+    assert nodes[0].fields[0].name.name == "database"
+    assert nodes[0].fields[1].node == "FieldDeclaration"
+    assert nodes[0].fields[1].name.name == "ip"
+    assert nodes[0].methods == []
+
+
+def test_union_types_idl_ast():
+    """ Test modifiers IDL visiting """
+    interface = """
+        interface foo {
+            bar: str | int;
+    }
+    """
+    ast_parser = ASTParserFactory.create("idl")
+    nodes = ast_parser.parse(interface)
+    assert len(nodes) == 1
+    assert nodes[0].name.name == "foo"
+    assert nodes[0].node == "ClassDeclaration"
+    assert nodes[0].parents == []
+    assert nodes[0].fields[0].node == "FieldDeclaration"
+    assert nodes[0].fields[0].name.name == "bar"
+    assert nodes[0].fields[0].type.node == "TypeReference"
+    assert nodes[0].fields[0].type.type.node == "UnionType"
+    assert nodes[0].fields[0].type.type.types[0].type == ust.SimpleType.STRING
+    assert nodes[0].fields[0].type.type.types[1].type == ust.SimpleType.INTEGER
+
+
+def test_tags_idl_ast():
+    """ Test field tags IDL visiting """
+    interface = """
+        interface SQLEntity {
+            database: str;
+            f: String `species:"gopher" color:"blue"`;
+    }
+    """
+    ast_parser = ASTParserFactory.create("idl")
+    nodes = ast_parser.parse(interface)
+    assert len(nodes) == 1
+    assert nodes[0].name.name == "SQLEntity"
+    assert nodes[0].node == "ClassDeclaration"
+    assert nodes[0].parents == []
+    assert nodes[0].fields[0].node == "FieldDeclaration"
+    assert nodes[0].fields[0].name.name == "database"
+    assert nodes[0].fields[1].node == "FieldDeclaration"
+    assert nodes[0].fields[1].tags[0].name.name == "species"
+    assert nodes[0].fields[1].tags[0].value == '"gopher"'
+    assert nodes[0].fields[1].tags[1].name.name == "color"
+    assert nodes[0].fields[1].tags[1].value == '"blue"'
+
+
+def test_inheritance_idl_ast():
+    """ Test inheritance IDL visiting """
     interface = """
         interface Node {
             type: "Node";
@@ -41,7 +106,6 @@ def test_idl_ast():
         }
     """
     ast_parser = ASTParserFactory.create("idl")
-
     nodes = ast_parser.parse(interface)
     assert len(nodes) == 3
     assert nodes[0].name.name == "Node"
@@ -66,48 +130,15 @@ def test_idl_ast():
     assert nodes[2].fields[0].modifiers == []
     assert nodes[2].methods == []
 
-    interface = """
-        interface SQLEntity {
-            database: str | null;
-            abstract ip: str;
-    }
-    """
-    nodes = ast_parser.parse(interface)
-    assert len(nodes) == 1
-    assert nodes[0].name.name == "SQLEntity"
-    assert nodes[0].node == "ClassDeclaration"
-    assert nodes[0].parents == []
-    assert nodes[0].fields[0].node == "FieldDeclaration"
-    assert nodes[0].fields[0].name.name == "database"
-    assert nodes[0].fields[1].node == "FieldDeclaration"
-    assert nodes[0].fields[1].name.name == "ip"
-    assert nodes[0].fields[1].modifiers[0] == ust.Modifier.ABSTRACT
-    assert nodes[0].methods == []
 
-    interface = """
-        interface SQLEntity {
-            database: str;
-            f: String `species:"gopher" color:"blue"`;
-    }
-    """
-    nodes = ast_parser.parse(interface)
-    assert len(nodes) == 1
-    assert nodes[0].name.name == "SQLEntity"
-    assert nodes[0].node == "ClassDeclaration"
-    assert nodes[0].parents == []
-    assert nodes[0].fields[0].node == "FieldDeclaration"
-    assert nodes[0].fields[0].name.name == "database"
-    assert nodes[0].fields[1].node == "FieldDeclaration"
-    assert nodes[0].fields[1].tags[0].name.name == "species"
-    assert nodes[0].fields[1].tags[0].value == '"gopher"'
-    assert nodes[0].fields[1].tags[1].name.name == "color"
-    assert nodes[0].fields[1].tags[1].value == '"blue"'
-
+def test_modifiers_idl_ast():
+    """ Test modifiers IDL visiting """
     interface = """
         interface foo {
             private static bar: str;
     }
     """
+    ast_parser = ASTParserFactory.create("idl")
     nodes = ast_parser.parse(interface)
     assert len(nodes) == 1
     assert nodes[0].name.name == "foo"
@@ -120,29 +151,16 @@ def test_idl_ast():
     assert nodes[0].fields[0].type.node == "TypeReference"
     assert nodes[0].fields[0].type.type == ust.SimpleType.STRING
 
-    interface = """
-        interface foo {
-            bar: str | int;
-    }
-    """
-    nodes = ast_parser.parse(interface)
-    assert len(nodes) == 1
-    assert nodes[0].name.name == "foo"
-    assert nodes[0].node == "ClassDeclaration"
-    assert nodes[0].parents == []
-    assert nodes[0].fields[0].node == "FieldDeclaration"
-    assert nodes[0].fields[0].name.name == "bar"
-    assert nodes[0].fields[0].type.node == "TypeReference"
-    assert nodes[0].fields[0].type.type.node == "UnionType"
-    assert nodes[0].fields[0].type.type.types[0].type == ust.SimpleType.STRING
-    assert nodes[0].fields[0].type.type.types[1].type == ust.SimpleType.INTEGER
 
+def test_enum_idl_ast():
+    """ Test modifiers IDL visiting """
     enum = """
         enum foo {
             a = "A";
             b = "B";
     }
     """
+    ast_parser = ASTParserFactory.create("idl")
     nodes = ast_parser.parse(enum)
     assert len(nodes) == 1
     assert nodes[0].name.name == "foo"
@@ -157,4 +175,48 @@ def test_idl_ast():
     assert nodes[0].members[1].name.name == "b"
     assert nodes[0].members[1].value == "\"B\""
 
+
+def test_annotations_idl_ast():
+    """ Test interface annotations IDL visiting """
+    interface = """
+        [annotation]
+        interface foo {
+            bar: str;
+        }
+        """
+    ast_parser = ASTParserFactory.create("idl")
+    nodes = ast_parser.parse(interface)
+    assert len(nodes) == 1
+    assert nodes[0].name.name == "foo"
+    assert nodes[0].node == "ClassDeclaration"
+    assert nodes[0].parents == []
+    assert nodes[0].fields[0].node == "FieldDeclaration"
+    assert nodes[0].fields[0].name.name == "bar"
+    assert nodes[0].fields[0].type.node == "TypeReference"
+    assert nodes[0].fields[0].type.type == ust.SimpleType.STRING
+    assert len(nodes[0].annotations) == 1
+    assert nodes[0].annotations[0].node == "ClassAnnotation"
+    assert nodes[0].annotations[0].value == "annotation"
+
+    interface = """
+        [easy][hard=annotation]
+        interface foo {
+            bar: str;
+        }
+        """
+    ast_parser = ASTParserFactory.create("idl")
+    nodes = ast_parser.parse(interface)
+    assert len(nodes) == 1
+    assert nodes[0].name.name == "foo"
+    assert nodes[0].node == "ClassDeclaration"
+    assert nodes[0].parents == []
+    assert nodes[0].fields[0].node == "FieldDeclaration"
+    assert nodes[0].fields[0].name.name == "bar"
+    assert nodes[0].fields[0].type.node == "TypeReference"
+    assert nodes[0].fields[0].type.type == ust.SimpleType.STRING
+    assert len(nodes[0].annotations) == 2
+    assert nodes[0].annotations[0].node == "ClassAnnotation"
+    assert nodes[0].annotations[0].value == "easy"
+    assert nodes[0].annotations[1].node == "ClassAnnotation"
+    assert nodes[0].annotations[1].value == "hard=annotation"
 
