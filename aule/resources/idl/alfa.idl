@@ -7,6 +7,9 @@ interface Statement <: Node {
 interface Expression <: Node { 
 }
 
+interface Keyword <: Node {
+}
+
 interface Script <: Statement {
     body: [Statement];
 }
@@ -23,7 +26,7 @@ interface PolicySetDeclaration <: Statement {
     references: [Identifier];
     policies: [PolicyDeclaration];
     policysets: [PolicySetDeclaration];
-    modifiers: [Keywords];
+    modifiers: [Keyword];
 }
 
 interface PolicyDeclaration <: Statement {
@@ -31,14 +34,13 @@ interface PolicyDeclaration <: Statement {
     algorithm: ApplyStatement;
     target: TargetStatement;
     rules: [RuleDeclaration];
-    modifiers: [Keywords];
+    modifiers: [Keyword];
 }
 
 interface RuleDeclaration <: Statement {
     name: str;
     effect: EffectStatement;
     target: TargetStatement;
-    events: [Event];
 }
 
 interface ApplyStatement <: Statement {
@@ -106,6 +108,6 @@ interface UnaryExpression <: Expression {
     left: Expression;
 }
 
-interface ExportKeyword <: Node {
+interface ExportKeyword <: Keyword {
     text: str;
 }

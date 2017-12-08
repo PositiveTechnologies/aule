@@ -83,7 +83,7 @@ namespace aa {
     export policy Main {
         target clause action == "select" and a.b.c.d == 1
         apply denyUnlessPermit
-        rule aaa{
+        rule aaa {
             permit
             target clause true
         }

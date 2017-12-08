@@ -45,10 +45,10 @@ class alfaASTVisitor(alfaParserVisitor):
         return ctx.getText()
 
     def visitSetOperator(self, ctx):
-        return ctx.getText()
+        return ctx.getText().upper()
 
     def visitLogicalOperator(self, ctx):
-        return ctx.getText()
+        return ctx.getText().upper()
 
     def visitTargetStatement(self, ctx):
         clauses = []
@@ -61,7 +61,7 @@ class alfaASTVisitor(alfaParserVisitor):
     def visitTargetLogicalExpression(self, ctx):
         left = self.visit(ctx.targetExpression(0))
         right = self.visit(ctx.targetExpression(1))
-        operator = ctx.logicalOperator().getText()
+        operator = ctx.logicalOperator().getText().upper()
         return LogicalExpression(operator, left, right)
 
     def visitTargetUnaryExpression(self, ctx):
@@ -69,7 +69,7 @@ class alfaASTVisitor(alfaParserVisitor):
         return UnaryExpression("NOT", left)
 
     def visitBooleanExpression(self, ctx):
-        return LiteralBoolean(ctx.getText())
+        return LiteralBoolean(ctx.getText().lower())
 
     def visitTargetPrimitiveBinary(self, ctx):
         left = self.visit(ctx.targetAtom(0))
@@ -97,7 +97,7 @@ class alfaASTVisitor(alfaParserVisitor):
         return AnyExpression(left, right)
 
     def visitTargetBooleanExpression(self, ctx):
-        return LiteralBoolean(ctx.getText())
+        return LiteralBoolean(ctx.getText().lower())
 
     def visitTargetParenthesisExpression(self, ctx):
         return self.visit(ctx.targetExpression())

@@ -51,6 +51,13 @@ class Expression(Node):
     
     __mangled__ = {}
 
+class Keyword(Node):
+    def __init__(self, *args, **kwargs):
+        super(Keyword, self).__init__(*args, **kwargs)    
+        pass
+    
+    __mangled__ = {}
+
 class Script(Statement):
     def __init__(self, body=None, *args, **kwargs):
         super(Script, self).__init__(*args, **kwargs)
@@ -91,12 +98,11 @@ class PolicyDeclaration(Statement):
     __mangled__ = {}
 
 class RuleDeclaration(Statement):
-    def __init__(self, name=None, effect=None, target=None, events=None, *args, **kwargs):
+    def __init__(self, name=None, effect=None, target=None, *args, **kwargs):
         super(RuleDeclaration, self).__init__(*args, **kwargs)
         self.name = name
         self.effect = effect
-        self.target = target
-        self.events = events    
+        self.target = target    
     
     __mangled__ = {}
 
@@ -207,7 +213,7 @@ class UnaryExpression(Expression):
     
     __mangled__ = {}
 
-class ExportKeyword(Node):
+class ExportKeyword(Keyword):
     def __init__(self, text=None, *args, **kwargs):
         super(ExportKeyword, self).__init__(*args, **kwargs)
         self.text = text    
