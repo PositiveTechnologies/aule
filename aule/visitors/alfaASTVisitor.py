@@ -65,7 +65,6 @@ class alfaASTVisitor(alfaParserVisitor):
         return LogicalExpression(operator, left, right)
 
     def visitTargetUnaryExpression(self, ctx):
-        print(100)
         left = self.visit(ctx.targetExpression())
         return UnaryExpression("not", left)
 
