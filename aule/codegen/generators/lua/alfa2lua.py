@@ -28,7 +28,6 @@ class LegacyGenerator(object):
         # Stack to track parent node.
         self.stack: List[str] = []
         self.accessed_attributes: List[str] = []
-        self.callee_functions: List[str] = []
 
     def reset(self):
         self.policy_rules = []
@@ -39,7 +38,6 @@ class LegacyGenerator(object):
         self.next = 0
         self.stack = []
         self.accessed_attributes = []
-        self.callee_functions = []
 
     def Property(self, node):
         return node.property
@@ -71,6 +69,7 @@ class LegacyGenerator(object):
         return name
 
     def BinaryExpression(self, node) -> str:
+        print(node.operator)
         if node.operator == "in":
             return self.internal("iselement") + "(" \
                    + self.generateCode(node.right) + ", " \
@@ -95,15 +94,6 @@ class LegacyGenerator(object):
         return self.generateCode(node.left) \
                + self.space + operator \
                + self.space + self.generateCode(node.right)
-
-    def CallExpression(self, node) -> str:
-        name = "handlers:" + node.callee + "(ctx)"
-        self.callee_functions.append("handlers." + node.callee)
-        return name
-
-    def ConditionStatement(self, node) -> str:
-        expr = self.generateCode(node)
-        return "(" + self.space + expr + self.space + ")"
 
     def LiteralBoolean(self, node) -> str:
         return node.value
@@ -184,12 +174,8 @@ class LegacyGenerator(object):
             self.main_name = name
 
         # Target.
-        if node.targetStatement:
-            result.append(self.generateTarget(node.targetStatement))
-
-        # Condition.
-        if node.conditionStatement:
-            result.append(self.generateCondition(node.conditionStatement))
+        if node.target:
+            result.append(self.generateTarget(node.target))
 
         self.stack.append("PolicySet")
 
@@ -249,12 +235,8 @@ class LegacyGenerator(object):
         self.policies.append(name)
 
         # Target.
-        if node.targetStatement:
-            result.append(self.generateTarget(node.targetStatement))
-
-        # Condition.
-        if node.conditionStatement:
-            result.append(self.generateCondition(node.conditionStatement))
+        if node.target:
+            result.append(self.generateTarget(node.target))
 
         self.stack.append("Policy")
 
@@ -288,8 +270,8 @@ class LegacyGenerator(object):
         result.append("-- " + name + " rule begin")
         result.append("local" + self.space + self.generateFunctionDeclaration(name))
 
-        if node.targetStatement:
-            target = self.TargetStatement(node.targetStatement)
+        if node.target:
+            target = self.TargetStatement(node.target)
             attributes = set(self.accessed_attributes)
             attributes_if_stmt = self.generateAttributesCheck(attributes)
             target_stmt = [
@@ -302,26 +284,7 @@ class LegacyGenerator(object):
                 result.append(attributes_if_stmt)
             result.append(target_stmt)
 
-        if node.conditionStatement:
-            condition = self.ConditionStatement(node.conditionStatement)
-            attributes = set(self.accessed_attributes)
-            functions = set(self.callee_functions)
-            functions_if_stmt = self.generateFunctionsCheck(functions)
-            attributes_if_stmt = self.generateAttributesCheck(attributes)
-            condition_stmt = [
-                "if" + self.space + condition + self.space + "then",
-                ["return actions." + self.ApplyStatement(node.effect)],
-                "end",
-                "return actions.notapplicable"
-            ]
-            if functions_if_stmt:
-                result.append(functions_if_stmt)
-            if attributes_if_stmt:
-                result.append(attributes_if_stmt)
-            result.append(condition_stmt)
-
         self.accessed_attributes = []
-        self.callee_functions = []
 
         result.append(self.generateFunctionEnd()),
         result.append("-- " + name + " rule end")
@@ -427,24 +390,6 @@ class LegacyGenerator(object):
         ])
 
         self.accessed_attributes = []
-        return result
-
-    def generateCondition(self, node):
-        self.callee_functions = []
-        condition = self.ConditionStatement(node)
-        functions = set(self.callee_functions)
-
-        result = [
-            "-- condition begin"]
-        result.extend(self.generateFunctionsCheck(functions))
-        result.extend([
-            "if" + self.space + "not" + self.space + condition + self.space + "then",
-                ["return actions.notapplicable"],
-            "end",
-            "-- condition end",
-        ])
-
-        self.callee_functions = []
         return result
 
     def generatePolicyEngine(self, algorithm):

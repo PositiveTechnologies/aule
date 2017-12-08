@@ -1,7 +1,7 @@
 #begin
 namespace test {
     export policy mainMedicalPolicy {
-        target clause user.id
+        target clause user.id == 1
         apply denyoverrides
         rule {
             permit

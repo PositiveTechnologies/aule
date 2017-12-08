@@ -45,10 +45,10 @@ class alfaASTVisitor(alfaParserVisitor):
         return ctx.getText()
 
     def visitSetOperator(self, ctx):
-        return ctx.getText().upper()
+        return ctx.getText().lower()
 
     def visitLogicalOperator(self, ctx):
-        return ctx.getText().upper()
+        return ctx.getText().lower()
 
     def visitTargetStatement(self, ctx):
         clauses = []
@@ -61,7 +61,7 @@ class alfaASTVisitor(alfaParserVisitor):
     def visitTargetLogicalExpression(self, ctx):
         left = self.visit(ctx.targetExpression(0))
         right = self.visit(ctx.targetExpression(1))
-        operator = ctx.logicalOperator().getText().upper()
+        operator = ctx.logicalOperator().getText().lower()
         return LogicalExpression(operator, left, right)
 
     def visitTargetUnaryExpression(self, ctx):
@@ -86,7 +86,7 @@ class alfaASTVisitor(alfaParserVisitor):
     def visitTargetPrimitiveIn(self, ctx):
         left = self.visit(ctx.attributeValue())
         right = self.visit(ctx.attributeAccessExpression())
-        return BinaryExpression("IN", left, right)
+        return BinaryExpression("in", left, right)
 
     def visitTargetAtom(self, ctx):
         return self.visit(ctx.children[0])

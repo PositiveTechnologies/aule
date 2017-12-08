@@ -119,7 +119,6 @@ def main(code_name):
             }
         }
     """,
-
         code8="""
         namespace example {
             export policy Main {
@@ -155,10 +154,37 @@ def main(code_name):
                 }
             }
         }
+    """,
+        code11="""
+            namespace test {
+            export policy mainMedicalPolicy {
+                target clause user.id == 1
+                apply denyoverrides
+                rule {
+                    permit
+                    target clause "admin" in user.roles and "admin" == user.id
+                        clause entity.role == "doctor" and entity.age > 18
+                }
+                rule aa {
+                    deny
+                    target clause entity.age == 18
+                }
+                rule aaa {
+                    deny
+                    target clause user.id subset ["admin", "root"]
+        
+                }
+                rule bb {
+                    deny
+                    target clause entity.role == "doctor" and entity.age > 18
+                }
+            }
+        }
     """
     )
 
-    code = sources.get(code_name, sources["code9"])
+
+    code = sources.get(code_name, sources["code11"])
     ast_parser = ASTParserFactory.create("alfa", is_validating=True)
     node = ast_parser.parse(code)
     print(ASTParser.dumps(node))
