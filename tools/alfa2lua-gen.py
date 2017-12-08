@@ -158,7 +158,7 @@ def main(code_name):
         code11="""
             namespace test {
             export policy mainMedicalPolicy {
-                target clause user.id == 1
+                target clause not user.id == 2222
                 apply denyoverrides
                 rule {
                     permit
@@ -178,6 +178,14 @@ def main(code_name):
                     deny
                     target clause entity.role == "doctor" and entity.age > 18
                 }
+                rule dd {
+                    deny
+                    target clause subject.role SUBSET ["admin", "user"]   
+                }
+                rule ee {
+                    deny
+                    target clause true   
+                }
             }
         }
     """
@@ -185,7 +193,7 @@ def main(code_name):
 
 
     code = sources.get(code_name, sources["code11"])
-    ast_parser = ASTParserFactory.create("alfa", is_validating=True)
+    ast_parser = ASTParserFactory.create("alfa", is_validating=False)
     node = ast_parser.parse(code)
     print(ASTParser.dumps(node))
 

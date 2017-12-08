@@ -69,7 +69,6 @@ class LegacyGenerator(object):
         return name
 
     def BinaryExpression(self, node) -> str:
-        print(node.operator)
         if node.operator == "in":
             return self.internal("iselement") + "(" \
                    + self.generateCode(node.right) + ", " \
@@ -103,6 +102,9 @@ class LegacyGenerator(object):
 
     def LiteralString(self, node) -> str:
         return node.value
+
+    def UnaryExpression(self, node) -> str:
+        return "not" + self.space + "(" + self.generateCode(node.left) + self.space + ")"
 
     def LogicalExpression(self, node) -> str:
         operator = node.operator.lower()
@@ -257,7 +259,6 @@ class LegacyGenerator(object):
 
     def RuleDeclaration(self, node):
         self.accessed_attributes = []
-        self.callee_functions = []
         result = []
 
         if node.name and node.name in self.policy_rules:

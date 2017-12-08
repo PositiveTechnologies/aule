@@ -98,7 +98,23 @@ namespace example {
         apply denyUnlessPermit
         rule r1 {
             permit
-            target clause subject.level > entity.level
+            target clause subject.role in ["admin"]
+        }
+        rule r2 {
+            permit
+            target clause not subject.role in ["admin"]
+        }
+        rule r3 {
+            permit
+            target clause subject.role subset ["admin", "user"]
+        }
+        rule r4 {
+            permit
+            target clause "admin" in subject.role
+        }
+        rule r5 {
+            permit
+            target clause true
         }
     }
 }
