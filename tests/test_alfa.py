@@ -31,15 +31,19 @@ def test_alfa_policy_ast():
                 rule {
                     permit
                     target clause "admin" in user.roles and "admin" == user.id
-                        clause Attributes.role == "doctor" and Attributes.age > 18
+                        clause Attributes.role in ["doctor", "director"] and Attributes.age > 18
                 }
                 rule aa { 
                     deny
-                    target clause Attributes.age == 18
+                    target clause (Attributes.age == 18) AND (Attributes.age < 19)
                 } 
                 rule bb {
                     deny
                     target clause Attributes.role == "doctor" and Attributes.age > 18
+                }
+                rule cc {
+                    deny
+                    target clause true
                 }
             }
         }    
@@ -62,7 +66,7 @@ def test_alfa_policy_ast():
     assert algorithm.value == "denyOverrides"
 
     rules = node.rules
-    assert len(rules) == 3
+    assert len(rules) == 4
 
     # Parsing using AST.
     ast_parser = ASTParserFactory.create("alfa")
@@ -79,7 +83,7 @@ def test_alfa_policy_ast():
     assert algorithm.value == "denyOverrides"
 
     body = node.rules
-    assert len(body) == 3
+    assert len(body) == 4
 
 
 def test_alfa_policyset_ast():
@@ -171,47 +175,3 @@ def test_alfa_namespace_ast():
     node = nodes.body[0].body[0].body[0]
     assert node.name == "topLevel"
     assert node.modifiers[0].text == "export"
-
-def test_alfa_events_ast():
-    """ ALFA Events smoke test. """
-    policy = """
-        namespace com {
-            namespace corp { 
-                policy topLevel {
-                    target clause Attributes.resource == "medical"
-                    apply denyOverrides
-                    rule {
-                        permit
-                        target clause Attributes.role == "doctor"
-                    }
-
-                    on permit {
-                        obligation test1
-                        obligation test2
-                    }
-                }
-            }    
-        }    
-    """
-    # Native parsing.
-    ast_parser = ASTParserFactory.create("alfa")
-    nodes = ast_parser.parse(policy)
-
-    node = nodes.body[0]
-    assert isinstance(node, ast.NameSpaceDeclaration)
-    assert node.name == "com"
-    assert len(node.body) == 1
-    
-    node = nodes.body[0].body[0]
-    assert isinstance(node, ast.NameSpaceDeclaration)
-    assert node.name == "corp"
-    assert len(node.body) == 1
-    
-    node = nodes.body[0].body[0].body[0]
-    assert node.name == "topLevel"
-    assert len(node.events) == 1
-    event = node.events[0]
-    assert event.eventType == "permit"
-    assert len(event.body) == 2
-    assert event.body[0] == "test1"
-    assert event.body[1] == "test2"

@@ -59,8 +59,8 @@ class alfaParserVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by alfaParser#conditionStatement.
-    def visitConditionStatement(self, ctx:alfaParser.ConditionStatementContext):
+    # Visit a parse tree produced by alfaParser#targetPrimitiveExpression.
+    def visitTargetPrimitiveExpression(self, ctx:alfaParser.TargetPrimitiveExpressionContext):
         return self.visitChildren(ctx)
 
 
@@ -69,13 +69,13 @@ class alfaParserVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by alfaParser#targetAndExpression.
-    def visitTargetAndExpression(self, ctx:alfaParser.TargetAndExpressionContext):
+    # Visit a parse tree produced by alfaParser#targetLogicalExpression.
+    def visitTargetLogicalExpression(self, ctx:alfaParser.TargetLogicalExpressionContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by alfaParser#targetOrExpression.
-    def visitTargetOrExpression(self, ctx:alfaParser.TargetOrExpressionContext):
+    # Visit a parse tree produced by alfaParser#targetParenthesisExpression.
+    def visitTargetParenthesisExpression(self, ctx:alfaParser.TargetParenthesisExpressionContext):
         return self.visitChildren(ctx)
 
 
@@ -84,83 +84,28 @@ class alfaParserVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by alfaParser#targetArrayExpression.
-    def visitTargetArrayExpression(self, ctx:alfaParser.TargetArrayExpressionContext):
+    # Visit a parse tree produced by alfaParser#targetBooleanExpression.
+    def visitTargetBooleanExpression(self, ctx:alfaParser.TargetBooleanExpressionContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by alfaParser#targetAttributeValueExpression.
-    def visitTargetAttributeValueExpression(self, ctx:alfaParser.TargetAttributeValueExpressionContext):
+    # Visit a parse tree produced by alfaParser#targetPrimitiveBinary.
+    def visitTargetPrimitiveBinary(self, ctx:alfaParser.TargetPrimitiveBinaryContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by alfaParser#targetAttributeAccessExpression.
-    def visitTargetAttributeAccessExpression(self, ctx:alfaParser.TargetAttributeAccessExpressionContext):
+    # Visit a parse tree produced by alfaParser#targetPrimitiveSet.
+    def visitTargetPrimitiveSet(self, ctx:alfaParser.TargetPrimitiveSetContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by alfaParser#targetBaseExpression.
-    def visitTargetBaseExpression(self, ctx:alfaParser.TargetBaseExpressionContext):
+    # Visit a parse tree produced by alfaParser#targetPrimitiveIn.
+    def visitTargetPrimitiveIn(self, ctx:alfaParser.TargetPrimitiveInContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by alfaParser#conditionOrExpression.
-    def visitConditionOrExpression(self, ctx:alfaParser.ConditionOrExpressionContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by alfaParser#conditionAttributeValueExpression.
-    def visitConditionAttributeValueExpression(self, ctx:alfaParser.ConditionAttributeValueExpressionContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by alfaParser#conditionUnaryExpression.
-    def visitConditionUnaryExpression(self, ctx:alfaParser.ConditionUnaryExpressionContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by alfaParser#conditionAndExpression.
-    def visitConditionAndExpression(self, ctx:alfaParser.ConditionAndExpressionContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by alfaParser#conditionCallExpression.
-    def visitConditionCallExpression(self, ctx:alfaParser.ConditionCallExpressionContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by alfaParser#conditionBaseExpression.
-    def visitConditionBaseExpression(self, ctx:alfaParser.ConditionBaseExpressionContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by alfaParser#conditionAttributeAccessExpression.
-    def visitConditionAttributeAccessExpression(self, ctx:alfaParser.ConditionAttributeAccessExpressionContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by alfaParser#conditionArrayExpression.
-    def visitConditionArrayExpression(self, ctx:alfaParser.ConditionArrayExpressionContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by alfaParser#event.
-    def visitEvent(self, ctx:alfaParser.EventContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by alfaParser#eventBody.
-    def visitEventBody(self, ctx:alfaParser.EventBodyContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by alfaParser#obligation.
-    def visitObligation(self, ctx:alfaParser.ObligationContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by alfaParser#advice.
-    def visitAdvice(self, ctx:alfaParser.AdviceContext):
+    # Visit a parse tree produced by alfaParser#targetAtom.
+    def visitTargetAtom(self, ctx:alfaParser.TargetAtomContext):
         return self.visitChildren(ctx)
 
 
@@ -174,13 +119,13 @@ class alfaParserVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by alfaParser#callExpression.
-    def visitCallExpression(self, ctx:alfaParser.CallExpressionContext):
+    # Visit a parse tree produced by alfaParser#logicalOperator.
+    def visitLogicalOperator(self, ctx:alfaParser.LogicalOperatorContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by alfaParser#arguments.
-    def visitArguments(self, ctx:alfaParser.ArgumentsContext):
+    # Visit a parse tree produced by alfaParser#setOperator.
+    def visitSetOperator(self, ctx:alfaParser.SetOperatorContext):
         return self.visitChildren(ctx)
 
 
@@ -209,8 +154,8 @@ class alfaParserVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by alfaParser#boolean_literal.
-    def visitBoolean_literal(self, ctx:alfaParser.Boolean_literalContext):
+    # Visit a parse tree produced by alfaParser#booleanLiteral.
+    def visitBooleanLiteral(self, ctx:alfaParser.BooleanLiteralContext):
         return self.visitChildren(ctx)
 
 

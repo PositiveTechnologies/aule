@@ -13,19 +13,15 @@ class alfaASTVisitor(alfaParserVisitor):
     def visitRulelist(self, ctx):
         return self.visitChildren(ctx)
 
-    def visitCallExpression(self, ctx):
-        callee = ctx.ID().getText()
-        return CallExpression(callee)
-
     def visitAttributeAccessExpression(self, ctx):
         if not ctx.attributeAccessExpression():
             return Identifier(ctx.ID().getText())
-        return AttributeAccessExpression(self.visit(ctx.attributeAccessExpression()), ctx.ID().getText() )
+        return AttributeAccessExpression(self.visit(ctx.attributeAccessExpression()), ctx.ID().getText())
 
     def visitAttributeValue(self, ctx):
         text = ctx.getText()
         if text.lower() == "true" or text.lower() == "false":
-            return LiteralBoolean(text)
+            return LiteralBoolean(text.lower())
         elif text[0] == '"':
             return LiteralString(text)
         else:
@@ -48,42 +44,64 @@ class alfaASTVisitor(alfaParserVisitor):
     def visitBinaryOperator(self, ctx):
         return ctx.getText()
 
+    def visitSetOperator(self, ctx):
+        return ctx.getText().lower()
+
+    def visitLogicalOperator(self, ctx):
+        return ctx.getText().lower()
+
     def visitTargetStatement(self, ctx):
         clauses = []
         i = 0
         while ctx.targetExpression(i):
             clauses.append(self.visit(ctx.targetExpression(i)))
             i += 1
-        
         return TargetStatement(clauses)
 
-    def visitConditionStatement(self, ctx):
-        return self.visit(ctx.conditionExpression())
-
-    def visitTargetAndExpression(self, ctx):
+    def visitTargetLogicalExpression(self, ctx):
         left = self.visit(ctx.targetExpression(0))
         right = self.visit(ctx.targetExpression(1))
-        return LogicalExpression("AND", left, right)
-
-    def visitTargetOrExpression(self, ctx):
-        left = self.visit(ctx.targetExpression(0))
-        right = self.visit(ctx.targetExpression(1))
-        return LogicalExpression("OR", left, right)
+        operator = ctx.logicalOperator().getText().lower()
+        return LogicalExpression(operator, left, right)
 
     def visitTargetUnaryExpression(self, ctx):
+        print(100)
         left = self.visit(ctx.targetExpression())
-        return UnaryExpression("NOT", left)
+        return UnaryExpression("not", left)
 
-    def visitTargetBaseExpression(self, ctx):
-        left = self.visit(ctx.targetExpression(0))
-        right = self.visit(ctx.targetExpression(1))
+    def visitBooleanExpression(self, ctx):
+        return LiteralBoolean(ctx.getText().lower())
+
+    def visitTargetPrimitiveBinary(self, ctx):
+        left = self.visit(ctx.targetAtom(0))
+        right = self.visit(ctx.targetAtom(1))
         operator = self.visit(ctx.binaryOperator())
         return BinaryExpression(operator, left, right)
+
+    def visitTargetPrimitiveSet(self, ctx):
+        left = self.visit(ctx.targetAtom())
+        right = self.visit(ctx.arrayExpression())
+        operator = self.visit(ctx.setOperator())
+        return BinaryExpression(operator, left, right)
+
+    def visitTargetPrimitiveIn(self, ctx):
+        left = self.visit(ctx.attributeValue())
+        right = self.visit(ctx.attributeAccessExpression())
+        return BinaryExpression("in", left, right)
+
+    def visitTargetAtom(self, ctx):
+        return self.visit(ctx.children[0])
 
     def visitTargetAnyExpression(self, ctx):
         left = self.visit(ctx.children[0].children[1])
         right = self.visit(ctx.children[0].children[3])
         return AnyExpression(left, right)
+
+    def visitTargetBooleanExpression(self, ctx):
+        return LiteralBoolean(ctx.getText().lower())
+
+    def visitTargetParenthesisExpression(self, ctx):
+        return self.visit(ctx.targetExpression())
 
     def visitTargetArrayExpression(self, ctx):
         return self.visit(ctx.arrayExpression())
@@ -94,70 +112,9 @@ class alfaASTVisitor(alfaParserVisitor):
     def visitTargetAtributeValueExpression(self, ctx):
         return self.visit(ctx.attributeValue())
 
-    def visitConditionAndExpression(self, ctx):
-        left = self.visit(ctx.conditionExpression(0))
-        right = self.visit(ctx.conditionExpression(1))
-        return LogicalExpression("AND", left, right)
-
-    def visitConditionOrExpression(self, ctx):
-        left = self.visit(ctx.conditionExpression(0))
-        right = self.visit(ctx.conditionExpression(1))
-        return LogicalExpression("OR", left, right)
-
-    def visitConditionUnaryExpression(self, ctx):
-        left = self.visit(ctx.conditionExpression(0))
-        return UnaryExpression("NOT", left)
-
-    def visitConditionBaseExpression(self, ctx):
-        left = self.visit(ctx.conditionExpression(0))
-        right = self.visit(ctx.conditionExpression(1))
-        operator = self.visit(ctx.binaryOperator())
-        return BinaryExpression(operator, left, right)
-
-    def visitConditionCallExpression(self, ctx):
-        return self.visit(ctx.callExpression())
-
-    def visitConditionArrayExpression(self, ctx):
-        return self.visit(ctx.arrayExpression())
-
-    def visitConditionAtributeAccessExpression(self, ctx):
-        return self.visit(ctx.attributeExpression())
-
-    def visitConditionAtributeValueExpression(self, ctx):
-        return self.visit(ctx.attributeValue())
-
-    def visitEvent(self, ctx):
-        body = []
-        if ctx.PERMIT():
-            type_ = "permit"
-        elif ctx.DENY():
-            type_ = "deny"
-        else:
-            raise ValueError("Unknown event type")
-        i = 0
-        while ctx.eventBody(i):
-            body.append(self.visit(ctx.eventBody(i)))
-            i += 1
-        return Event(type_, body)
-
-    def visitEventBody(self, ctx):
-        if ctx.obligation():
-            return self.visit(ctx.obligation())
-        elif ctx.advice():
-            return self.visit(ctx.advice())
-
-    def visitObligation(self, ctx):
-        if ctx.ID():
-            return str(ctx.ID().getText())
-    
-    def visitAdvice(self, ctx):        
-        if ctx.ID():
-            return str(ctx.ID().getText())
-
     def visitRuleDeclaration(self, ctx):
         rule_id = None
-        targetStatement = None
-        conditionStatement = None
+        target = None
         events = []
 
         if ctx.ruleId:
@@ -166,18 +123,9 @@ class alfaASTVisitor(alfaParserVisitor):
         effect = self.visit(ctx.effectStatement())
 
         if ctx.targetStatement():
-            targetStatement = self.visit(ctx.targetStatement())
+            target = self.visit(ctx.targetStatement())
 
-        if ctx.conditionStatement():
-            conditionStatement = self.visit(ctx.conditionStatement())
-
-        i = 0        
-        while ctx.event(i):
-            event = self.visit(ctx.event(i))
-            events.append(event)
-            i += 1
-
-        return RuleDeclaration(rule_id, effect, targetStatement, conditionStatement, events)
+        return RuleDeclaration(rule_id, effect, target)
 
     def visitPolicySetBody(self, ctx):
         if ctx.ID():
@@ -189,13 +137,11 @@ class alfaASTVisitor(alfaParserVisitor):
     
     def visitPolicySetDeclaration(self, ctx):
         name = None
-        targetStatement = None
-        conditionStatement = None
+        target = None
         references = []
         policies = []
         policysets = []
         modifiers = []
-        events = []
 
         if ctx.EXPORT():
             modifiers.append(ExportKeyword("export"))
@@ -206,11 +152,8 @@ class alfaASTVisitor(alfaParserVisitor):
         algorithm = self.visit(ctx.applyStatement())
         
         if ctx.targetStatement():
-            targetStatement = self.visit(ctx.targetStatement())
+            target = self.visit(ctx.targetStatement())
 
-        if ctx.conditionStatement():
-            conditionStatement = self.visit(ctx.conditionStatement())
-        
         i = 0
         while ctx.policySetBody(i):
             result = self.visit(ctx.policySetBody(i))
@@ -224,22 +167,14 @@ class alfaASTVisitor(alfaParserVisitor):
                 raise ValueError("Unknown node type")
             i += 1
 
-        i = 0        
-        while ctx.event(i):
-            event = self.visit(ctx.event(i))
-            events.append(event)
-            i += 1
-
-        node = PolicySetDeclaration(name, algorithm, targetStatement, conditionStatement, references, policies, policysets, events, modifiers)
+        node = PolicySetDeclaration(name, algorithm, target, references, policies, policysets, modifiers)
         return node
 
     def visitPolicyDeclaration(self, ctx):
         name = None
-        targetStatement = None
-        conditionStatement = None
+        target = None
         rules = []
         modifiers = []
-        events = []
 
         if ctx.EXPORT():
             modifiers.append(ExportKeyword("export"))
@@ -250,23 +185,14 @@ class alfaASTVisitor(alfaParserVisitor):
         algorithm = self.visit(ctx.applyStatement())
         
         if ctx.targetStatement():
-            targetStatement = self.visit(ctx.targetStatement())
+            target = self.visit(ctx.targetStatement())
 
-        if ctx.conditionStatement():
-            conditionStatement = self.visit(ctx.conditionStatement())
-        
         i = 0
         while ctx.ruleDeclaration(i):
             rules.append(self.visit(ctx.ruleDeclaration(i)))
             i += 1
 
-        i = 0        
-        while ctx.event(i):
-            event = self.visit(ctx.event(i))
-            events.append(event)
-            i += 1
-        
-        node = PolicyDeclaration(name, algorithm, targetStatement, conditionStatement, rules, events, modifiers)
+        node = PolicyDeclaration(name, algorithm, target, rules, modifiers)
         return node
 
     def visitNameSpaceBody(self, ctx):
