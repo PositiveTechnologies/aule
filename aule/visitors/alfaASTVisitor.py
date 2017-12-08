@@ -19,8 +19,8 @@ class alfaASTVisitor(alfaParserVisitor):
         return AttributeAccessExpression(self.visit(ctx.attributeAccessExpression()), ctx.ID().getText())
 
     def visitAttributeValue(self, ctx):
-        text = ctx.getText()
-        if text.lower() == "true" or text.lower() == "false":
+        text = ctx.getText().lower()
+        if text == "true" or text == "false":
             return LiteralBoolean(text)
         elif text[0] == '"':
             return LiteralString(text)
